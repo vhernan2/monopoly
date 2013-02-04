@@ -1,0 +1,16 @@
+Meeting 1:
+  February 4, 2013
+
+  Attendance: Victor, Mike, Jody
+
+  Time Started: 12:50 pm
+
+  Goals:
+    Create gitHub accounts and start a repository.
+    Begin project proposal.
+  Accomplishments:
+    Created and shared repository on gitHub.
+    Finsihed Project Proposal.
+
+  Time Completed:
+  Elapsed Time:
