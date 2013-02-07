@@ -15,4 +15,20 @@ Meeting 1:
   Time Completed: 4:28
   Elapsed Time: 20 minutes
 
-Project Time: 20 minutes
+Meeting 2:
+  February 7, 2013
+
+  Attendance: Victor, Mike, Kyle, Jodi
+
+  Time Started: 4:55 pm
+
+  Goals:
+    Outline a board
+    Start OpenGL tutorials
+  Accomplishments:
+    Outlined Board, listed cards, set up next meeting time
+
+  Time Completed: 5:41 pm
+  Elapsed Time: 49 minutes
+
+Project Time: 69 minutes
