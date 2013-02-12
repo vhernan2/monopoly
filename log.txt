@@ -1,4 +1,4 @@
-Meeting 1:
+Individual:
   February 4, 2013
 
   Attendance: Victor
@@ -15,7 +15,7 @@ Meeting 1:
   Time Completed: 4:28
   Elapsed Time: 20 minutes
 
-Meeting 2:
+Meeting 1:
   February 7, 2013
 
   Attendance: Victor, Mike, Kyle, Jodi
@@ -31,4 +31,16 @@ Meeting 2:
   Time Completed: 5:41 pm
   Elapsed Time: 49 minutes
 
+Meeting 2:
+  February 12, 2013
+
+  Attendance: Victor, Mike, Jodi
+
+  Time Started: 2:00 pm
+
+  Goals:
+    Access gitHub form ssh / terminal
+    Choose pieces
+    Discuss tutorial 1
+    Distribute final Board design
 Project Time: 69 minutes
