@@ -43,4 +43,24 @@ Meeting 2:
     Choose pieces
     Discuss tutorial 1
     Distribute final Board design
+
+Meeting 3:
+  February 24, 2013
+
+  Attendance: Mike, Jodi, Victor, Kyle
+
+  Time Started: 4:00 pm
+
+  Goals:
+    Distribute OpenGL software
+    Determine Pieces
+    Begin OpenGL
+    Gain experinece with gitHub
+  Accomplishments:
+    Distributed software
+    Determined Pieces
+    Began going over gitHub
+
+  Time Completed : 5:15pm
+  Time Elapesed: 
 Project Time: 69 minutes
