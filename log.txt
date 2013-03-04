@@ -43,6 +43,8 @@ Meeting 2:
     Choose pieces
     Discuss tutorial 1
     Distribute final Board design
+  Accomplishments:
+    Chose pieces for the board, outlined the final board design, began looking over gitHub tutorials, 2D designs begun
 
 Meeting 3:
   February 24, 2013
