@@ -62,5 +62,5 @@ Meeting 3:
     Began going over gitHub
 
   Time Completed : 5:15pm
-  Time Elapesed: 
-Project Time: 69 minutes
+  Time Elapesed: 75 minutes
+Project Time: 144 minutes
