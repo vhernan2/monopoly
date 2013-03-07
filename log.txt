@@ -73,23 +73,21 @@ Meeting 4:
 
   Time Started: 5:00 pm
 
-  Accomplishments:
-    Determined game pieces:
-	id card
-	college of engineering (gear)
-	college of arts and letters (open book)
-	college of science (flask)
-	college of business (bag of money)
-	college of architecture (keystone)
-	law school (mallet)
-	
-
   Goals:
     Begin OpenGL
     Gain experinece SSH-ing to gitHub
     Determine Individual Tasks
   Accomplishments:
     Victor will be working on dice, Kyle will work on creating board, Mike will work on board pieces
+
+  Determined game pieces:
+	id card
+	college of engineering (gear)
+	college of arts and letters (open book)
+	college of science (flask)
+	college of business (bag of money)
+	college of architecture (keystone)
+	law school (mallet) 
 
   Time Completed :
   Time Elapsed:
