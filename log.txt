@@ -78,6 +78,7 @@ Meeting 4:
     Gain experinece SSH-ing to gitHub
     Determine Individual Tasks
   Accomplishments:
+    Victor will be working on dice, Kyle will work on creating board, Mike will work on board pieces
 
   Time Completed :
   Time Elapsed:
