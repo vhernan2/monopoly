@@ -89,7 +89,7 @@ Meeting 4:
 	college of architecture (keystone)
 	law school (mallet) 
 
-  Time Completed :
-  Time Elapsed:
+  Time Completed: 6:00pm
+  Time Elapsed: 60 minutes
 
-Project Time: 144 minutes
+Project Time: 204 minutes
