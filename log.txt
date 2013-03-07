@@ -64,5 +64,22 @@ Meeting 3:
     Began going over gitHub
 
   Time Completed : 5:15pm
-  Time Elapesed: 75 minutes
+  Time Elapsed: 75 minutes
+
+Meeting 4:
+  March 7, 2013
+
+  Attendance: Mike, Jodi, Victor, Kyle
+
+  Time Started: 5:00 pm
+
+  Goals:
+    Begin OpenGL
+    Gain experinece SSH-ing to gitHub
+    Determine Individual Tasks
+  Accomplishments:
+
+  Time Completed :
+  Time Elapsed:
+
 Project Time: 144 minutes
