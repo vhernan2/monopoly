@@ -1,8 +1,9 @@
 #ifndef PLAYER_H
+#define PLAYER_H
 #include <iostream>
-#include "Property.h"
 #include <deque>
 #include <string>
+#include "Tile.h"
 using namespace std;
 
 class Player
@@ -14,9 +15,11 @@ class Player
 		int getJail();			//gets player's jail status
 		void setGamePiece(int);		//sets players piece value
 		void setName(string);		//sets player's name
+		string getName();		//gets player's name
+		int getPosition();		//gets player's position
 		void goToJail();		//sends player's piece to jail location and changes inJail
 		void changeInMoney(int);	//can be used to add or subtract money from totalMoney		
-		void advance(int);			//will change piece's position
+		void advance(int);		//will change piece's position
 
 	private:
 		int totalMoney;	//players total money
@@ -26,8 +29,10 @@ class Player
 		int xLoc;	//x location on board
 		int yLoc;	//y location on board
 		int zLoc;	//z location on board
-		
-		deque<Property> tilesOwned;
+			
+		int position; 	//used for index as to player's location on board
+
+		deque<Tile> tilesOwned;
 };
 #endif
 

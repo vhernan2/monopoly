@@ -1,5 +1,6 @@
 #include "Tile.h"
 #include <iostream>
+#include "Player.h"
 using namespace std;
 
 Tile::Tile()
@@ -26,3 +27,16 @@ void Tile::setOwner(int player)
 {
 	owner = player;
 }
+
+void Tile::interact(Player* current)
+{
+	cout << current->getName() << ", you landed on " << title << endl;
+	if(title == "GO")
+	{
+		cout << "You collect $200!" << endl;
+	}
+	if(title == "D6 Parking")
+	{
+		cout << "Free parking!" << endl;
+	}
+} 

@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+class Player;
+
 class Tile
 {
 	public:
@@ -11,6 +13,7 @@ class Tile
 		Tile(string, int, int, int);
 		~Tile();
 		void setOwner(int);	//sets an owner for the tile
+		virtual void interact(Player*);	//will be used to interact with player based on where they land
 
 	protected:
 		string title;	 //label used for tile

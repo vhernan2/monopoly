@@ -20,3 +20,12 @@ void Property::addHouses(int num)
 	numHouses += num;		//number of houses increased
 	moneyEffect = (cost*numHouses);		//money effect of property is updated with purchase
 }	
+
+void Property::interact(Player* current)
+{
+	cout << current->getName() << ", you landed on " << title << endl;
+	if(owner == -1)
+	{
+		cout << "No one owns this tile. Would you like to buy?" << endl;
+	}
+}

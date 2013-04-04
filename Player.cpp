@@ -8,6 +8,7 @@ Player::Player()
 	int xLoc = 0;
 	int yLoc = 0;
 	int ZLoc = 0;
+	position = 0;
 }
 
 Player::~Player()
@@ -38,6 +39,11 @@ void Player::setName(string playerName)
 	name = playerName;
 }
 
+string Player::getName()
+{
+	return name;
+}
+
 void Player::setGamePiece(int choice)
 {
 	piece = choice;
@@ -50,6 +56,25 @@ void Player::changeInMoney(int amount)
 
 void Player::advance(int spaces)
 {
-	//still a little unclear how movement will be implemented, will involve a cdl list of board locations player can be
-	//in and moving around in that structure
+	int newPos;
+	newPos = position;
+	newPos += spaces;
+	if(newPos > 35)
+	{
+		position = newPos - 36;
+		changeInMoney(200);
+	}
+	else 
+	{
+		if(newPos < 0)
+		{
+			position = 36 + newPos;
+		}
+		else position += spaces;
+	}
+}
+
+int Player::getPosition()
+{
+	return position;
 }

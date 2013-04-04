@@ -11,6 +11,6 @@ class Board
 		Board();
 		~Board();		
 	private:
-		vector<Tile> spaces;	//should end up stored as a cdl list, so player can travel around board
+		vector<Tile> spaces;
 };
 #endif
