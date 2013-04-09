@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E0D4B6C17130EE0008BC1F2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E0D4B6B17130EE0008BC1F2 /* Cocoa.framework */; };
+		1E0D4B7617130EE0008BC1F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E0D4B7417130EE0008BC1F2 /* InfoPlist.strings */; };
+		1E0D4B7817130EE0008BC1F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0D4B7717130EE0008BC1F2 /* main.m */; };
+		1E0D4B7C17130EE0008BC1F2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1E0D4B7A17130EE0008BC1F2 /* Credits.rtf */; };
+		1E0D4B7F17130EE0008BC1F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0D4B7E17130EE0008BC1F2 /* AppDelegate.m */; };
+		1E0D4B8217130EE0008BC1F2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E0D4B8017130EE0008BC1F2 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1E0D4B6817130EE0008BC1F2 /* SDLMonopoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDLMonopoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E0D4B6B17130EE0008BC1F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		1E0D4B6E17130EE0008BC1F2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		1E0D4B6F17130EE0008BC1F2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1E0D4B7017130EE0008BC1F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1E0D4B7317130EE0008BC1F2 /* SDLMonopoly-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SDLMonopoly-Info.plist"; sourceTree = "<group>"; };
+		1E0D4B7517130EE0008BC1F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E0D4B7717130EE0008BC1F2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1E0D4B7917130EE0008BC1F2 /* SDLMonopoly-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SDLMonopoly-Prefix.pch"; sourceTree = "<group>"; };
+		1E0D4B7B17130EE0008BC1F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1E0D4B7D17130EE0008BC1F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1E0D4B7E17130EE0008BC1F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1E0D4B8117130EE0008BC1F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E0D4B6517130EE0008BC1F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E0D4B6C17130EE0008BC1F2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E0D4B5F17130EE0008BC1F2 = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B7117130EE0008BC1F2 /* SDLMonopoly */,
+				1E0D4B6A17130EE0008BC1F2 /* Frameworks */,
+				1E0D4B6917130EE0008BC1F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1E0D4B6917130EE0008BC1F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B6817130EE0008BC1F2 /* SDLMonopoly.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1E0D4B6A17130EE0008BC1F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B6B17130EE0008BC1F2 /* Cocoa.framework */,
+				1E0D4B6D17130EE0008BC1F2 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1E0D4B6D17130EE0008BC1F2 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B6E17130EE0008BC1F2 /* AppKit.framework */,
+				1E0D4B6F17130EE0008BC1F2 /* CoreData.framework */,
+				1E0D4B7017130EE0008BC1F2 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		1E0D4B7117130EE0008BC1F2 /* SDLMonopoly */ = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B7D17130EE0008BC1F2 /* AppDelegate.h */,
+				1E0D4B7E17130EE0008BC1F2 /* AppDelegate.m */,
+				1E0D4B8017130EE0008BC1F2 /* MainMenu.xib */,
+				1E0D4B7217130EE0008BC1F2 /* Supporting Files */,
+			);
+			path = SDLMonopoly;
+			sourceTree = "<group>";
+		};
+		1E0D4B7217130EE0008BC1F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E0D4B7317130EE0008BC1F2 /* SDLMonopoly-Info.plist */,
+				1E0D4B7417130EE0008BC1F2 /* InfoPlist.strings */,
+				1E0D4B7717130EE0008BC1F2 /* main.m */,
+				1E0D4B7917130EE0008BC1F2 /* SDLMonopoly-Prefix.pch */,
+				1E0D4B7A17130EE0008BC1F2 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E0D4B6717130EE0008BC1F2 /* SDLMonopoly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E0D4B8517130EE0008BC1F2 /* Build configuration list for PBXNativeTarget "SDLMonopoly" */;
+			buildPhases = (
+				1E0D4B6417130EE0008BC1F2 /* Sources */,
+				1E0D4B6517130EE0008BC1F2 /* Frameworks */,
+				1E0D4B6617130EE0008BC1F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SDLMonopoly;
+			productName = SDLMonopoly;
+			productReference = 1E0D4B6817130EE0008BC1F2 /* SDLMonopoly.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1E0D4B6017130EE0008BC1F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Victor Hernandez";
+			};
+			buildConfigurationList = 1E0D4B6317130EE0008BC1F2 /* Build configuration list for PBXProject "SDLMonopoly" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1E0D4B5F17130EE0008BC1F2;
+			productRefGroup = 1E0D4B6917130EE0008BC1F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E0D4B6717130EE0008BC1F2 /* SDLMonopoly */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1E0D4B6617130EE0008BC1F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E0D4B7617130EE0008BC1F2 /* InfoPlist.strings in Resources */,
+				1E0D4B7C17130EE0008BC1F2 /* Credits.rtf in Resources */,
+				1E0D4B8217130EE0008BC1F2 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1E0D4B6417130EE0008BC1F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E0D4B7817130EE0008BC1F2 /* main.m in Sources */,
+				1E0D4B7F17130EE0008BC1F2 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1E0D4B7417130EE0008BC1F2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E0D4B7517130EE0008BC1F2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1E0D4B7A17130EE0008BC1F2 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E0D4B7B17130EE0008BC1F2 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		1E0D4B8017130EE0008BC1F2 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E0D4B8117130EE0008BC1F2 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1E0D4B8317130EE0008BC1F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1E0D4B8417130EE0008BC1F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1E0D4B8617130EE0008BC1F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDLMonopoly/SDLMonopoly-Prefix.pch";
+				INFOPLIST_FILE = "SDLMonopoly/SDLMonopoly-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1E0D4B8717130EE0008BC1F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SDLMonopoly/SDLMonopoly-Prefix.pch";
+				INFOPLIST_FILE = "SDLMonopoly/SDLMonopoly-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E0D4B6317130EE0008BC1F2 /* Build configuration list for PBXProject "SDLMonopoly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E0D4B8317130EE0008BC1F2 /* Debug */,
+				1E0D4B8417130EE0008BC1F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E0D4B8517130EE0008BC1F2 /* Build configuration list for PBXNativeTarget "SDLMonopoly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E0D4B8617130EE0008BC1F2 /* Debug */,
+				1E0D4B8717130EE0008BC1F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1E0D4B6017130EE0008BC1F2 /* Project object */;
+}
