@@ -1,0 +1,170 @@
+March 21 2013
+3:40 p.m.
+
+To Do:
+	Begin work on player class while considering how it will interact with other classes, implement functions as best as possible
+	without graphics.
+
+March 21 2013
+4:20 p.m.
+
+Done:
+	Almost completed player class (for now), still need to think of way for trades to be proposed to other players.
+
+Time Spent: 40 min
+Total Time: 40 min
+
+March 24 2013
+10:33 p.m.
+
+To Do:
+	Continue to develop player class created in lab, begin work on board and tile classes. Decide upon structure of board and tile,
+	as to whether or not tile will inherit from board.
+
+March 25 2013
+12:49 a.m.
+
+Done: 
+	Finished player class barring any errors once it is compiled. Created board class with an array of tiles, decided not to have
+	tiles inherit from board. Began work on tile interface.
+
+Time Spent: 2 hr, 16 min
+Total Time: 2 hr, 56 min
+
+March 25 2013
+11:17 p.m.
+
+To Do:
+	Develop board, tile and possibly an inherited property class. Also create driver program and makefile that creates an instance
+	of each of these classes to some degree and prints out a message as prescribed by the rubric.
+
+March 26 2013
+2:44 a.m.
+
+Done: 
+	Player, Board, Tile, and Tile's inherited Property class all created and compile. Driver program also created in addition to 
+	makefile. When made and run, driver program (./main) creates a player, board, and the first two tiles of the board. The first
+	tile is of object type Tile, and the second is of object type Property. Once created the program prints out a message saying
+	what was created.
+
+Time Spent: 3 hr, 27 min
+Total Time: 6 hr, 23 min
+
+April 2 2013 
+11:32 p.m.
+
+To Do:
+	Begin developing a game class that asks for number of players, and then for each player's name. In addition, develop a method of
+	"rolling dice" to determine how far the player will go on the board each turn.
+
+April 3 2013
+2:24 a.m.
+
+Done:
+	Tester program makes a game and correctly reads in players. Players then have dice rolled for them and the program prints out their
+	previous board location and the new board location.
+
+Time Spent: 2hr, 52 min
+Total Time: 9 hr, 15 min
+
+April 4 2013
+2:10 p.m.
+
+To Do:
+	Update player's ability to move around the board and go from end of board to front properly, and receive 200 dollars for passing GO.
+	Also be able to go backwards
+
+April 4 2013
+3:02 p.m.
+
+Done:
+	Updated Game.cpp and Player.h and Player.cpp functions to allow player to travel around board properly.
+
+Time Spent: 52 min
+Total Time: 10 hr, 7 min
+
+April 4 2013
+3:21 p.m.
+
+To Do:
+	Continue filling in the board with proper information for each location.
+
+April 4 2013
+4:49 p.m.
+
+Done:
+	Filled board and began creating functions to have players interact with board. Also determined a "Utility" and "Jail" class are likely
+	to be needed.
+
+Time Spent: 1 hr, 28 min
+Total Time: 11 hr, 35 min
+
+April 7 2013
+7:10 p.m.
+
+To Do:
+	Add on full interaction with the board as the player moves around the board, include messages printed out for each location and implement
+	all classes required to make this happen.
+
+April 8 2013
+1:36 a.m.
+
+Done:
+	Each location on the board has a working interact function that prints information about the location for the user and allows the user
+	to buy the location when possible. If location is bought, player's money is affected accordingly and later players to arrive at square
+	lose money equal to the original cost of the the location (for now).
+
+Time Spent: 6 hr 26 min
+Total Time: 18 hr 1 min
+
+April 8 2013
+10:45 a.m.
+
+To Do: 
+	Make sure players are awarded money each time another player lands on one of their properties. Implement a rent data member for certain classes
+	and a payBack function to give players this money.
+
+April 8 2013
+12:00 p.m.
+
+Done:
+	Money changes hands properly, although the rules for the value of rent is not 100% accurate as of right now.
+
+Time Spent: 1 hr 15 min
+Total Time: 19 hr 16 min
+
+April 8 2013
+1:35 p.m.
+
+To Do:
+	Implement a method of associating tiles by "color" (i.e. Pasquerilla East and Pasquerilla West, the 4 "railroads"...) and have rent for 'railroads' and 
+	'utilities' change accordingly. In addition, use this method to determine which groups have the same owner and begin implementing the purchase of houses
+	and hotels.
+
+April 8 2013
+4:51 p.m.
+
+Done:
+	Have a means to distinguish between groups of tiles, and now print out the names of the tiles you own at the start of your turn. Next is to recognize if a player owns
+	an entire group of tiles and then give them the option to build a house or hotel on any of those locations.
+
+Time Spent: 3 hr 16 min
+Total Time: 22 hr 32 min
+
+April 8 2013
+10:14 p.m.
+
+To Do:
+	Implement a text display that informs the player which of their properties they can build houses or hotels on, gives them the option to do so and subtracts money 
+	accordingly. Additionally, updates the rent of the property based on the construction done on the location.
+
+April 9 2013
+1:18 a.m.
+
+Done:
+	Houses and hotels can be purchased as follows: owning all properties in a group allows you to buy houses for those properties. Having four houses on one property
+	allows you to buy a hotel for that property, which then removes the four houses. Working rules are in place for updating the rent for opposing players that land
+	on an owned property. However, railroad's rent and utility's rent are not working 100% properly, and need some maintenance done on them.
+
+Time Spent: 3 hr 4 min
+Total Time: 25 hr 36 min

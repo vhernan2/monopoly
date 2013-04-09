@@ -1,0 +1,68 @@
+friday 8 Febuary 2-2:45 pm
+	downloaded fedora on a live usb
+
+sunday 10 Febuary 2:50-3:03
+	modern opengl tutorial 01
+
+tuesday 12 Febuary 6:45-7:45 pm 
+	trouble shooting and discovering fedora
+
+sunday 24 Febuary 4:20-5:30
+	figure on pieces and open gl
+	id card
+	college of engineering (gear)
+	college of arts and letters (open book)
+	college of science (flask)
+	college of business (bag of money)
+	college of architecture (keystone)
+	law school (mallet)
+	
+	glxgears
+	nano /etc/nanorc
+
+saturday 2 March 1:00-2:55
+	installing ubuntu
+
+thursday 7 March 4:50-5:30
+	get git for linux
+	
+tuesday 19 March 11:15-11:45
+	learn OpenGL
+
+sunday 24 March 1:20-2:58 pm
+	finally installed all of the needed opengl stuff
+	learned some standard awesome OpenGL stuff
+
+sunday 24 March 10:30-11:45 pm
+	more OpenGL
+	also learned cmake...
+
+tuesday 25 March 12:30-4:20 pm
+	making a card
+		how to make a window
+		make a triangle
+		color and shading
+		make 12 triangles to make a cube
+		change the location of the triangles to make a card
+		make different colors and shading to have the card be seen in 3d
+		learn about camera position
+		change the camera position
+		learn about depth of the object
+		change the depth
+		
+	in the end i was able to render a card, based on my knowledge about how to
+	make a triangle and then from there to make multiple triangles to form a cube.
+	after that it wasn't necessary for me to learn how to do different coloring
+	but it was easier to do so inorder to see the 3dness of the card (this i felt
+	like took the longest honestly). i also learned about the camera position.
+	changed that multiple times in order to make sure that the image was correct. 
+	also learned about the depth prespetion to make sure that the object was seen
+	correctly with the camera. 
+
+Respository:
+https://github.com/vhernan2/monopoly
+
+monday 8 April 6:15-12:15
+	Learn SDL
+	Download GIMP
+	Make the cards
