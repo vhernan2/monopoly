@@ -57,3 +57,117 @@ Start Time: 3:21 PM
 
 
 Individual Time Commited: 472 minutes
+March 13, 2013
+Start Time: 5:00 PM
+      Goals:
+	-Begin OpenGL Dice generations
+	-Become Familiar with OpenGL on XCode
+	-Create individual logs, gain experience with GitHub on Terminal
+      Accomplishments:
+	-Begin Creating Menu for Game
+	-Got a pop-up with a square and a cyan background for dice pop-up screen
+	-Gained some more experience with git on Terminal
+
+End Time: 6:17PM
+
+March 14, 2013
+Start Time: 3:25 PM
+      Goals:
+	- Fully Implement Menu
+	- Properly functional mouse and keyboard Functions
+	- Continue Developing Functional 3D Dice Objects
+      Accomplishments:
+	- Downloaded Blender Software that will be used to generate die 
+
+End Time: 4:45 PM
+
+March 16, 2013
+Start Time: 6:25 PM
+      Goals:
+	- Continue to Develop Dice
+      Accomplishments:
+	- Gained some experience with Blender interface
+
+End Time: 7:35 PM
+
+March 21, 2013
+Start Time: 3:00 PM
+      Goals:
+        - Render 3D dice on blender
+      Accomplishments:
+        - Finished generating dice with minor errors
+
+End Time: 4:30 PM
+
+March 29, 2013
+Start Time: 2:43 PM
+	Goals
+	  - Render 2 Pieces on Blender
+	Accomplishment
+	  - Rendered flask object and ID Card Object
+
+End Time: 5:18 PM
+
+April 1, 2013
+
+Start Time: 3:21 PM
+      Goals
+        - Render 3 Pieces on Blender
+      Accomplishment:
+        - Rendered scale, ink & pen, and gear objects
+
+End Time: 6:14PM
+
+// It was decided a group meeting to switch to SDL...
+
+April 5, 2013
+Start Time: 5:15 PM
+      Goals 
+        -Read over SDL tutorials and installation precedure
+      Accomplishment
+        -Gained some understanding of how SDL works 
+	 and gave me an idea of what I would need
+End Time: 8:35 PM
+
+April 6, 2013
+Start Time: 4:20 PM
+      Goals
+        -Find and install drawing software for Mac
+	-Generate pieces for board
+      Accomplishment
+        -Downloaded GIMP for Mac
+	-Generated Buttons for Main Menu
+
+End Time: 5:45 PM
+
+April 7, 2013
+Start Time: 5:00 PM
+      Goals
+        -Install SDL and ensure that it works on XCode
+      Accomplishment
+        -Installed SDL and found a usefule tutorial for 
+	 the current version of XCode (lazyfoo has old version)
+End Time: 9:00PM      
+
+April 8, 2013
+Start Time: 4:45 PM
+      Goals
+        -Draw board pieces
+	-Ensure pieces can be rendered by SDL
+      Accomplishment
+        -Drew pieces for board
+	-Attempted to render the with SDL
+	 but ran into some problems where
+	 the image could not be opened.
+
+End Time: 7:45PM
+
+April 11, 2013
+Start Time: 11:00 PM
+      Goals
+        - Generate game Menu
+	- Develop Function Hierarchy for menu
+      Accomplishment
+        - Succesfully generated a main menu
+	- Began developing classes for different menus contained in the game
+Individual Time Commited: 1340 minutes
