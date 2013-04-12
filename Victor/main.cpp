@@ -1,45 +1,20 @@
 #include <iostream>
-#include "SDL/SDL.h"
+#include "basics.h"
 using namespace std;
 
 // global variables
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 920;
 const int SCREEN_BPP = 32;
+bool xOut = false;
 
-  // load Images function
-SDL_Surface *load_image( string fileName ){
-    // temp storage for laoded image
-    SDL_Surface *loaded = NULL;
-    // optimized
-    SDL_Surface *optimized = NULL;
-    // load image
-    loaded = SDL_LoadBMP(fileName.c_str());
-
-    // continue if no errors
-    if (loaded != NULL){
-      optimized = SDL_DisplayFormat( loaded );
-      SDL_FreeSurface(loaded);
-    }
-    return optimized;
-}
-
-// Apply Images to surface function
-void applySurface(int x, int y, SDL_Surface* source, SDL_Surface* destination){
-  SDL_Rect offset;
-
-  offset.x = x;
-  offset.y = y;
-
-  SDL_BlitSurface( source , NULL, destination, &offset);
-}
 
 int main (int argc, char* argv[]){
 
   // ensure that SDL subsystems are up and running
   if ( SDL_Init (SDL_INIT_EVERYTHING ) == -1 )
     return 1;
-
+SDL_Event click;
   // intialize the screen
 
   SDL_Surface *background = NULL;
@@ -57,7 +32,30 @@ int main (int argc, char* argv[]){
   // set window caption
   SDL_WM_SetCaption("Monopoly - Main Menu", NULL);
   // Load Images
+  start = new basics;
+  options = new basics;
+  credits = new basics;
+  quit = new basics;
+  start.load_image("data/START.bmp");
+  options.load_image("data/OPTIONS.bmp");
+  credits.load_image("data/CREDITS.bmp");
+  quit.load_image("data/QUIT.bmp");
 
+  while (xOut == false){
+  while (SDL_PollEvent(&click)){
+  // set images on screen
+  applySurface(640,400, start, screen);
+  applySurface(640,450, options, screen);
+  applySurface(640,500, credits, screen);
+  applySurface(640,550, quit, screen);
+  SDL_Flip(screen);
+ 
+  // SDL_Delay (3000);
+  if(click.type == SDL_QUIT){
+  xOut = true;
 
-
+  }
+  }
+  }
+  return 0;
 }
