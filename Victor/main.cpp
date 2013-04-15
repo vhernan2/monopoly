@@ -10,8 +10,6 @@ const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 680;
 const int SCREEN_BPP = 32;
 
-SDL_Surface *screen;
-
 // loadImage function will be used to load any image used for the game
 SDL_Surface *loadImage( string fileName ){
 
@@ -42,7 +40,7 @@ void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination){
 
 
 // the main menu function will display the main menu for the game
-int mainMenu(){
+void mainMenu(){
 
   SDL_Surface *background = NULL;
   SDL_Surface *start = NULL;
@@ -50,7 +48,7 @@ int mainMenu(){
   SDL_Surface *credits = NULL;
   SDL_Surface *highscores = NULL;
   SDL_Surface *quit = NULL;
-
+  SDL_Surface *screen = NULL;
  
   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
   // SET WINDOW CAPTION
@@ -76,7 +74,8 @@ int mainMenu(){
 
   // Update screen
   if (SDL_Flip( screen ) == -1 ){
-    return 1;
+    cout << "SCREEN UPDATED";
+    SDL_Flip(screen);
   }
 
   SDL_Delay(10000);
@@ -87,15 +86,10 @@ int mainMenu(){
   SDL_FreeSurface( quit );
   SDL_FreeSurface( screen );
 
-  return 0;
 }
 
 int main (int argc, char* argv[]){
  SDL_Init(SDL_INIT_EVERYTHING);
-
-  if (screen == NULL){
-    return 1;
-  }
 
   // ensure that SDL subsystems are up and running
   if ( SDL_Init (SDL_INIT_EVERYTHING ) ==1 ){
