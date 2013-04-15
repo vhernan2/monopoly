@@ -26,6 +26,7 @@ Game::Game()
 		i++;
 	}
 
+	curPlayer=0;
 	gameBoard;
 
 }
@@ -53,14 +54,22 @@ void Game::rollDie(Player* current)
 
 void Game::turn()
 {
-	while(1)
-	{
-		for(int i = 0; i < numPlayers; i++)
-		{
-			playerTurn(&players[i]);
-			cout << endl << endl;
-		}
+	//while(1)
+	//{
+	//	for(int i = 0; i < numPlayers; i++)
+	//	{
+	//		playerTurn(&players[i]);
+	//		cout << endl << endl;
+	//	}
+	//}
+
+	while(1){	
+		curPlayer = curPlayer++;
+		if (curPlayer >= numPlayers) curPlayer = 0;
+		playerTurn(&players[curPlayer]);
+		cout << endl << endl;
 	}
+
 }
 
 void Game::playerTurn(Player* current)
@@ -79,7 +88,6 @@ void Game::playerTurn(Player* current)
 	cout << current->getName() << " it is your turn" << endl;
 	cout << "Your current money is: $" << current->getMoney() << endl;
 	current->printTiles();
-
 
 	cout << "What would you like to do? (R)oll, (B)uild";
 	cin >> response;
@@ -251,4 +259,12 @@ void Game::build(Player* current)
 			return;
 		}
 	}
+}
+
+int Game::getPlayers(){
+	return numPlayers;
+}
+
+int Game::getCurrentPlayer(){
+	return curPlayer;
 }

@@ -16,9 +16,12 @@ class Game
 		void rollDie(Player*);
 		void buildCheck(Player*);
 		void build(Player*);
+		int getPlayers();
+		int getCurrentPlayer();
 
 	private:
 		int numPlayers;
+		int curPlayer;
 		vector<Player> players;
 		Board gameBoard;
 };
