@@ -16,6 +16,7 @@ class Player
 		int getJail();			//gets player's jail status
 		void setGamePiece(int);		//sets players piece value
 		void setName(string);		//sets player's name
+		void setPosition(int);		//sets a player's position
 		void addTimeJail();		//adds to player's time spent in jail
 		string getName();		//gets player's name
 		deque<string> getTiles();	//gets player's owned tiles
@@ -32,12 +33,14 @@ class Player
 		void goToJail();		//sends player's piece to jail location and changes inJail
 		void changeInMoney(int);	//can be used to add or subtract money from totalMoney		
 		void advance(int);		//will change piece's position
+		void changeGOOJ(bool);		//will affect player's GOOJ status
 
 	private:
 		int totalMoney;	//players total money
 		string name;	//player may have option to provide name in future
 		int piece;	//integer value representing game piece
 		bool inJail;	//bool for player being in jail or not in jail
+		bool GOOJ;	//bool for players get out of jail free status
 		int timeJail;	//number of turns player has spent in jail
 
 		int index;	//index in array used to store players in game class

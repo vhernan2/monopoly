@@ -1,6 +1,6 @@
 all: main
-main: test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o
-	g++ test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o -o main
+main: test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o SUB.o SAO.o Game.o
+	g++ test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o SUB.o SAO.o Game.o -o main
 
 Player.o: Player.cpp
 	g++ -c Player.cpp
@@ -34,6 +34,12 @@ Jail.o: Jail.cpp
 
 Utility.o: Utility.cpp
 	g++ -c Utility.cpp
+
+SUB.o: SUB.cpp
+	g++ -c SUB.cpp
+
+SAO.o: SAO.cpp
+	g++ -c SAO.cpp
 
 test.o: test.cpp
 	g++ -c test.cpp

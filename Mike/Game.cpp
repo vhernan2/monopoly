@@ -26,6 +26,7 @@ Game::Game()
 		i++;
 	}
 
+	curPlayer=0;
 	gameBoard;
 
 }
@@ -54,13 +55,19 @@ int Game::rollDie(Player* current)
 
 void Game::turn()
 {
-	while(1)
-	{
-		for(int i = 0; i < numPlayers; i++)
-		{
-			playerTurn(&players[i]);
-			cout << endl << endl;
-		}
+	//while(1)
+	//{
+	//	for(int i = 0; i < numPlayers; i++)
+	//	{
+	//		playerTurn(&players[i]);
+	//		cout << endl << endl;
+	//	}
+	//}
+	while(1){
+		curPlayer = curPlayer++;
+		if (curPlayer >= numPlayers) curPlayer = 0;
+		playerTurn(&players[curPlayer]);
+		cout << endl << endl;
 	}
 }
 
@@ -70,6 +77,7 @@ void Game::playerTurn(Player* current)
 	int output;	//stores index value from interact function
 	int playerRoll;		//stores value of player's roll
 
+	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
 	gameBoard.updateRentRR();		//updates the rent of the railroads based on how many a player owns
 	gameBoard.updateEffects(0);		//rolls through entire board and updates effects of properties
@@ -78,51 +86,84 @@ void Game::playerTurn(Player* current)
 
 	if(current->getJail() == 1)
 	{
-		if(current->getTimeJail() != 0)
-		{
+	//	if(current->getTimeJail() != 0)
+	//	{
 			current->addTimeJail();
-			if(current->getTimeJail() != 3)
+			if(current->getTimeJail() != 0)
 			{
 				cout << current->getName() << ", you are stuck at res life! You lose a turn!" << endl;
 				return;
 			}
-			else if(current->getTimeJail() == 3)
+			else if(current->getTimeJail() == 0)
 			{
 				cout << current->getName() << ", time's up! You're out of res life!" << endl;
 				current->addTimeJail();
 			}
-		}
+	//	}
 	}
 
 	cout << current->getName() << " it is your turn" << endl;
 	cout << "Your current money is: $" << current->getMoney() << endl;
 	current->printTiles();
 
-
-	cout << "What would you like to do? (R)oll, (B)uild";
+	cout << "What would you like to do? (R)oll, (B)uild, (T)rade";	//all 3 options presented, although trade currently does not function properly
 	cin >> response;
 	switch(response)
 	{
 		case 'r':
 			playerRoll = rollDie(current);
 			gameBoard.updateEffects(playerRoll);
-			output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-			if(output != -1)
+			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
 			{
-				gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 			}
+		//	else
+		//	{			
+				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+				if(output != -1)
+				{
+					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+				}
+		//	}	
 			break;
 
 		case 'b':
 			build(current);
 			playerRoll = rollDie(current);
 			gameBoard.updateEffects(playerRoll);
-			output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-			if(output != -1)
+			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
 			{
-				gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 			}
+		//	else
+		//	{			
+				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+				if(output != -1)
+				{
+					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+				}
+		//	}	
 			break;
+
+		case 't':
+			trade(current);
+			playerRoll = rollDie(current);
+			gameBoard.updateEffects(playerRoll);
+			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
+			{
+				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
+			}
+		//	else
+		//	{			
+				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+				if(output != -1)
+				{
+					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+				}
+		//	}	
+			break;
+
+
 	}
 
 }
@@ -158,7 +199,7 @@ void Game::buildCheck(Player* current)
 	}
 }	
 
-void Game::build(Player* current)
+void Game::build(Player* current)		//pretty sure getline is causing a weird print error in this function somewhere as well
 {
 
 	int select;		//player selects building choice
@@ -269,6 +310,71 @@ void Game::build(Player* current)
 		if(select == 3)
 		{
 			return;
+		}
+	}
+}
+
+int Game::getPlayers(){
+	return numPlayers;
+}
+
+int Game::getCurrentPlayer(){
+	return curPlayer;
+}
+
+int Game::getPlayerLocation(int player){
+	return ((&players[curPlayer])->getPosition());
+}
+
+void Game::trade(Player* current)		//this function was thrown together somewhat carelessly, I'm having problems with getline
+{
+	string recipient;
+	int recipIndex;
+	string offer;
+	string request;
+	char answer;
+
+	cout << current->getName() << " here is what everyone owns: " << endl;
+	
+	for(int i = 0; i < players.size()-1; i++)
+	{
+		cout << players[i].getName() << ": ";
+		players[i].printTiles();
+		cout << endl;
+	}
+
+	cout << "Who would you like to trade with? (Name please) ";
+	cin >> recipient;
+
+	for(int i = 0; i < players.size()-1; i++)
+	{
+		if(players[i].getName() == recipient) 
+		recipIndex = players[i].getIndex();
+		break;
+	}
+
+	cout << "What would you like to offer? ";
+	getline(cin, offer);
+
+	cout << "And what would you like in return? ";
+	getline(cin, request);
+
+	cout << recipient << ", do you accept this trade? " << offer << " for " << request << "? (y/n)";
+	cin >> answer;
+
+	if(answer == 'n') return;
+	else if(answer == 'y')
+	{
+		for(int i = 0; i < 40; i++)
+		{
+			if(gameBoard.accessSpace(i)->getTitle() == request)
+			{
+				gameBoard.accessSpace(i)->setOwner(current->getIndex());
+			}
+			if(gameBoard.accessSpace(i)->getTitle() == offer)
+			{
+				gameBoard.accessSpace(i)->setOwner(recipIndex);
+			}
 		}
 	}
 }

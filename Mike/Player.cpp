@@ -48,6 +48,12 @@ void Player::addTimeJail()
 	else timeJail++;
 }
 
+void Player::setPosition(int location)
+{
+	position = location;
+}
+
+
 deque<string> Player::getTiles()
 {
 	return tilesOwned;
@@ -162,4 +168,9 @@ void Player::advance(int spaces)
 int Player::getPosition()
 {
 	return position;
+}
+
+void Player::changeGOOJ(bool status)
+{
+	GOOJ = status;
 }

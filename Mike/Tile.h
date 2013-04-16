@@ -5,6 +5,7 @@
 using namespace std;
 
 class Player;
+class Board;
 
 class Tile
 {
@@ -27,6 +28,9 @@ class Tile
 		virtual int getHotels();		//gets number of hotels, only used for Property inheritance
 		virtual void addHouses(int);		//adds houses, only used for Property inheritance
 		virtual void addHotels(int);		//adds hotels, only used for Property inheritance
+
+		virtual void manDeck(Player*, Board*);	//will be used solely by CardSpaces
+	
 		
 
 	protected:
