@@ -34,7 +34,7 @@ Game::~Game()
 {
 }
 
-void Game::rollDie(Player* current)
+int Game::rollDie(Player* current)
 {
 	int firstRoll;
 	int secondRoll;
@@ -49,6 +49,7 @@ void Game::rollDie(Player* current)
 	cout << current->getName() << ", you rolled a " << move << endl;
 
 	current->advance(move);
+	return move;
 }
 
 void Game::turn()
@@ -67,14 +68,31 @@ void Game::playerTurn(Player* current)
 {
 	char response;
 	int output;	//stores index value from interact function
-
+	int playerRoll;		//stores value of player's roll
 
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
 	gameBoard.updateRentRR();		//updates the rent of the railroads based on how many a player owns
-	gameBoard.updateEffects();		//rolls through entire board and updates effects of properties
+	gameBoard.updateEffects(0);		//rolls through entire board and updates effects of properties
 	buildCheck(current);			//updates the deque of property titles player can build a house on
 
 
+	if(current->getJail() == 1)
+	{
+		if(current->getTimeJail() != 0)
+		{
+			current->addTimeJail();
+			if(current->getTimeJail() != 3)
+			{
+				cout << current->getName() << ", you are stuck at res life! You lose a turn!" << endl;
+				return;
+			}
+			else if(current->getTimeJail() == 3)
+			{
+				cout << current->getName() << ", time's up! You're out of res life!" << endl;
+				current->addTimeJail();
+			}
+		}
+	}
 
 	cout << current->getName() << " it is your turn" << endl;
 	cout << "Your current money is: $" << current->getMoney() << endl;
@@ -86,7 +104,8 @@ void Game::playerTurn(Player* current)
 	switch(response)
 	{
 		case 'r':
-			rollDie(current);
+			playerRoll = rollDie(current);
+			gameBoard.updateEffects(playerRoll);
 			output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 			if(output != -1)
 			{
@@ -96,7 +115,8 @@ void Game::playerTurn(Player* current)
 
 		case 'b':
 			build(current);
-			rollDie(current);
+			playerRoll = rollDie(current);
+			gameBoard.updateEffects(playerRoll);
 			output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 			if(output != -1)
 			{

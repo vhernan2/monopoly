@@ -14,6 +14,7 @@ Player::Player(int locVector)
 {
 	totalMoney = 1000;
 	inJail = 0;
+	timeJail = 0;
 	position = 0;
 	index = locVector;
 }
@@ -30,6 +31,21 @@ int Player::getMoney()
 int Player::getJail()
 {
 	return inJail;
+}
+
+int Player::getTimeJail()
+{
+	return timeJail;
+}
+
+void Player::addTimeJail()
+{
+	if(timeJail == 3)
+	{
+		timeJail = 0;
+		return;
+	}
+	else timeJail++;
 }
 
 deque<string> Player::getTiles()

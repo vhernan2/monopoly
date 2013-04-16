@@ -168,3 +168,9 @@ Done:
 
 Time Spent: 3 hr 4 min
 Total Time: 25 hr 36 min
+
+April 11 2013
+3:15 p.m.
+
+To Do:
+	Find way to implement utility's moneyEffect values and fix rules for rent on properties based on how many houses or hotels are on the property.

@@ -16,12 +16,14 @@ class Player
 		int getJail();			//gets player's jail status
 		void setGamePiece(int);		//sets players piece value
 		void setName(string);		//sets player's name
+		void addTimeJail();		//adds to player's time spent in jail
 		string getName();		//gets player's name
 		deque<string> getTiles();	//gets player's owned tiles
 		deque<string> getHouseTiles();  //gets player's house tiles
 		deque<string> getHotelTiles();  //gets player's hotel tiles
 		int getIndex();			//gets player's index
 		int getPosition();		//gets player's position
+		int getTimeJail();		//gets player's time in jail
 		void addTile(string);		//adds name of tile to list of player's owned locations
 		void addHouseTiles(string);	//adds name of tile to tiles player can build houses on
 		void addHotelTiles(string);	//adds name of tile to tiles player can build a hotel on
@@ -36,6 +38,7 @@ class Player
 		string name;	//player may have option to provide name in future
 		int piece;	//integer value representing game piece
 		bool inJail;	//bool for player being in jail or not in jail
+		int timeJail;	//number of turns player has spent in jail
 
 		int index;	//index in array used to store players in game class
 			

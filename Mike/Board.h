@@ -14,7 +14,8 @@ class Board
 		void updateRent();
 		void checkGroupsProp();	//checks groups of tiles to see if they have the same owner throughout
 		void updateRentRR();	//updates the rent penalty for railroad type locations
-		void updateEffects();	//updates the rent of all properties
+		void updateEffects(int);	//updates the rent of all properties
+		void updateUtilityEffect();	//updates money effects of all utilities (north and south dh)
 
 	private:
 		vector<Tile*> spaces;

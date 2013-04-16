@@ -86,11 +86,18 @@ void Property::updateEffect(int count)
 {
 	if(groupOwned == 1)
 	{
-		moneyEffect = (rent*2) + (75*numHouses) + (150*numHotels);
+		if(numHouses == 0 && numHotels == 0)
+		{
+			moneyEffect = (rent*2);
+		}
+		else
+		{
+			moneyEffect = rent + (75*numHouses) + (150*numHotels);
+		}
 	}
 	else
 	{
-		moneyEffect = rent + (75*numHouses) + (150*numHotels);
+		moneyEffect = rent;
 	}
 }
 

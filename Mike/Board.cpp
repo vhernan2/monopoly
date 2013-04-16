@@ -26,7 +26,7 @@ Board::Board()
 	spaces.push_back(new Property(2, "Carrol Hall", -1, 0, 0, 0, 120, 0, 0, 8, 0));
 	spaces.push_back(new Jail(0, "Res Life", -1, 0, 0, 0));				//need a new class for this likely
 	spaces.push_back(new Property(3, "Fisher Hall", -1, 0, 0, 0, 140, 0, 0, 10, 0));
-	spaces.push_back(new Utility(10, "North Dining Hall", -1, 0, 0, 0, 150, 10));			//this likely needs a new class, as does south. Utilities
+	spaces.push_back(new Utility(10, "North Dining Hall", -1, 0, 0, 0, 150, 10, 0));			//this likely needs a new class, as does south. Utilities
 	spaces.push_back(new Property(3, "Dillon Hall", -1, 0, 0, 0, 140, 0, 0, 10, 0));
 	spaces.push_back(new Property(3, "Alumni Hall", -1, 0, 0, 0, 160, 0, 0, 12, 0));
 	spaces.push_back(new Railroad(9, "DeBartolo Hall", -1, 0, 0, 0, 200, 25));	//need a different moneyEffect function for railroads
@@ -42,7 +42,7 @@ Board::Board()
 	spaces.push_back(new Railroad(9, "Lafortune Student Center", -1, 0, 0, 0, 200, 25));
 	spaces.push_back(new Property(6, "O'Neill Hall", -1, 0, 0, 0, 260, 0, 0, 22, 0));
 	spaces.push_back(new Property(6, "Keough Hall", -1, 0, 0, 0, 260, 0, 0, 22, 0));
-	spaces.push_back(new Utility(10, "South Dining Hall", -1, 0, 0, 0, 150, 10));
+	spaces.push_back(new Utility(10, "South Dining Hall", -1, 0, 0, 0, 150, 10, 0));
 	spaces.push_back(new Property(6, "Duncan Hall", -1, 0, 0, 0, 280, 0, 0, 24, 0));
 	spaces.push_back(new Jail(0, "Go to Res Life", -1, 0, 0, 0));			//almost definitely need a new class, need a way of moving player
 	spaces.push_back(new Property(7, "Compton Ice Arena", -1, 0, 0, 0, 300, 0, 0, 26, 0));
@@ -129,13 +129,48 @@ void Board::updateRentRR()
 	}
 }
 
-void Board::updateEffects()
+void Board::updateEffects(int roll)
 {
 	for(int i = 0; i < 40; i++)
 	{
-		if(spaces[i]->getGroup() > 0 && spaces[i]->getGroup() <= 9)
+		if(spaces[i]->getGroup() > 0 && spaces[i]->getGroup() < 9)
 		{
 			spaces[i]->updateEffect(0);
 		}
+		if(spaces[i]->getGroup() == 10)
+		{
+			spaces[i]->updateEffect(roll);
+		}
 	}
 }
+
+void Board::updateUtilityEffect()
+{
+	if(spaces[12]->getOwner() == spaces[28]->getOwner() && spaces[12]->getOwner() != -1)
+	{
+		spaces[12]->setGroupOwned(2);
+		spaces[28]->setGroupOwned(2);
+		return;
+	}
+	else if(spaces[12]->getOwner() != -1 && spaces[28]->getOwner() != -1 && spaces[12]->getOwner() != spaces[28]->getOwner())
+	{
+		spaces[12]->setGroupOwned(1);
+		spaces[28]->setGroupOwned(1);
+		return;
+	}
+	else
+	{
+		if(spaces[12]->getOwner() != -1)
+		{
+			spaces[12]->setGroupOwned(1);
+			return;
+		}
+		if(spaces[28]->getOwner() != -1)
+		{
+			spaces[28]->setGroupOwned(1);
+			return;
+		}
+	}
+}
+	
+			

@@ -13,7 +13,7 @@ class Game
 		~Game();
 		void turn();
 		void playerTurn(Player*);
-		void rollDie(Player*);
+		int rollDie(Player*);
 		void buildCheck(Player*);
 		void build(Player*);
 

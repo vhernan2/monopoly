@@ -12,7 +12,7 @@ Jail::Jail(int indicate, string words, int player, int amount, int take, bool va
 int Jail::interact(Player* current)
 {
 	char response;
-	if(title == "Go To Res Life")
+	if(title == "Go to Res Life")
 	{
 		cout << current->getName() << ", you landed on " << title << ", you are stuck at Res Life!" << endl; 
 		current->goToJail();
