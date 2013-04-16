@@ -62,12 +62,14 @@ void Game::turn()
 	//		cout << endl << endl;
 	//	}
 	//}
-	while(1){
+
+	while(1){	
 		curPlayer = curPlayer++;
 		if (curPlayer >= numPlayers) curPlayer = 0;
 		playerTurn(&players[curPlayer]);
 		cout << endl << endl;
 	}
+
 }
 
 void Game::playerTurn(Player* current)
@@ -261,12 +263,4 @@ void Game::build(Player* current)
 
 int Game::getPlayers(){
 	return numPlayers;
-}
-
-int Game::getCurrentPlayer(){
-	return curPlayer;
-}
-
-int Game::getPlayerLocation(int player){
-	return ((&players[curPlayer])->getPosition());
 }

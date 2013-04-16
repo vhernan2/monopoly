@@ -1,12 +1,6 @@
 all: main
-
-FLAGS=-lSDL -lSDL_image
-
-main: monopoly_board.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o
-	g++ monopoly_board.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o -o main ${FLAGS}
-
-monopoly_board.o: monopoly_board.cpp
-	g++ -c monopoly_board.cpp
+main: test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o
+	g++ test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o Game.o -o main
 
 Player.o: Player.cpp
 	g++ -c Player.cpp

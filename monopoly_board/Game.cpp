@@ -62,12 +62,12 @@ void Game::turn()
 	//		cout << endl << endl;
 	//	}
 	//}
-	while(1){
+
 		curPlayer = curPlayer++;
 		if (curPlayer >= numPlayers) curPlayer = 0;
 		playerTurn(&players[curPlayer]);
 		cout << endl << endl;
-	}
+
 }
 
 void Game::playerTurn(Player* current)

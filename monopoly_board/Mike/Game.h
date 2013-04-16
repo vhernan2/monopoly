@@ -17,8 +17,6 @@ class Game
 		void buildCheck(Player*);
 		void build(Player*);
 		int getPlayers();
-		int getCurrentPlayer();
-		int getPlayerLocation(int);
 
 	private:
 		int numPlayers;
