@@ -1,0 +1,37 @@
+/**********************************************
+ * This header contains various function      *
+ * definitions that will be used throughout   *
+ * the game.                                  *
+ *********************************************/
+
+
+#include "SDL/SDL.h"
+#include <string>
+
+// loadImage function will be used to load any image used for the game
+SDL_Surface *loadImage( std::string fileName ){
+
+  SDL_Surface* loaded = NULL;   // temp storage for laoded image
+  SDL_Surface* optimized = NULL;
+  loaded = SDL_LoadBMP( fileName.c_str() );   // load
+
+  // verify loaded and continue
+  if( loaded != NULL ){
+    optimized = SDL_DisplayFormat(loaded);     // optimize
+    SDL_FreeSurface( loaded );     // Free old 
+  }
+  return optimized;
+}
+
+// Surface Blitting Function
+void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL){
+
+  SDL_Rect offset;
+
+  offset.x = x;
+  offset.y = y;
+
+  SDL_BlitSurface( source, clip, destination, &offset);
+
+}
+
