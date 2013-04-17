@@ -111,6 +111,7 @@ Start Time: 3:21 PM
 End Time: 6:14PM
 
 // It was decided a group meeting to switch to SDL...
+<<<<<<< HEAD
 
 April 5, 2013
 Start Time: 5:15 PM
@@ -121,6 +122,18 @@ Start Time: 5:15 PM
 	 and gave me an idea of what I would need
 End Time: 8:35 PM
 
+=======
+
+April 5, 2013
+Start Time: 5:15 PM
+      Goals 
+        -Read over SDL tutorials and installation precedure
+      Accomplishment
+        -Gained some understanding of how SDL works 
+	 and gave me an idea of what I would need
+End Time: 8:35 PM
+
+>>>>>>> 4653ecbc581dc7f31defaa4af38fb33a299dd40f
 April 6, 2013
 Start Time: 4:20 PM
       Goals
@@ -182,6 +195,8 @@ Start Time: 4:30 PM
         - Generated final menu layout
 	- Began work on events
 End Time: 5:30PM
+<<<<<<< HEAD
+=======
 
 April 16, 2013
 Start Time: 10:00 AM
@@ -191,6 +206,7 @@ Start Time: 10:00 AM
         - Developed a header file with basic function and began work on a separate header file that will be used for the different menus in the game
 End Time: 11:35 AM
  + 95 minutes
+>>>>>>> 4653ecbc581dc7f31defaa4af38fb33a299dd40f
 
  Start Time(2): 5:00 PM
    Goals: Same as above

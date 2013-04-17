@@ -7,10 +7,11 @@ Utility::Utility() : Tile()
 	rent = 10;
 }
 
-Utility::Utility(int indicate, string words, int player, int amount, int take, bool value, int money, int number) : Tile(indicate, words, player, amount, take, value)
+Utility::Utility(int indicate, string words, int player, int amount, int take, bool value, int money, int number, int owned) : Tile(indicate, words, player, amount, take, value)
 {
 	cost = money;
 	rent = number;
+	numOwned = owned;
 }
 
 int Utility::interact(Player* current)
@@ -33,8 +34,8 @@ int Utility::interact(Player* current)
 	}
 	else if(getOwner() != current->getIndex())
 	{
-		cout << "This location is owned. You lose $" << rent << endl;
-		current->changeInMoney(-rent);
+		cout << "This location is owned. You lose $" << moneyEffect << endl;
+		current->changeInMoney(-moneyEffect);
 		cout << "You now have $" << current->getMoney() << endl;
 		update = 1;
 		return owner;
@@ -49,8 +50,8 @@ void Utility::payBack(Player* current)
 {
 	if(update == 1)
 	{
-		current->changeInMoney(rent);
-		cout << current->getName() << " gains $" << rent << endl;
+		current->changeInMoney(moneyEffect);
+		cout << current->getName() << " gains $" << moneyEffect << endl;
 		cout << current->getName() << " now has $" << current->getMoney() << endl;
 	}
 	update = 0;
@@ -58,5 +59,17 @@ void Utility::payBack(Player* current)
 
 void Utility::updateEffect(int roll)
 {
-	moneyEffect = roll * 4;
+	if(numOwned == 1)
+	{
+		moneyEffect = roll * 4;
+	}
+	if(numOwned = 2)
+	{
+		moneyEffect = roll * 10;
+	}
+}
+
+void Utility::setGroupOwned(int update)
+{
+	numOwned = update;
 }

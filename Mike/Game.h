@@ -13,12 +13,13 @@ class Game
 		~Game();
 		void turn();
 		void playerTurn(Player*);
-		void rollDie(Player*);
+		int rollDie(Player*);
 		void buildCheck(Player*);
 		void build(Player*);
 		int getPlayers();
 		int getCurrentPlayer();
 		int getPlayerLocation(int);
+		void trade(Player*);
 
 	private:
 		int numPlayers;

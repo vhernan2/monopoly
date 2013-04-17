@@ -92,3 +92,7 @@ void Tile::addHouses(int num)
 void Tile::addHotels(int num)
 {
 }
+
+void Tile::manDeck(Player* current, Board* board)
+{
+}
