@@ -3,8 +3,8 @@
  * definitions that will be used throughout   *
  * the game.                                  *
  *********************************************/
-
-
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 #include "SDL/SDL.h"
 #include <string>
 
@@ -35,3 +35,5 @@ void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect*
 
 }
 
+
+#endif

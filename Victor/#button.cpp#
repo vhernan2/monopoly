@@ -24,14 +24,14 @@ void button::handle(){
   if (event.type == SDL_MOUSEBUTTONDOWN ){
     // If left mouse button
     if (event.button.button == SDL_BUTTON_LEFT ){
-    // get offsets
+      // get offsets
     x = event.button.x;
     y = event.button.y;
     }
   }
 
   // If a mouse button was realeased 
-  if (event.type == SDL_MOUSEBUTTONUP ){
+  if (event.type == SDL _MOUSEBUTTONUP ){
     // If left mouse button released
     if (event.button.button == SDL_BUTTON_LEFT ){
       // Get mouse offsets
@@ -41,9 +41,7 @@ void button::handle(){
   }   
 }
 
-/*
 void button::show(){
   // show button
   blit(box.x, box.y, screen, clip);
 }
-*/
