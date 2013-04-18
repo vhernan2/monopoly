@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 using namespace std;
 
 Game::Game()
@@ -64,9 +65,9 @@ void Game::turn()
 	//	}
 	//}
 	while(1){
-		curPlayer = curPlayer++;
-		if (curPlayer >= numPlayers) curPlayer = 0;
+		if (curPlayer >= players.size()) curPlayer = 0;
 		playerTurn(&players[curPlayer]);
+		curPlayer = curPlayer++;
 		cout << endl << endl;
 	}
 }
@@ -74,6 +75,7 @@ void Game::turn()
 void Game::playerTurn(Player* current)
 {
 	char response;
+	char pay;
 	int output;	//stores index value from interact function
 	int playerRoll;		//stores value of player's roll
 
@@ -86,20 +88,35 @@ void Game::playerTurn(Player* current)
 
 	if(current->getJail() == 1)
 	{
-	//	if(current->getTimeJail() != 0)
-	//	{
 			current->addTimeJail();
 			if(current->getTimeJail() != 0)
 			{
-				cout << current->getName() << ", you are stuck at res life! You lose a turn!" << endl;
-				return;
+				cout << current->getName() << ", you are stuck at res life!" << endl;
+				if(current->getMoney() > 50)
+				{
+					cout << "Would you like to pay off the service hours? (y/n)";
+					cin >> pay;
+					if(pay == 'y')
+					{
+						current->payOffResLife();
+					}
+					else
+					{
+						cout << "You lose a turn!" << endl;
+						return;
+					}
+				}
+				else
+				{
+					cout << "You lose a turn!" << endl;
+					return;
+				}
 			}
 			else if(current->getTimeJail() == 0)
 			{
-				cout << current->getName() << ", time's up! You're out of res life!" << endl;
+				cout << current->getName() << ", you're out of res life!" << endl;
 				current->addTimeJail();
 			}
-	//	}
 	}
 
 	cout << current->getName() << " it is your turn" << endl;
@@ -117,14 +134,12 @@ void Game::playerTurn(Player* current)
 			{
 				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 			}
-		//	else
-		//	{			
 				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 				if(output != -1)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-		//	}	
+			gameOver();
 			break;
 
 		case 'b':
@@ -135,14 +150,12 @@ void Game::playerTurn(Player* current)
 			{
 				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 			}
-		//	else
-		//	{			
 				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 				if(output != -1)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-		//	}	
+			gameOver();
 			break;
 
 		case 't':
@@ -153,14 +166,12 @@ void Game::playerTurn(Player* current)
 			{
 				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 			}
-		//	else
-		//	{			
 				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 				if(output != -1)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-		//	}	
+			gameOver();
 			break;
 
 
@@ -246,6 +257,12 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 								{
 									cout << "There are " << gameBoard.accessSpace(j)->getHouses() << " houses here. How many would you like to add? (Max 4)";
 									cin >> housesAdded;
+									if(current->getMoney() <= 50*housesAdded)
+									{
+										cout << "You can't afford that many houses!" << endl;
+										houseLoop = 0;
+										break;
+									}
 									gameBoard.accessSpace(j)->addHouses(housesAdded);
 									current->changeInMoney((-50) * housesAdded);
 									houseLoop = 0;
@@ -288,6 +305,12 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 								{
 									cout << "There are " << gameBoard.accessSpace(j)->getHotels() << " hotels here. How many would you like to add? (Max 1)";
 									cin >> hotelsAdded;
+									if(current->getMoney() <= 100*hotelsAdded)
+									{
+										cout << "You can't afford to buy a hotel!" << endl;
+										hotelLoop = 0;
+										break;
+									}
 									gameBoard.accessSpace(j)->addHotels(hotelsAdded);
 									gameBoard.accessSpace(j)->addHouses(-4);
 									current->changeInMoney(-100);
@@ -375,6 +398,18 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 			{
 				gameBoard.accessSpace(i)->setOwner(recipIndex);
 			}
+		}
+	}
+}
+
+void Game::gameOver()
+{
+	for(int i = 0; i < players.size(); i++)
+	{
+		if(players[i].getMoney() <= 0)
+		{
+			cout << players[i].getName() << ", you have run out of money! You are eliminated from the game! Thanks for playing!" << endl;
+			players.erase(players.begin()+5);
 		}
 	}
 }

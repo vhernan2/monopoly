@@ -20,6 +20,7 @@ class Game
 		int getCurrentPlayer();
 		int getPlayerLocation(int);
 		void trade(Player*);
+		void gameOver();
 
 	private:
 		int numPlayers;

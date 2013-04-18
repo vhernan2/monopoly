@@ -20,6 +20,14 @@ int Utility::interact(Player* current)
 	cout << current->getName() << ", you landed on " << title << ". ";
 	if(owner == -1)
 	{
+		if(current->getMoney() <= cost)
+		{
+			cout << "This tile is unowned, but you can't afford it!" << endl;
+			return owner;
+		}
+		else
+		{
+
 		cout << "No one owns this location. Would you like to buy for " << cost << "? (y/n)";
 		cin >> response;
 		if(response == 'y')
@@ -30,6 +38,8 @@ int Utility::interact(Player* current)
 			owner = current->getIndex();
 			current->addTile(title);
 			return owner;
+		}
+
 		}
 	}
 	else if(getOwner() != current->getIndex())

@@ -199,3 +199,18 @@ Done:
 
 Time Spent: 4 hr 43 min
 Total Time: 32 hr 38 min
+
+April 18 2013
+3:02 p.m.
+
+To Do:
+	Implement a system where if the player loses all of his or her money, they are eliminated from the game. In addition, make it so that if a purchase would eliminate
+	the player from the game, the program does not present the purchase as an option for the user. Later this will be improved so that the player is given the option
+	to mortgage property in order to stay in the game. Also need to present the 50 dollar buy out option to escape Res Life.
+
+April 18 2013
+4:04 p.m.
+
+Done:
+	Player cannot make purchases that would cause their eliminatation, player can be eliminated at 0 dollars. Player can also now buy their way out of Res Life for $50,
+	only if they actually have the $50 to spend. Remaining features are trades and mortgaging.

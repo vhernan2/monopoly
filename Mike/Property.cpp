@@ -37,14 +37,18 @@ int Property::interact(Player* current)
 	int toBeStored;	//integer value associated with player
 	cout << current->getName() << ", you landed on " << title << endl;
 
-	if(groupOwned == 1)
-	{
-		//maybe call a function here?
-	}
-
 
 	if(getOwner() == -1)
 	{
+		if(current->getMoney() <= cost)
+		{
+			cout << "This tile is unowned, but you can't afford it!" << endl;
+			return owner;
+		}
+		else
+		{
+
+
 		cout << "No one owns this tile. Would you like to buy it for $" << cost << "? (y/n)";
 		cin >> response;
 		if(response == 'y')
@@ -55,6 +59,8 @@ int Property::interact(Player* current)
 			owner = current->getIndex();
 			current->addTile(title);
 			return owner;
+		}
+
 		}
 	}
 	else if(getOwner() != current->getIndex())
