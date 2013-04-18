@@ -33,6 +33,7 @@ class Player
 		void goToJail();		//sends player's piece to jail location and changes inJail
 		void changeInMoney(int);	//can be used to add or subtract money from totalMoney		
 		void advance(int);		//will change piece's position
+		void payOffResLife();		//player can pay their way out of jail time
 		void changeGOOJ(bool);		//will affect player's GOOJ status
 
 	private:

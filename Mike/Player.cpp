@@ -4,7 +4,7 @@ using namespace std;
 
 Player::Player()
 {
-	totalMoney = 1000;
+	totalMoney = 1500;
 	inJail = 0;
 	position = 0;
 	index = 0;
@@ -43,6 +43,7 @@ void Player::addTimeJail()
 	if(timeJail == 3)
 	{
 		timeJail = 0;
+		inJail = 0;
 		return;
 	}
 	else timeJail++;
@@ -72,6 +73,7 @@ deque<string> Player::getHotelTiles()
 void Player::goToJail()
 {
 	inJail = 1;
+	timeJail = 0;
 	position = 10;
 }
 
@@ -173,4 +175,10 @@ int Player::getPosition()
 void Player::changeGOOJ(bool status)
 {
 	GOOJ = status;
+}
+
+void Player::payOffResLife()
+{
+	inJail = 0;
+	changeInMoney(-50);
 }
