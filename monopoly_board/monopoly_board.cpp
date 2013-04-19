@@ -174,6 +174,48 @@ int PlayerPiece::getY(){
 	return y;
 }
 
+char getEvent() {
+
+	bool quit = false;
+	char c;
+
+	while (quit == false) {
+		while( SDL_PollEvent( &event ) ){
+			if (event.type == SDL_KEYDOWN){
+				cout << "Key down" << endl;
+	               		switch (event.key.keysym.sym){
+				case SDLK_b:
+					c = 'b';
+					quit = true;
+					break;
+				case SDLK_n:
+					c = 'n';
+					quit = true;
+					break;
+				case SDLK_r:
+					c = 'r';
+					quit = true;
+					break;
+				case SDLK_t:
+					c= 't';
+					quit = true;
+					break;
+				case SDLK_v:
+					c='v';
+					quit = true;
+					break;
+				case SDLK_y:
+					c='y';
+					quit = true;
+					break;
+				}
+			}
+		}
+	}
+	return c;
+
+}
+
 SDL_Surface *load_image( string filename )
 {
     //The image that's loaded
@@ -259,7 +301,7 @@ bool load_files(int numPlayers)
 
     string input;
 
-    ifstream dataFile ("image_folder.txt");
+    ifstream dataFile ("piece_image_folder.txt");
 
     int count = 0;
 
@@ -275,10 +317,10 @@ bool load_files(int numPlayers)
     }
 
     //Load the piece figure
-    piece[0] = load_image( "Images/" + names[0] );
-    piece[1] = load_image( "Images/" + names[1] );
-    piece[2] = load_image( "Images/" + names[2] );
-    piece[3] = load_image( "Images/" + names[3] );
+    piece[0] = load_image( "Piece_Images/" + names[0] );
+    piece[1] = load_image( "Piece_Images/" + names[1] );
+    piece[2] = load_image( "Piece_Images/" + names[2] );
+    piece[3] = load_image( "Piece_Images/" + names[3] );
 
     //If the piece figure didn't load
 //    if( pieceObject == NULL )
@@ -314,6 +356,7 @@ int main( int argc, char* args[] )
     Game playGame;
     int players = playGame.getPlayers();
     int currentPlayer;
+    char c;
     //========================	
 
     
@@ -360,11 +403,9 @@ int main( int argc, char* args[] )
 	    if (event.type == SDL_KEYDOWN){
 		switch (event.key.keysym.sym){
 		    case SDLK_SPACE:
-			playGame.turn();
+			playGame.turn(event);
 			currentPlayer = playGame.getCurrentPlayer();
-			cout << currentPlayer << endl;
 			apply_surface(0, 0, background, screen);
-			cout << "Player " << currentPlayer << " position: "<<playGame.getPlayerLocation(currentPlayer)<<endl;
 			unique_piece[currentPlayer].move(playGame.getPlayerLocation(currentPlayer));
 			for (int i = 0; i < players; i++ ) { 
 				apply_surface(unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen); 

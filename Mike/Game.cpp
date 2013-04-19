@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+
 using namespace std;
 
 Game::Game()
@@ -54,7 +58,7 @@ int Game::rollDie(Player* current)
 	return move;
 }
 
-void Game::turn()
+void Game::turn(SDL_Event &event)
 {
 	//while(1)
 	//{
@@ -67,12 +71,55 @@ void Game::turn()
 //	while(1){
 		curPlayer = curPlayer++;
 		if (curPlayer >= players.size()) curPlayer = 0;
-		playerTurn(&players[curPlayer]);
+		playerTurn(&players[curPlayer], event);
 		cout << endl << endl;
 //	}
 }
 
-void Game::playerTurn(Player* current)
+//add logic to know which responses are valid??
+char Game::getResponse(SDL_Event &event){
+
+        bool quit = false;
+        char c;
+
+        while (quit == false) {
+                while( SDL_PollEvent( &event ) ){
+                        if (event.type == SDL_KEYDOWN){
+                                cout << "Key down" << endl;
+                                switch (event.key.keysym.sym){
+                                case SDLK_b:
+                                        c = 'b';
+                                        quit = true;
+                                        break;
+                                case SDLK_n:
+                                        c = 'n';
+                                        quit = true;
+                                        break;
+                                case SDLK_r:
+                                        c = 'r';
+                                        quit = true;
+                                        break;
+                                case SDLK_t:
+                                        c= 't';
+                                        quit = true;
+                                        break;
+                                case SDLK_v:
+                                        c='v';
+                                        quit = true;
+                                        break;
+                                case SDLK_y:
+                                        c='y';
+                                        quit = true;
+                                        break;
+                                }
+                        }
+                }
+        }
+        return c;
+
+}
+
+void Game::playerTurn(Player* current, SDL_Event &event)
 {
 	char response;
 	char pay;
@@ -123,8 +170,10 @@ void Game::playerTurn(Player* current)
 	cout << "Your current money is: $" << current->getMoney() << endl;
 	current->printTiles();
 
-	cout << "What would you like to do? (R)oll, (B)uild, (T)rade";	//all 3 options presented, although trade currently does not function properly
-	cin >> response;
+	cout << "What would you like to do? (R)oll, (B)uild, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
+
+	response = getResponse(event);
+
 	switch(response)
 	{
 		case 'r':
