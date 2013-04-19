@@ -7,8 +7,9 @@
 #ifndef MENU_H
 #include "functions.h"
 #include "SDL/SDL_ttf.h"
-#include"SDL/SDL_image.h"
-
+#include "SDL/SDL_image.h"
+#include <iostream>
+#include <fstream>
 //Window Attributes
 const int SCREEN_WIDTH = 840;
 const int SCREEN_HEIGHT = 840;
@@ -24,40 +25,56 @@ void cleanUp(){
 
 void startMenu(){
   SDL_Surface *startScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
-    SDL_Surface *namePrompt = NULL;
-    SDL_Surface *pieceSelectPrompt = NULL;
+  SDL_Surface *namePrompt = NULL;
+  SDL_Surface *pieceSelectPrompt = NULL;
   SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 
   // Font
-    TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
+  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
   // Text Color
-   SDL_Color textColor = {255,255,255};
+  SDL_Color textColor = {255,255,255};
 
-      namePrompt = TTF_RenderText_Solid(font, "Enter your Name Player (value):", textColor);
-    pieceSelectPrompt = TTF_RenderText_Solid(font, "Select your piece:", textColor);
-     blit(100, 200, namePrompt, startScreen);
-    blit(100, 300, pieceSelectPrompt, startScreen);
-    TTF_CloseFont(font);
-    TTF_Quit();
-    SDL_Flip(startScreen);
-     while (xOut == false){
-       while (SDL_PollEvent( &mouseEvent )){
-	 if(mouseEvent.type == SDL_QUIT ){
-      	   SDL_FreeSurface(startScreen);
-	   SDL_FreeSurface(pieceSelectPrompt);
-	   SDL_FreeSurface(namePrompt);
+  namePrompt = TTF_RenderText_Solid(font, "Enter your Name Player (value):", textColor);
+  pieceSelectPrompt = TTF_RenderText_Solid(font, "Select your piece:", textColor);
+  blit(100, 200, namePrompt, startScreen);
+  blit(100, 300, pieceSelectPrompt, startScreen);
+  TTF_CloseFont(font);
+  TTF_Quit();
+  SDL_Flip(startScreen);
+  while (xOut == false){
+    while (SDL_PollEvent( &mouseEvent )){
+      if(mouseEvent.type == SDL_QUIT ){
+	SDL_FreeSurface(startScreen);
+	SDL_FreeSurface(pieceSelectPrompt);
+	SDL_FreeSurface(namePrompt);
 	xOut = true;
-	 }
-       }
-     }
+      }
+    }
+  }
 }
 
 void optionsMenu(){
-
+  SDL_Surface *optionsScreen = SDL_SetVideoMode( SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP, SDL_SWSURFACE);
+  SDL_Surface *soundPrompt = NULL;
+  SDL_Surface *onButton = NULL;
+  SDL_Surface *offButton = NULL;
+  SDL_Surface *okButton = NULL;
+  SDL_Surface *cancelButton = NULL;
 }
 
 void creditsMenu(){
-
+  SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH * (2/3), SCREEN_HEIGHT * (2/3), SCREEN_BPP, SDL_SWSURFACE);
+  SDL_Surface *okButton = NULL;
+  SDL_Surface *creditsText = NULL;
+  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
+  SDL_Color creditsColor = {100,200,0};
+  creditsText = TTF_RenderText_Solid(font, "
+  std::ifstream credits;
+  credits.open("credits.txt");
+  if (credits.is_open()){
+    std::cout << "File opened successfully." << std::endl;
+  }
+  else std::cout << "Unable to open credits file." << std::endl;
 }
 
 void highscoresMenu(){
