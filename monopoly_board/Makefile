@@ -4,7 +4,6 @@ MIKE_FILES=./Mike/Bland.o ./Mike/Board.o ./Mike/CardSpaces.o ./Mike/Game.o ./Mik
 
 FLAGS=-lSDL -lSDL_image
 
-
 main: monopoly_board.o ${MIKE_FILES}
 	g++ monopoly_board.o ${MIKE_FILES} -o monopoly ${FLAGS}
 
