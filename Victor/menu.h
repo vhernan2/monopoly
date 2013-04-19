@@ -68,7 +68,7 @@ void creditsMenu(){
   SDL_Surface *creditsText = NULL;
   TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
   SDL_Color creditsColor = {100,200,0};
-  creditsText = TTF_RenderText_Solid(font, "
+  creditsText = TTF_RenderText_Solid(font, 28);
   std::ifstream credits;
   credits.open("credits.txt");
   if (credits.is_open()){
