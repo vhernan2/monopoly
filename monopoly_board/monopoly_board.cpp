@@ -7,16 +7,16 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include <fstream>
 
-#include "Player.h"
-#include "Tile.h"
-#include "Board.h"
-#include "Property.h"
-#include "Game.h"
-#include "CardSpaces.h"
-#include "Bland.h"
-#include "Tax.h"
-#include "Jail.h"
-#include "Utility.h"
+#include "Mike/Player.h"
+#include "Mike/Tile.h"
+#include "Mike/Board.h"
+#include "Mike/Property.h"
+#include "Mike/Game.h"
+#include "Mike/CardSpaces.h"
+#include "Mike/Bland.h"
+#include "Mike/Tax.h"
+#include "Mike/Jail.h"
+#include "Mike/Utility.h"
 
 
 //Screen attributes
@@ -362,9 +362,17 @@ int main( int argc, char* args[] )
 		    case SDLK_SPACE:
 			playGame.turn();
 			currentPlayer = playGame.getCurrentPlayer();
+			cout << currentPlayer << endl;
 			apply_surface(0, 0, background, screen);
+			cout << "Player " << currentPlayer << " position: "<<playGame.getPlayerLocation(currentPlayer)<<endl;
 			unique_piece[currentPlayer].move(playGame.getPlayerLocation(currentPlayer));
-			for (int i = 0; i < players; i++ ) { apply_surface(unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen); }
+			for (int i = 0; i < players; i++ ) { 
+				apply_surface(unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen); 
+				cout << "Player " << i << "- (" << unique_piece[i].getX() << "," << unique_piece[i].getY() << ")\n";
+			}
+		    break;
+		    case SDLK_ESCAPE:
+			quit = true;
 		    break;		    
 		}
 		SDL_Flip(screen);

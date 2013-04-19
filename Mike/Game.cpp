@@ -27,7 +27,7 @@ Game::Game()
 		i++;
 	}
 
-	curPlayer=0;
+	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
 
 }
@@ -64,12 +64,12 @@ void Game::turn()
 	//		cout << endl << endl;
 	//	}
 	//}
-	while(1){
+//	while(1){
+		curPlayer = curPlayer++;
 		if (curPlayer >= players.size()) curPlayer = 0;
 		playerTurn(&players[curPlayer]);
-		curPlayer = curPlayer++;
 		cout << endl << endl;
-	}
+//	}
 }
 
 void Game::playerTurn(Player* current)
