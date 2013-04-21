@@ -10,10 +10,15 @@
 #include "SDL/SDL_image.h"
 #include <iostream>
 #include <fstream>
+
+// incuded functions
+void startMenu();
+void mainMenu();
 //Window Attributes
 const int SCREEN_WIDTH = 840;
 const int SCREEN_HEIGHT = 840;
 const int SCREEN_BPP = 32;
+SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
 int x, y; // used for offsets
 bool xOut = false;
 SDL_Event mouseEvent;
@@ -24,29 +29,33 @@ void cleanUp(){
 }
 
 void startMenu(){
-  SDL_Surface *startScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+
   SDL_Surface *namePrompt = NULL;
   SDL_Surface *pieceSelectPrompt = NULL;
+  SDL_Color textColor = {255,255,255};  // Text Color
+  SDL_Color bColor = {255,255,244};
+  SDL_FillRect(screen,NULL, 0x000000);
   SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 
   // Font
-  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
-  // Text Color
-  SDL_Color textColor = {255,255,255};
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont("lazy.ttf", 28);
 
-  namePrompt = TTF_RenderText_Solid(font, "Enter your Name Player (value):", textColor);
-  pieceSelectPrompt = TTF_RenderText_Solid(font, "Select your piece:", textColor);
-  blit(100, 200, namePrompt, startScreen);
-  blit(100, 300, pieceSelectPrompt, startScreen);
-  TTF_CloseFont(font);
-  TTF_Quit();
-  SDL_Flip(startScreen);
+    
+
+  namePrompt = TTF_RenderText_Shaded(font, "Enter your Name Player (value):", textColor,bColor);
+    // pieceSelectPrompt = TTF_RenderText_Solid(font, "Select your piece:", textColor);
+     blit(100, 200, namePrompt, screen);
+     blit(100, 300, pieceSelectPrompt, screen);
+   SDL_Flip(screen);
   while (xOut == false){
     while (SDL_PollEvent( &mouseEvent )){
       if(mouseEvent.type == SDL_QUIT ){
-	SDL_FreeSurface(startScreen);
-	SDL_FreeSurface(pieceSelectPrompt);
-	SDL_FreeSurface(namePrompt);
+	//	SDL_FreeSurface(pieceSelectPrompt);
+	//SDL_FreeSurface(namePrompt);
+	//	TTF_CloseFont(font);
+	//TTF_Quit();
+
 	xOut = true;
       }
     }
@@ -66,9 +75,9 @@ void creditsMenu(){
   SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH * (2/3), SCREEN_HEIGHT * (2/3), SCREEN_BPP, SDL_SWSURFACE);
   SDL_Surface *okButton = NULL;
   SDL_Surface *creditsText = NULL;
-  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
-  SDL_Color creditsColor = {100,200,0};
-  creditsText = TTF_RenderText_Solid(font, 28);
+  //  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
+  // SDL_Color creditsColor = {100,200,0};
+  // creditsText = TTF_RenderText_Solid(font,"credits", creditsColor);
   std::ifstream credits;
   credits.open("credits.txt");
   if (credits.is_open()){
@@ -107,7 +116,7 @@ void mainMenu(){
   SDL_Surface *credits = NULL;
   SDL_Surface *highscores = NULL;
   SDL_Surface *quit = NULL;
-  SDL_Surface *mainMenuScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+  
   SDL_WM_SetCaption( "Monopoly - Main Menu" , "Monopoly"); // SET WINDOW CAPTION
    
   // Load images
@@ -119,15 +128,15 @@ void mainMenu(){
   quit = loadImage("data/QUIT.bmp");
 
   // place buttons
-  blit(0,0, background,mainMenuScreen);
-  blit(420, 400, start, mainMenuScreen);
-  blit(420, 450, options, mainMenuScreen);
-  blit(420, 500,  credits, mainMenuScreen);
-  blit(400, 550, highscores, mainMenuScreen);
-  blit(420, 600, quit, mainMenuScreen);
+  blit(0,0, background,screen);
+  blit(420, 400, start, screen);
+  blit(420, 450, options, screen);
+  blit(420, 500,  credits, screen);
+  blit(400, 550, highscores, screen);
+  blit(420, 600, quit, screen);
   
   // display screen
-  SDL_Flip(mainMenuScreen);
+  SDL_Flip(screen);
 
   // HANDLE EVENTS
   // HANDLE X-OUT
@@ -143,29 +152,24 @@ void mainMenu(){
 	  x = mainMenuEvent.button.x;
 	  y = mainMenuEvent.button.y;
 	  if( (x > 420 && x < 470) && (y > 380 && y < 420) ){
-	    startMenu();
 	    SDL_FreeSurface(start);
 	    SDL_FreeSurface(options);
 	    SDL_FreeSurface(credits);
 	    SDL_FreeSurface(highscores);
 	    SDL_FreeSurface(quit);
-	    SDL_FreeSurface(mainMenuScreen);
+	    startMenu();
 
 	  }
 	  else if( (x > 420 && x < 470) && (y > 430 && y < 470) ){
-	    //SDL_FreeSurface(mainMenuScreen);
 	    optionsMenu();
 	  }
 	  else if( (x > 400 && x < 490) && (y > 480 && y < 520) ){
-	    //SDL_FreeSurface(mainMenuScreen);
 	    highscoresMenu();
 	  }
 	  else if( (x > 420 && x < 470) && (y > 530 && y < 570) ){
-	    SDL_FreeSurface(mainMenuScreen);
 	    creditsMenu();
 	  }
 	  else if( (x > 420 && x < 470) && (y > 580 && y < 620) ){
-	    //SDL_FreeSurface(mainMenuScreen);
 	    quitMenu();
 	  }
 	}
@@ -177,14 +181,6 @@ void mainMenu(){
     }
 
   }
-  // Free surfaces
-  SDL_FreeSurface(start);
-  SDL_FreeSurface(options);
-  SDL_FreeSurface(highscores);
-  SDL_FreeSurface(credits);
-  SDL_FreeSurface(quit);
-}
-
-
+ }
 
 #endif
