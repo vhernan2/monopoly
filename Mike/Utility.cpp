@@ -29,7 +29,8 @@ int Utility::interact(Player* current)
 		{
 
 		cout << "No one owns this location. Would you like to buy for " << cost << "? (y/n)";
-		cin >> response;
+		response = sdl.getResponse();
+//		cin >> response;
 		if(response == 'y')
 		{
 			current->changeInMoney(-cost);

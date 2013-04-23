@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Board.h"
 #include "Property.h"
+#include "SDL_logic.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -15,8 +16,8 @@ class Game
 	public:
 		Game();
 		~Game();
-		void turn(SDL_Event &event);
-		void playerTurn(Player*, SDL_Event &event);
+		void turn();
+		void playerTurn(Player*);
 		int rollDie(Player*);
 		void buildCheck(Player*);
 		void build(Player*);
@@ -27,10 +28,10 @@ class Game
 		void gameOver();
 
 	private:
-		char getResponse(SDL_Event &event);
 		int numPlayers;
 		int curPlayer;
 		vector<Player> players;
 		Board gameBoard;
+		SDL_logic sdl;
 };
 #endif

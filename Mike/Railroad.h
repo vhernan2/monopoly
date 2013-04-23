@@ -2,6 +2,7 @@
 #define RAILROAD_H
 #include "Tile.h"
 #include "Player.h"
+#include "SDL_logic.h"
 using namespace std;
 
 class Railroad : public Tile
@@ -15,5 +16,6 @@ class Railroad : public Tile
 	private:
 		int cost;
 		int rent;
+		SDL_logic sdl;
 };
 #endif

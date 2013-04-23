@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <iostream>
 
+#include "SDL_logic.h"
+
 using namespace std;
 
 Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, bool group) : Tile(indicate, title, player, money, take, refresh)
@@ -52,7 +54,8 @@ int Property::interact(Player* current)
 
 
 		cout << "No one owns this tile. Would you like to buy it for $" << cost << "? (y/n)";
-		cin >> response;
+		
+		response = sdl.getResponse();
 		if(response == 'y')
 		{
 			cout << "You bought " << title << " for $" << cost << "!" << endl;
