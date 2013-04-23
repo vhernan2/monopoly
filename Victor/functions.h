@@ -6,6 +6,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 #include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
 #include <string>
 
 // loadImage function will be used to load any image used for the game
@@ -19,6 +20,10 @@ SDL_Surface *loadImage( std::string fileName ){
   if( loaded != NULL ){
     optimized = SDL_DisplayFormat(loaded);     // optimize
     SDL_FreeSurface( loaded );     // Free old 
+    if ( optimized != NULL ){
+      Uint32 colorkey = SDL_MapRGB( optimized->format, 0, 0xFF, 0xFF );
+      SDL_SetColorKey( optimized, SDL_SRCCOLORKEY, colorkey);
+    }
   }
   return optimized;
 }
@@ -33,6 +38,39 @@ void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect*
 
   SDL_BlitSurface( source, clip, destination, &offset);
 
+}
+
+int keyDetect(){
+  SDL_Event keyPress;
+  while (SDL_PollEvent(&keyPress)){
+      switch (keyPress.type){
+      case SDLK_0:
+	continue;
+	break;
+      case SDLK_1:
+	return 1;
+	break;
+      case SDLK_2:
+	return 2;
+	break;
+      case SDLK_3:
+	return 3;
+	break;
+      case SDLK_4:
+	return 4;
+	break;
+      case SDLK_5:
+	return 5;
+	break;
+      case SDLK_6:
+	return 6;
+	break;
+      default:
+	continue;
+	break;
+      }
+
+    }
 }
 
 

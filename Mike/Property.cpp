@@ -1,5 +1,7 @@
 #include "Property.h"
+#include "Game.h"
 #include <iostream>
+
 using namespace std;
 
 Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, bool group) : Tile(indicate, title, player, money, take, refresh)
