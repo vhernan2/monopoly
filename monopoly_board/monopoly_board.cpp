@@ -403,7 +403,7 @@ int main( int argc, char* args[] )
 	    if (event.type == SDL_KEYDOWN){
 		switch (event.key.keysym.sym){
 		    case SDLK_SPACE:
-			playGame.turn(event);
+			playGame.turn();
 			currentPlayer = playGame.getCurrentPlayer();
 			apply_surface(0, 0, background, screen);
 			unique_piece[currentPlayer].move(playGame.getPlayerLocation(currentPlayer));

@@ -1,6 +1,6 @@
 SUBDIRS=Mike/ Victor/
 
-MIKE_FILES=./Mike/Bland.o ./Mike/Board.o ./Mike/CardSpaces.o ./Mike/Game.o ./Mike/Jail.o ./Mike/Player.o ./Mike/Property.o ./Mike/Railroad.o ./Mike/SAO.o ./Mike/SUB.o ./Mike/Tax.o ./Mike/Tile.o ./Mike/Utility.o
+MIKE_FILES=./Mike/Bland.o ./Mike/Board.o ./Mike/CardSpaces.o ./Mike/Game.o ./Mike/Jail.o ./Mike/Player.o ./Mike/Property.o ./Mike/Railroad.o ./Mike/SAO.o ./Mike/SUB.o ./Mike/Tax.o ./Mike/Tile.o ./Mike/Utility.o ./Mike/SDL_logic.o
 
 FLAGS=-lSDL -lSDL_image
 

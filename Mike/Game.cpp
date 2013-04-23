@@ -33,6 +33,7 @@ Game::Game()
 
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
+	sdl;
 
 }
 
@@ -58,68 +59,14 @@ int Game::rollDie(Player* current)
 	return move;
 }
 
-void Game::turn(SDL_Event &event)
-{
-	//while(1)
-	//{
-	//	for(int i = 0; i < numPlayers; i++)
-	//	{
-	//		playerTurn(&players[i]);
-	//		cout << endl << endl;
-	//	}
-	//}
-//	while(1){
-		curPlayer = curPlayer++;
-		if (curPlayer >= players.size()) curPlayer = 0;
-		playerTurn(&players[curPlayer], event);
-		cout << endl << endl;
-//	}
+void Game::turn(){
+	curPlayer = curPlayer++;
+	if (curPlayer >= players.size()) curPlayer = 0;
+	playerTurn(&players[curPlayer]);
+	cout << endl << endl;
 }
 
-//add logic to know which responses are valid??
-char Game::getResponse(SDL_Event &event){
-
-        bool quit = false;
-        char c;
-
-        while (quit == false) {
-                while( SDL_PollEvent( &event ) ){
-                        if (event.type == SDL_KEYDOWN){
-                                cout << "Key down" << endl;
-                                switch (event.key.keysym.sym){
-                                case SDLK_b:
-                                        c = 'b';
-                                        quit = true;
-                                        break;
-                                case SDLK_n:
-                                        c = 'n';
-                                        quit = true;
-                                        break;
-                                case SDLK_r:
-                                        c = 'r';
-                                        quit = true;
-                                        break;
-                                case SDLK_t:
-                                        c= 't';
-                                        quit = true;
-                                        break;
-                                case SDLK_v:
-                                        c='v';
-                                        quit = true;
-                                        break;
-                                case SDLK_y:
-                                        c='y';
-                                        quit = true;
-                                        break;
-                                }
-                        }
-                }
-        }
-        return c;
-
-}
-
-void Game::playerTurn(Player* current, SDL_Event &event)
+void Game::playerTurn(Player* current)
 {
 	char response;
 	char pay;
@@ -172,7 +119,9 @@ void Game::playerTurn(Player* current, SDL_Event &event)
 
 	cout << "What would you like to do? (R)oll, (B)uild, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
 
-	response = getResponse(event);
+//	response = getResponse(event);
+	response = sdl.getResponse();
+
 
 	switch(response)
 	{
