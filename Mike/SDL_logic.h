@@ -15,6 +15,7 @@ public:
 
 private:
 	SDL_Event event;
+	SDL_Surface *destination;
 
 };
 #endif

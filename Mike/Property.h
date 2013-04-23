@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "Player.h"
 #include "Game.h"
+#include "SDL_logic.h"
 using namespace std;
 
 class Property : public Tile
@@ -30,6 +31,7 @@ class Property : public Tile
 		int numHouses;
 		int rent;
 		bool groupOwned;
+		SDL_logic sdl;
 
 };
 #endif

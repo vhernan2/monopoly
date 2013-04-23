@@ -2,6 +2,7 @@
 #define UTILITY_H
 #include "Tile.h"
 #include "Player.h"
+#include "SDL_logic.h"
 using namespace std;
 
 class Utility : public Tile
@@ -15,6 +16,7 @@ class Utility : public Tile
 		virtual void setGroupOwned(int);
 
 	private:
+		SDL_logic sdl;
 		int cost;
 		int rent;
 		int numOwned;

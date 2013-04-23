@@ -22,7 +22,8 @@ int Railroad::interact(Player* current)
 		{
 
 		cout << "No one owns this location. Would you like to buy for $200? (y/n)";
-		cin >> response;
+		//cin >> response;
+		response = sdl.getResponse();
 		if(response == 'y')
 		{
 			current->changeInMoney(-cost);

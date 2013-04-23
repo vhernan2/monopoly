@@ -89,7 +89,7 @@ void Game::playerTurn(Player* current)
 				if(current->getMoney() > 50)
 				{
 					cout << "Would you like to pay off the service hours? (y/n)";
-					cin >> pay;
+					pay = sdl.getResponse();
 					if(pay == 'y')
 					{
 						current->payOffResLife();
