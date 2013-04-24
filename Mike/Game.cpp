@@ -59,7 +59,8 @@ int Game::rollDie(Player* current)
 	return move;
 }
 
-void Game::turn(){
+void Game::turn()
+{
 	curPlayer = curPlayer++;
 	if (curPlayer >= players.size()) curPlayer = 0;
 	playerTurn(&players[curPlayer]);
@@ -69,55 +70,23 @@ void Game::turn(){
 void Game::playerTurn(Player* current)
 {
 	char response;
-	char pay;
 	int output;	//stores index value from interact function
 	int playerRoll;		//stores value of player's roll
+	char choice;		//choice to mortgage or build
 
 	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
 	gameBoard.updateRentRR();		//updates the rent of the railroads based on how many a player owns
 	gameBoard.updateEffects(0);		//rolls through entire board and updates effects of properties
 	buildCheck(current);			//updates the deque of property titles player can build a house on
+	jailTime(current);			//checks for any behavior involving jail
 
-
-	if(current->getJail() == 1)
-	{
-			current->addTimeJail();
-			if(current->getTimeJail() != 0)
-			{
-				cout << current->getName() << ", you are stuck at res life!" << endl;
-				if(current->getMoney() > 50)
-				{
-					cout << "Would you like to pay off the service hours? (y/n)";
-					pay = sdl.getResponse();
-					if(pay == 'y')
-					{
-						current->payOffResLife();
-					}
-					else
-					{
-						cout << "You lose a turn!" << endl;
-						return;
-					}
-				}
-				else
-				{
-					cout << "You lose a turn!" << endl;
-					return;
-				}
-			}
-			else if(current->getTimeJail() == 0)
-			{
-				cout << current->getName() << ", you're out of res life!" << endl;
-				current->addTimeJail();
-			}
-	}
 
 	cout << current->getName() << " it is your turn" << endl;
 	cout << "Your current money is: $" << current->getMoney() << endl;
 	current->printTiles();
 
-	cout << "What would you like to do? (R)oll, (B)uild, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
+	cout << "What would you like to do? (R)oll, (P)lay, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
 
 //	response = getResponse(event);
 	response = sdl.getResponse();
@@ -137,11 +106,14 @@ void Game::playerTurn(Player* current)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-			gameOver();
 			break;
 
-		case 'b':
-			build(current);
+		case 'p':
+			cout << "Would you like to build or mortgage?: (B/M)";
+			cin >> choice;
+			if(choice == 'b') build(current);
+			if(choice == 'm') mortgage(current);
+			cout << "Time to roll!" << endl;
 			playerRoll = rollDie(current);
 			gameBoard.updateEffects(playerRoll);
 			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
@@ -153,11 +125,11 @@ void Game::playerTurn(Player* current)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-			gameOver();
 			break;
 
 		case 't':
 			trade(current);
+			cout << "Time to roll!" << endl;
 			playerRoll = rollDie(current);
 			gameBoard.updateEffects(playerRoll);
 			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
@@ -169,7 +141,6 @@ void Game::playerTurn(Player* current)
 				{
 					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 				}
-			gameOver();
 			break;
 
 
@@ -335,6 +306,79 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 	}
 }
 
+void Game::mortgage(Player* current)
+{
+	string place;
+	deque<string> owned;
+	int moveOn;	//is set to 1 if the player picks a valid tile
+	int mortgageReturn;	//amount player receives for mortgaging
+	char mortgageYN;	//players final decision	
+	int j;
+	bool status;		//bool representing mortgaged status of selected location
+
+	owned = current->getTiles();
+
+	current->printTiles();
+	cout << "What would you like to mortgage or unmortgage?";
+	getline(cin, place);
+
+	for(int i = 0; i < owned.size(); i++)
+	{
+		if(place == owned[i])
+		{
+			moveOn = 1;
+		}
+	}
+
+	if(moveOn == 0)
+	{
+		cout << "Sorry! That's not a tile you own!" << endl;
+		return;
+	}
+	else if(moveOn == 1)
+	{
+		for(j = 0; j < 40; j++)
+		{
+			if(gameBoard.accessSpace(j)->getTitle() == place)
+			{
+				mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
+				status = gameBoard.accessSpace(j)->getMortgage();
+			}
+		}
+		
+		if(status == 0)
+		{
+			cout << "Would you like to mortgage " << place << " and gain " << mortgageReturn << "? (y/n)";
+			cin >> mortgageYN;
+	
+			if(mortgageYN == 'n') return;
+			if(mortgageYN == 'y')
+			{
+				current->changeInMoney(mortgageReturn);
+				gameBoard.accessSpace(j)->setMortgage(1);
+			}
+		}
+		else if(status == 1 && current->getMoney() > mortgageReturn)
+		{
+			cout << "Would you like to unmortgage " << place << "? It will cost you " << mortgageReturn << ". (y/n)";
+			cin >> mortgageYN;
+	
+			if(mortgageYN == 'n') return;
+			if(mortgageYN == 'y')
+			{
+				current->changeInMoney(-mortgageReturn);
+				gameBoard.accessSpace(j)->setMortgage(0);
+			}
+		}
+		else if(status == 1 && current->getMoney() <= mortgageReturn)
+		{
+			cout << "This location is mortgaged, and you can't afford to unmortgage it!" << endl;
+		}
+
+	}
+}
+
+	
 int Game::getPlayers(){
 	return numPlayers;
 }
@@ -351,48 +395,56 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 {
 	string recipient;
 	int recipIndex;
-	string offer;
-	string request;
+	int offer;
+	int request;
 	char answer;
+	deque<string> options;
+	deque<string> playerOwns;
 
-	cout << current->getName() << " here is what everyone owns: " << endl;
+	cout << current->getName() << ", who would you like to trade with? Please input their number" << endl;
 	
 	for(int i = 0; i < players.size()-1; i++)
 	{
-		cout << players[i].getName() << ": ";
-		players[i].printTiles();
-		cout << endl;
+		cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
-	cout << "Who would you like to trade with? (Name please) ";
-	cin >> recipient;
+	cin >> recipIndex;
+	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
+	options = players[recipIndex].getTiles();
+	playerOwns = current->getTiles();
 
-	for(int i = 0; i < players.size()-1; i++)
+	for(int i = 0; i < options.size()-1; i++)
 	{
-		if(players[i].getName() == recipient) 
-		recipIndex = players[i].getIndex();
-		break;
+		cout << options[i] << ": " << i << endl;
 	}
 
-	cout << "What would you like to offer? ";
-	getline(cin, offer);
+	cout << "What would you like to trade for? Please enter the number associated with the name";
+	cin >> request;
 
-	cout << "And what would you like in return? ";
-	getline(cin, request);
+	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
 
-	cout << recipient << ", do you accept this trade? " << offer << " for " << request << "? (y/n)";
+	for(int i = 0; i < playerOwns.size()-1; i++)
+	{
+		cout << playerOwns[i] << ": " << i << endl;
+	}
+
+	cout << "Your offer: ";
+	cin >> offer; 
+
+	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)";
 	cin >> answer;
 
 	if(answer == 'n') return;
 	else if(answer == 'y')
 	{
+		cout << "Congratulations! Trade completed!" << endl;
 		for(int i = 0; i < 40; i++)
 		{
-			if(gameBoard.accessSpace(i)->getTitle() == request)
+			if(gameBoard.accessSpace(i)->getTitle() == options[request])
 			{
 				gameBoard.accessSpace(i)->setOwner(current->getIndex());
 			}
-			if(gameBoard.accessSpace(i)->getTitle() == offer)
+			if(gameBoard.accessSpace(i)->getTitle() == playerOwns[offer])
 			{
 				gameBoard.accessSpace(i)->setOwner(recipIndex);
 			}
@@ -400,14 +452,73 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 }
 
-void Game::gameOver()
+int Game::gameOver()
 {
 	for(int i = 0; i < players.size(); i++)
 	{
-		if(players[i].getMoney() <= 0)
+		if(players[i].getMoney() <= 0 && (players[i].getTiles()).empty())
 		{
 			cout << players[i].getName() << ", you have run out of money! You are eliminated from the game! Thanks for playing!" << endl;
-			players.erase(players.begin()+5);
+			players.erase(players.begin()+i);
 		}
+		else if(players[i].getMoney() <= 0 && !((players[i].getTiles().empty())))
+		{
+			cout << players[i].getName() << ", you have no money, but you do have properties! You will be sent to the mortgaging screen. Not mortgaging will result in your elimination" << endl;
+			mortgage(&players[i]);
+			if(players[i].getMoney() <= 0)
+			{
+				cout << "You still have no money! You are eliminated from the game! Thanks for playing!" << endl;
+				players.erase(players.begin()+i);
+			}
+		}
+	}
+
+	if(players.size() == 1)
+	{
+		cout << "Congratulations " << players[0].getName() << ", you are the only player remaining! You (and capitalism) win!" << endl;
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+	
+}
+
+void Game::jailTime(Player* current)
+{
+	char pay;
+
+	if(current->getJail() == 1)
+	{
+			current->addTimeJail();
+			if(current->getTimeJail() != 0)
+			{
+				cout << current->getName() << ", you are stuck at res life!" << endl;
+				if(current->getMoney() > 50)
+				{
+					cout << "Would you like to pay off the service hours? (y/n)";
+					pay = sdl.getResponse();
+					if(pay == 'y')
+					{
+						current->payOffResLife();
+					}
+					else
+					{
+						cout << "You lose a turn!" << endl;
+						return;
+					}
+				}
+				else
+				{
+					cout << "You lose a turn!" << endl;
+					return;
+				}
+			}
+			else if(current->getTimeJail() == 0)
+			{
+				cout << current->getName() << ", you're out of res life!" << endl;
+				current->addTimeJail();
+			}
 	}
 }

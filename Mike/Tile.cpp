@@ -96,3 +96,15 @@ void Tile::addHotels(int num)
 void Tile::manDeck(Player* current, Board* board)
 {
 }
+
+int Tile::getCost()
+{
+}
+
+void Tile::setMortgage(bool status)
+{
+}
+
+bool Tile::getMortgage()
+{
+}

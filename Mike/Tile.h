@@ -30,7 +30,10 @@ class Tile
 		virtual void addHotels(int);		//adds hotels, only used for Property inheritance
 
 		virtual void manDeck(Player*, Board*);	//will be used solely by CardSpaces
-	
+
+		virtual int getCost(); 		//will be used by all tiles that can be purchased
+		virtual void setMortgage(bool);		//will be used by all tiles that can be purchased	
+		virtual bool getMortgage();		//will be used by all tiles that can be purchased
 		
 
 	protected:

@@ -1,10 +1,11 @@
 #include "Railroad.h"
 using namespace std;
 
-Railroad::Railroad(int indicate, string title, int player, int money, int take, bool value, int amount, int number) : Tile(indicate, title, player, money, take, value)
+Railroad::Railroad(int indicate, string title, int player, int money, int take, bool value, int amount, int number, bool status) : Tile(indicate, title, player, money, take, value)
 {
 	cost = amount;
 	rent = number;
+	mortgaged = status;
 }
 
 int Railroad::interact(Player* current)
@@ -36,7 +37,7 @@ int Railroad::interact(Player* current)
 
 		}
 	}
-	else if(getOwner() != current->getIndex())
+	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
 		cout << "This location is owned. You lose $" << moneyEffect << endl;
 		current->changeInMoney(-moneyEffect);
@@ -47,6 +48,12 @@ int Railroad::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
+		return owner;
+	}
+	else if(getOwner() != current->getIndex() && mortgaged == 1)
+	{
+		cout << "This location is owned, but it is mortgaged! You don't lose any money!" << endl;
+		return owner;
 	}
 	
 }
@@ -65,4 +72,19 @@ void Railroad::payBack(Player* current)
 void Railroad::updateEffect(int count)
 {
 	moneyEffect = (rent*count);
+}
+
+int Railroad::getCost()
+{
+	return cost;
+}
+
+void Railroad::setMortgage(bool status)
+{
+	mortgaged = status;
+}
+
+bool Railroad::getMortgage()
+{
+	return mortgaged;
 }

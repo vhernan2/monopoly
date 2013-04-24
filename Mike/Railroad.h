@@ -8,14 +8,18 @@ using namespace std;
 class Railroad : public Tile
 {
 	public:
-		Railroad(int, string, int, int, int, bool, int, int);
+		Railroad(int, string, int, int, int, bool, int, int, bool);
 		virtual int interact(Player*);
 		virtual void payBack(Player*);
 		virtual void updateEffect(int);
+		virtual int getCost();
+		virtual void setMortgage(bool);
+		virtual bool getMortgage();
 
 	private:
 		int cost;
 		int rent;
+		bool mortgaged;
 		SDL_logic sdl;
 };
 #endif

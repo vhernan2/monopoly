@@ -25,7 +25,9 @@ class Game
 		int getCurrentPlayer();
 		int getPlayerLocation(int);
 		void trade(Player*);
-		void gameOver();
+		int gameOver();
+		void jailTime(Player*);
+		void mortgage(Player*);
 
 	private:
 		int numPlayers;

@@ -6,13 +6,14 @@
 
 using namespace std;
 
-Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, bool group) : Tile(indicate, title, player, money, take, refresh)
+Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, bool group, bool status) : Tile(indicate, title, player, money, take, refresh)
 {
 	cost = amount;
 	numHouses = houses;
 	numHotels = hotels;
 	rent = value;
 	groupOwned = group;
+	mortgaged = status;
 }
 
 void Property::addHotels(int num)
@@ -68,7 +69,7 @@ int Property::interact(Player* current)
 
 		}
 	}
-	else if(getOwner() != current->getIndex())
+	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
 		current->changeInMoney(-moneyEffect);
 		cout << "This tile is owned. You lose $" << moneyEffect << endl;
@@ -79,6 +80,12 @@ int Property::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
+		return owner;
+	}
+	else if(getOwner() != current->getIndex() && mortgaged == 1)
+	{
+		cout << "This tile is owned, but it is mortgaged! You lose no money!" << endl;
+		return owner;
 	}
 }
 
@@ -120,4 +127,19 @@ int Property::getHouses()
 int Property::getHotels()
 {
 	return numHotels;
+}
+
+int Property::getCost()
+{
+	return cost;
+}
+
+void Property::setMortgage(bool status)
+{
+	mortgaged = status;
+}
+
+bool Property::getMortgage()
+{
+	return mortgaged;
 }

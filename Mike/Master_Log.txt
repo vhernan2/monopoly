@@ -214,3 +214,22 @@ April 18 2013
 Done:
 	Player cannot make purchases that would cause their eliminatation, player can be eliminated at 0 dollars. Player can also now buy their way out of Res Life for $50,
 	only if they actually have the $50 to spend. Remaining features are trades and mortgaging.
+
+Time Spent: 1 hr 2 min
+Total Time: 33 hr 40 min
+
+April 24 2013
+8:05 p.m.
+
+To Do:
+	Implement mortgaging and trading fully, completing the logic for the monopoly game. Be sure that if a player is up to be eliminated the game checks to see if they own
+	anything and then asks them to mortgage these properties.
+
+April 24 2013
+11:30 p.m.
+
+Done:
+	Implemented a mortgaging and trading system that compiles, was unable to fully test it due to an issue with an SDL command that prevented the entire program from compiling.
+
+Time Spent: 3 hr 25 min
+Total Time: 37 hr 05 min

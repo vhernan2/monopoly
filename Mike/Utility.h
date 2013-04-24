@@ -9,16 +9,20 @@ class Utility : public Tile
 {
 	public:
 		Utility();
-		Utility(int, string, int, int, int, bool, int, int, int);
+		Utility(int, string, int, int, int, bool, int, int, int, bool);
 		virtual int interact(Player*);
 		virtual void payBack(Player*);
 		virtual void updateEffect(int);
 		virtual void setGroupOwned(int);
+		virtual int getCost();
+		virtual void setMortgage(bool);
+		virtual bool getMortgage();
 
 	private:
 		SDL_logic sdl;
 		int cost;
 		int rent;
 		int numOwned;
+		bool mortgaged;
 };
 #endif

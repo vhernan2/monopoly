@@ -7,11 +7,12 @@ Utility::Utility() : Tile()
 	rent = 10;
 }
 
-Utility::Utility(int indicate, string words, int player, int amount, int take, bool value, int money, int number, int owned) : Tile(indicate, words, player, amount, take, value)
+Utility::Utility(int indicate, string words, int player, int amount, int take, bool value, int money, int number, int owned, bool status) : Tile(indicate, words, player, amount, take, value)
 {
 	cost = money;
 	rent = number;
 	numOwned = owned;
+	mortgaged = status;
 }
 
 int Utility::interact(Player* current)
@@ -43,7 +44,7 @@ int Utility::interact(Player* current)
 
 		}
 	}
-	else if(getOwner() != current->getIndex())
+	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
 		cout << "This location is owned. You lose $" << moneyEffect << endl;
 		current->changeInMoney(-moneyEffect);
@@ -54,6 +55,12 @@ int Utility::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
+		return owner;
+	}
+	else if(getOwner() != current->getIndex() && mortgaged == 1)
+	{
+		cout << "This location is owned, but it is mortgaged! You don't lose any money!" << endl;
+		return owner;
 	}
 }
 		
@@ -83,4 +90,19 @@ void Utility::updateEffect(int roll)
 void Utility::setGroupOwned(int update)
 {
 	numOwned = update;
+}
+
+int Utility::getCost()
+{
+	return cost;
+}
+
+void Utility::setMortgage(bool status)
+{
+	mortgaged = status;
+}
+
+bool Utility::getMortgage()
+{
+	return mortgaged;
 }
