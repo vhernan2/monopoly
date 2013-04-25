@@ -25,9 +25,7 @@ int x, y; // used for offsets
 bool xOut = false; // used to detect xing out of screen
 
 // Font
-  // TTF_Font *font = NULL;
-TTF_Font *font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
-
+TTF_Font *font = NULL;
 // Text Color
 SDL_Color textColor = {255,255,255};
 SDL_Color bColor = {0,0,0};
@@ -40,6 +38,8 @@ SDL_Event mouseEvent; // used to detect mouse clicks
 SDL_Event keyPress; // used to detect a key press
 
 void cleanUp(){
+	TTF_CloseFont(font);
+	TTF_Quit();
 
 }
 
@@ -86,8 +86,6 @@ void startMenu(){
       if (mouseEvent.type == SDL_QUIT){
 	xOut = true;
 	SDL_FreeSurface(namePrompt);
-	TTF_CloseFont(font);
-	TTF_Quit();
       }
       else if (mouseEvent.type == SDL_MOUSEBUTTONDOWN){
 	// If left click
@@ -135,7 +133,6 @@ void startMenu(){
 }
 
 void optionsMenu(){
-  //  SDL_FillRect(screen,NULL, 0x000000);
   SDL_Surface *optionsScreen = SDL_SetVideoMode( SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP, SDL_SWSURFACE);
   SDL_Surface *soundPrompt = NULL;
   SDL_Surface *onButton = NULL;
@@ -143,16 +140,11 @@ void optionsMenu(){
   SDL_Surface *okButton = NULL;
   SDL_Surface *cancelButton = NULL;
   
-  //SDL_Color textColor = {255,255,255};  // Text Color
-  
   SDL_WM_SetCaption( "Monopoly - Options", "Options");
-
-  // Font
-  //TTF_Font *font = NULL;
-  //font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
+  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
   // Load Surfaces
   soundPrompt = TTF_RenderText_Shaded(font, "Sound: ", textColor,bColor);
-  
+
   // Apply Surface
   blit (10, 100, soundPrompt,optionsScreen);
   blit(100, 500, mainMenuButton,optionsScreen);
@@ -161,7 +153,7 @@ void optionsMenu(){
 }
 
 void creditsMenu(){
-  SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH * (2/3), SCREEN_HEIGHT * (2/3), SCREEN_BPP, SDL_SWSURFACE);
+  SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH , SCREEN_HEIGHT , SCREEN_BPP, SDL_SWSURFACE);
   SDL_WM_SetCaption( "Monopoly - Credits", "Credits");
   SDL_Surface *okButton = NULL;
   SDL_Surface *creditsText = NULL;
@@ -190,14 +182,17 @@ void quitMenu(){
    SDL_WM_SetCaption("Quit?", "Quit");
    SDL_Surface *verifyQuitScreen = NULL;
    SDL_Surface *quitPrompt = NULL;
-  // Font
-  TTF_Font *font = TTF_OpenFont("lazy.ttf", 28);
-  // Text Color
-  SDL_Color textColor = {255,255,255};
-  quitPrompt = TTF_RenderText_Solid(font, "Are you sure you want to quit?", textColor);
-  verifyQuitScreen = SDL_SetVideoMode( SCREEN_WIDTH/2, SCREEN_HEIGHT/5, SCREEN_BPP, SDL_SWSURFACE );
+   SDL_Surface *background = NULL;
+
+  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
+  quitPrompt = TTF_RenderText_Shaded(font, "Are you sure you want to quit?", textColor,bColor);
+  background = loadImage("data/quitBg.bmp");
+
+  verifyQuitScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+
   SDL_WM_SetCaption("Are You Sure?", NULL);
-  blit(5,10,quitPrompt,verifyQuitScreen);
+  blit(0, 0, background, verifyQuitScreen);
+  blit(200,600,quitPrompt,verifyQuitScreen);
   SDL_Flip(verifyQuitScreen);
   SDL_Delay(2000);
   
