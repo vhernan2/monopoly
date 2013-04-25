@@ -1,6 +1,6 @@
 all: main
 main: test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o SUB.o SAO.o SDL_logic.o Game.o
-	g++ test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o SUB.o SAO.o SDL_logic.o Game.o -o main
+	g++ test.o Player.o Board.o Tile.o Property.o Railroad.o CardSpaces.o Bland.o Tax.o Jail.o Utility.o SUB.o SAO.o SDL_logic.o Game.o -o main -lSDL -lSDL_image
 
 Player.o: Player.cpp
 	g++ -c Player.cpp
