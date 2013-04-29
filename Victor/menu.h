@@ -43,16 +43,16 @@ void cleanUp(){
 void startMenu(){
 SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
   SDL_Surface *startMenu = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
-  SDL_Surface *quit = loadImage("data/QUIT.bmp");
-  SDL_Surface *mainMenuButton = loadImage("data/mainMenuButton.bmp");
+  SDL_Surface *ok = loadImage("data/OK.bmp");
+  SDL_Surface *mainMenuButton = loadImage("data/mainMenu.bmp");
   SDL_Surface *namePrompt = NULL;
   SDL_Surface *b1 = NULL, *b2 = NULL, *b3 = NULL, *b4 = NULL, *b5 = NULL, *b6 = NULL;
   SDL_Color textColor = {255,255,255};  // Text Color
   SDL_Color bColor = {0,0,0};
 
   // location variables
-  int b1X, b2X, b3X, b4X, b5X, b6X;
-  int b1Y, b2Y, b3Y, b4Y, b5Y, b6Y;
+  int b1X, b2X, b3X, b4X, b5X, b6X, oX, mmX;
+  int b1Y, b2Y, b3Y, b4Y, b5Y, b6Y, oY, mmY;
 
   font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
   namePrompt = TTF_RenderText_Shaded(font, "How Many Players will be participating today?:", textColor,bColor);
@@ -80,7 +80,8 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
   b5X = ( SCREEN_WIDTH*5/7 );
   b6X = ( SCREEN_WIDTH*6/7 );
   b1Y = b2Y = b3Y = b4Y = b5Y = b6Y = ( SCREEN_HEIGHT/3 );
- 
+  oX = 3*SCREEN_WIDTH/4; oY = SCREEN_HEIGHT-100 ;
+  mmX = SCREEN_WIDTH/4; mmY= SCREEN_HEIGHT-100;
      blit(10, 200, namePrompt, startMenu);
      blit(b1X, b1Y, b1, startMenu);
      blit(b2X, b2Y, b2, startMenu);
@@ -88,8 +89,8 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
      blit(b4X, b4Y, b4, startMenu);
      blit(b5X, b5Y, b5, startMenu);
      blit(b6X, b6Y, b6, startMenu);
-     blit(SCREEN_HEIGHT-100, SCREEN_WIDTH-100, quit, startMenu);
-     blit(100, 500, mainMenuButton,startMenu);
+     blit(oX, oY, ok, startMenu);
+     blit(mmX, mmY, mainMenuButton,startMenu);
 
    SDL_Flip(startMenu);
   
@@ -101,58 +102,120 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
       }
       else if (mouseEvent.type == SDL_MOUSEBUTTONDOWN){
 	// If left click
-	int press = 0;
 	if(mouseEvent.button.button == SDL_BUTTON_LEFT){
 	  x = mouseEvent.button.x;
 	  y = mouseEvent.button.y; 
 	  if ( (x > b1X && x < b1X+43) && (y > b1Y && y < b1Y+31) ) { // if one player
-	    SDL_FreeSurface(b1);
-	    b1 = loadImage("data/1pressed.bmp");
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    b1 = loadImage("data/1pressed.bmp"); b6 = loadImage("data/6.bmp");
+	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
+	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
+	    // Reapply Surfaces
 	    blit(b1X, b1Y, b1, startMenu);
-	    SDL_Flip(startMenu);
-	    numberOfPlayers=1;
+	    blit(b2X, b2Y, b2, startMenu);
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=1; // Player Value 
 	    
 	  }
-	  else if ( (x > 220 && x < 230) && (y > 250 && y < 270) ) { // two players
-	    press = 2;
-	    b2 = loadImage("data/2pressed.bmp");
-	    numberOfPlayers=2;
-	  }
-	  else if ( (x > 270 && x < 280) && (y > 250 && y < 270) ) { // 3 players
-	    press = 3;
-	    b3 = loadImage("data/3pressed.bmp");
-	    numberOfPlayers=3;
-	  }
-	  else if ( (x > 320 && x < 330) && (y > 250 && y < 270) ) { // 4 players
-	    press = 4;
-	    b4 = loadImage("data/4pressed.bmp");
-	    numberOfPlayers=4;
-	  }
-	  else if ( (x > 370 && x < 380) && (y > 250 && y < 270) ) { // 5 players
-	    b5 = loadImage("data/5pressed.bmp");
-	    numberOfPlayers=5;
-	  }
-	  else if ( (x > 420 && x < 430) && (y > 250 && y < 270) ) { // 6 players
-	    b6 = loadImage("data/6pressed.bmp");
-	    numberOfPlayers=6;
-	  }
-	  else if ( (x > 500 && x < 550) && (y > 500 && y < 550) ) { // quit button selected
-	    xOut = true;
-	  }
-	  else if ( (x > 200 && x < 250) && (y > 500 && y < 550) ) { // main menu button selected 
-	    mainMenu();
-	  }
-	  switch (press){
-	  case 1:
-
-	    break;
-	  case 2:
-	    SDL_FreeSurface(b2);
-	    b2 = loadImage("data/2pressed.bmp");
+	  else if ( (x > b2X && x < b2X+43) && (y > b2Y && y < b2Y+31) ) { // two players
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    SDL_FreeSurface(startMenu);
+	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6.bmp");
+	    b2 = loadImage("data/2pressed.bmp"); b3 = loadImage("data/3.bmp");
+	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
+	    // Reapply Surfaces
+	    blit(b1X, b1Y, b1, startMenu);
 	    blit(b2X, b2Y, b2, startMenu);
-	    SDL_Flip(startMenu);
-	    numberOfPlayers=2;
-	    break;
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=2; // Player Value 
+
+	  }
+	  else if ( (x > b3X && x < b3X+43) && (y > b3Y && y < b3Y+31) ) { // 3 players
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6.bmp");
+	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3pressed.bmp");
+	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
+	    // Reapply Surfaces
+	    blit(b1X, b1Y, b1, startMenu);
+	    blit(b2X, b2Y, b2, startMenu);
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=3; // Player Value 
+	  }
+	  else if ( (x > b4X && x < b4X+43) && (y > b4Y && y < b4Y+31) ) { // 4 players
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6.bmp");
+	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
+	    b4 = loadImage("data/4pressed.bmp"); b5 = loadImage("data/5.bmp");
+	    // Reapply Surfaces
+	    blit(b1X, b1Y, b1, startMenu);
+	    blit(b2X, b2Y, b2, startMenu);
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=4; // Player Value 
+	  }
+	  else if ( (x > b5X && x < b5X+43) && (y > b5Y && y < b5Y+31) ) { // 5 players
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6.bmp");
+	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
+	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5pressed.bmp");
+	    // Reapply Surfaces
+	    blit(b1X, b1Y, b1, startMenu);
+	    blit(b2X, b2Y, b2, startMenu);
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=5; // Player Value 
+	  }
+	  else if ( (x > b6X && x < b6X+43) && (y > b6Y && y < b6Y+41) ) { // 6 players
+	    // This allows for returning a pressed button to unpressed
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6pressed.bmp");
+	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
+	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
+	    // Reapply Surfaces
+	    blit(b1X, b1Y, b1, startMenu);
+	    blit(b2X, b2Y, b2, startMenu);
+	    blit(b3X, b3Y, b3, startMenu);
+	    blit(b4X, b4Y, b4, startMenu);
+	    blit(b5X, b5Y, b5, startMenu);
+	    blit(b6X, b6Y, b6, startMenu);
+	    SDL_Flip(startMenu); // Refresh Screen
+	    numberOfPlayers=6; // Player Value 
+	  }
+	  if ( (x > oX && x < oX+109) && (y > oY && y < oY+23) ) { // ok button selected
+	    xOut = true;
+	    std::cout << "NAME INFORMATION";
+	  }
+	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
+	    mainMenu();
 	  }
 
 	}
