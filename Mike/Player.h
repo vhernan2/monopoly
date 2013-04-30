@@ -14,6 +14,7 @@ class Player
 		Player(int);
 		int getMoney();			//gets player's money total
 		int getJail();			//gets player's jail status
+		void setJail(bool);			//sets player's jail status
 		void setGamePiece(int);		//sets players piece value
 		void setName(string);		//sets player's name
 		void setPosition(int);		//sets a player's position
@@ -36,6 +37,7 @@ class Player
 		void advance(int);		//will change piece's position
 		void payOffResLife();		//player can pay their way out of jail time
 		void changeGOOJ(bool);		//will affect player's GOOJ status
+		bool getGOOJ();			//get's player's GOOJ status
 
 	private:
 		int totalMoney;	//players total money

@@ -191,3 +191,13 @@ void Player::payOffResLife()
 	inJail = 0;
 	changeInMoney(-50);
 }
+
+void Player::setJail(bool status)
+{
+	inJail = status;
+}
+
+bool Player::getGOOJ()
+{
+	return GOOJ;
+}

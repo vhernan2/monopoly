@@ -226,6 +226,11 @@ void Game::playerPostRoll(Player* current){
 	}
 
 	response = 'z';
+	if(current->getJail())
+	{
+		response = 'o';
+	}
+
 	while (response != 'o'){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
@@ -637,6 +642,12 @@ void Game::jailTime(Player* current)
 			if(current->getTimeJail() != 0)
 			{
 				cout << current->getName() << ", you are stuck at res life!" << endl;
+				if(current->getGOOJ() == 1)
+				{
+					current->setJail(0);
+					cout << "You got out of res life for free!" << endl;
+					return;
+				}
 				if(current->getMoney() > 50)
 				{
 					cout << "Would you like to pay off the service hours? (y/n)";
@@ -662,6 +673,11 @@ void Game::jailTime(Player* current)
 				cout << current->getName() << ", you're out of res life!" << endl;
 				current->addTimeJail();
 			}
+	}
+	else if(current->getJail() == 0 && current->getPosition() == 10)
+	{
+		cout << "You landed on res life! Just passing through..." << endl;
+		return;
 	}
 }
 

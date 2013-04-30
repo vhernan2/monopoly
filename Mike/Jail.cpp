@@ -18,7 +18,7 @@ int Jail::interact(Player* current)
 		cout << current->getName() << ", you landed on " << title << ", you are stuck at Res Life!" << endl; 
 		current->goToJail();
 	}
-	if(title == "Res Life")
+/*	if(title == "Res Life")
 	{
 		if(current->getJail() == 1)
 		{
@@ -29,11 +29,15 @@ int Jail::interact(Player* current)
 				cout << "You're free to go!" << endl;
 				current->changeInMoney(-50);
 			}
+			else
+			{
+				return owner;
+			}
 		}
 		else
 		{
 			cout << "You landed on Res Life! Just passing through..." << endl;
 		}
-	}
+	}*/
 	return owner;
 }
