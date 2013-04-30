@@ -1,0 +1,79 @@
+DISCLAIMER - ALL TOTAL TIME MEASURED ON THIS TIME LOG ARE EXCLUSIVE TO THE
+TIMES RECORDED IN THIS TIME LOG (sorry, there's other scattered time logs
+that were submitted into the lab_project)
+
+MONDAY, APRIL 15
+
+5:00 - Walk into the lab
+7:00 - Loaded multiple player pieces into an array stored within 
+	monopoly_board.cpp.  Rendered it so that multiple pieces can now move
+	independently
+9:00 - Unify the board display with monopoly logic - pieces now identify with
+	a certain player
+10:00 - Finalized the movements, fully integrating dice rolls with the 
+	piece movement.  Piece movement now uses a massive switch statement
+	to determine its proper location.
+
+TOTAL TIME = 5 hours
+
+TUESDAY APRIL 16
+8:00 - begin group meeting
+9:00 - end group meeting - discussed where we are heading, began laying
+	down ground work for how to integrate drop-down menus into the
+	display for monopoly
+
+TOTAL TIME = 6 hours
+
+THURSDAY APRIL 18
+9:00 - Walk into the lab
+10:30 - added robustness to the includes by changing source files to a sym
+	link to Mike/ folder (where monopoly logic is housed). Edited Makefile
+	to run in both the monopoly_board/ folder and the Mike/ folder, pulling
+	all necessary .o files
+11:30 - Still exploring ways to get the user inputs routed to the screen
+12:30 - I did it - by passing the SDL &event reference through to board, you
+	can run commands within monopoly functionality. Will begin to pass this 	functionality through to other places
+
+TOTAL TIME = 9.5 hours
+
+MONDAY APRIL 22
+11:00 PM - walk into lab
+11:30 - folded the SDL &event structure into its own class called SDL_logic
+	This can now be included into all levels of the program, and we should
+	be looking at a text command, board controlled version pretty shortly
+2:30 AM - finished folding all of monopoly_board.cpp into it's own .cpp/.h
+	files, complete with a new driver. Hopefully this will make it easier
+	to pass reference to the board's surface, but if not then the code is
+	still broken down into easier to understand pieces that are all more
+	flexible
+4:15 AM - My ideas weren't working - tried passing the entire monopoly_board
+	object through to Game, but guess that won't fly. Did a git push 
+	at the 2:30 though, so I checked out back to that and will look at
+	this again soon
+
+TOTAL TIME = 14.75 hours
+
+MONDAY APRIL 29
+8:00 PM - walk into the lab
+10:00 PM - beginnings of image application from within Game working
+10:30 PM - trying to restructure the interior format of the code
+12:45 AM - That reformatting did not go well, kept having to clear my
+directory as it got too convuluted.  Will proceed with current setup for now
+1:08 AM - Property Cards applied to screen
+2:11 AM - SAO and SUB cards beginning to point get on screen - some debugging
+left
+3:00 AM - SAO and SUB cards successfully located, added corner cards
+3:30 AM - Retooled how tiles are bought
+4:30 AM - continued reworking the logic of board, added more functionality to
+	SDL_Logic
+5:30 AM - view option is now up and running, took some time to code in the
+	exact dimensions of the whitespace to cover up unowned tiles
+	though. This creates a nice setup for trade functionality
+5:45 AM - I gotta call it...still things to do, but it is time to sleep
+
+TOTAL TIME: 25.5 hours
+
+TUESDAY APRIL 30
+4:00 PM - walk into lab
+5:00 PM - debugged Railroad, Utility, and part of Jail with Mike, added more
+	images to the screen display, debugged SAO and SUB
