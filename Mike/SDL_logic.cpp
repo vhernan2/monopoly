@@ -73,6 +73,47 @@ char SDL_logic::getResponse(){
 					c = 'n';
 					quit = true;
 					break;
+				case SDLK_0:
+					c = '0';
+					quit = true;
+					break;
+				case SDLK_1:
+					c = '1';
+					quit = true;
+					break;
+				case SDLK_2:
+					c = '2';
+					quit = true;
+					break;
+				case SDLK_3:
+					c = '3';
+					quit = true;
+					break;
+				case SDLK_4:
+					c = '4';
+					quit = true;
+					break;
+				case SDLK_5:
+					c = '5';
+					quit = true;
+					break;
+				case SDLK_6:
+					c = '6';
+					quit = true;
+					break;
+				case SDLK_7:
+					c = '7';
+					quit = true;
+					break;
+				case SDLK_8:
+					c = '8';
+					quit = true;
+					break;
+				case SDLK_9:
+					c = '9';
+					quit = true;
+					break;
+
                                 case SDLK_b:
                                         c = 'b';
                                         quit = true;
