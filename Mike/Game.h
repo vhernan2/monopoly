@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "Property.h"
 #include "SDL_logic.h"
+#include "monopoly_board/Monopoly_Board.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -29,11 +30,19 @@ class Game
 		void jailTime(Player*);
 		void mortgage(Player*);
 
+		void addScreen(SDL_Surface *);
+
 	private:
 		int numPlayers;
 		int curPlayer;
 		vector<Player> players;
 		Board gameBoard;
 		SDL_logic sdl;
+		SDL_Surface* screen;
+		
+		SDL_Surface *preRollImage;
+		SDL_Surface *postRollImage;
+		SDL_Surface *tile[40];
+
 };
 #endif
