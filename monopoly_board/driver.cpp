@@ -13,17 +13,25 @@ int main (){
 	cout << "getPlayers() success\n";
 	Monopoly_Board showMonopoly(players);
 	cout << "showMonopoly() success\n";
+
+	//this gets the screen that we display on
 	SDL_Surface *screen = showMonopoly.getScreen();
+
+	//Victor(screen)
+	
+	//passses screen into Game
 	playMonopoly.addScreen(screen);
 	cout << "playMonopoly() success\n";
-
-	while (showMonopoly.keep_playing()){
-		playMonopoly.turn();
-		current = playMonopoly.getCurrentPlayer();
-		location = playMonopoly.getPlayerLocation(current);
-		showMonopoly.turn(current, location);
-	}
-
+//	while not quit
+//		Victor
+		while (showMonopoly.keep_playing()){
+			playMonopoly.turn();
+			current = playMonopoly.getCurrentPlayer();
+			location = playMonopoly.getPlayerLocation(current);
+			showMonopoly.turn(current, location);
+		}
+//		should we quit
+//	end loop
 	showMonopoly.clean_up();
 
 }
