@@ -528,7 +528,7 @@ int Game::view(Player* current){
         if (current->notOwnTile("Pasquerilla East")) sdl.apply_surface(sprite_x+106, sprite_y+276, whitespace, screen);
         if (current->notOwnTile("O'Neill Hall")) sdl.apply_surface(sprite_x+27, sprite_y+351, whitespace, screen);
         if (current->notOwnTile("Keough Hall")) sdl.apply_surface(sprite_x+105, sprite_y+351, whitespace, screen);
-        if (current->notOwnTile("Duncan Hall")) sdl.apply_surface(sprite_x+1186, sprite_y+353, whitespace, screen);
+        if (current->notOwnTile("Duncan Hall")) sdl.apply_surface(sprite_x+186, sprite_y+353, whitespace, screen);
         if (current->notOwnTile("Notre Dame Stadium")) sdl.apply_surface(sprite_x+32, sprite_y+426, whitespace, screen);
         if (current->notOwnTile("J.A.C.C.")) sdl.apply_surface(sprite_x+110, sprite_y+427, whitespace, screen);
         if (current->notOwnTile("Compton Ice Arena")) sdl.apply_surface(sprite_x+188, sprite_y+426, whitespace, screen);
