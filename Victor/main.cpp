@@ -2,6 +2,7 @@
 #include <string>
 #include "functions.h"
 #include "menu.h"
+#include "audio.h"
 using namespace std;
 
 // global variables

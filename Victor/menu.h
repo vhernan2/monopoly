@@ -6,6 +6,7 @@
 
 #ifndef MENU_H
 #include "functions.h"
+#include "audio.h"
 #include "SDL/SDL_ttf.h"
 #include <iostream>
 #include <fstream>
@@ -23,7 +24,8 @@ const int SCREEN_BPP = 32;
 static int numberOfPlayers;
 int x, y; // used for offsets
 bool xOut = false; // used to detect xing out of screen
-
+bool musicOn = true; // used to determine whether to play music
+bool SFXOn = true; // used to determine whether to enable Sound Effects
 // Font
 TTF_Font *font = NULL;
 // Text Color
@@ -225,24 +227,91 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 }
 
 void optionsMenu(){
+  // Surface for Options Menu
   SDL_Surface *optionsScreen = SDL_SetVideoMode( SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP, SDL_SWSURFACE);
-  SDL_Surface *mainMenuButton = loadImage("data/mainMenuButton.bmp");
   SDL_Surface *soundPrompt = NULL;
   SDL_Surface *onButton = NULL;
   SDL_Surface *offButton = NULL;
-  SDL_Surface *okButton = NULL;
-  SDL_Surface *cancelButton = NULL;
+  SDL_Surface *okButton = loadImage( "data/OK.bmp" );
+  SDL_Event optionEvent;
   
-  SDL_WM_SetCaption( "Monopoly - Options", "Options");
-  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
-  // Load Surfaces
-  soundPrompt = TTF_RenderText_Shaded(font, "Sound: ", textColor,bColor);
+  SDL_WM_SetCaption( "Monopoly - Options", "Options"); // Caption
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28); // Font
 
-  // Apply Surface
-  blit (10, 100, soundPrompt,optionsScreen);
-  blit(100, 500, mainMenuButton,optionsScreen);
+  // locations
+  int onX = 100;
+  int offX = 300;
+  int okX = SCREEN_WIDTH/2;
+  int onY = 100;
+  int offY = onY;
+  int okY = SCREEN_HEIGHT-100;
+
+  // Load Surfaces
+  onButton = loadImage( "data/ON.bmp" );
+  offButton = loadImage( "data/OFF.bmp" );
+  soundPrompt = TTF_RenderText_Shaded(font, "Sound: ", textColor,bColor);
+  
+  // Apply Surfaces
+  blit (10, 50, soundPrompt,optionsScreen);
+  blit (onX, onY, onButton, optionsScreen);
+  blit (offX, offY, offButton, optionsScreen);
+  blit (okX, okY, okButton, optionsScreen);
+
   // FLIP
   SDL_Flip(optionsScreen);
+
+  // Option Menu Event Handling
+   while (xOut == false){
+    while (SDL_PollEvent( &optionEvent )){
+      if(optionEvent.type == SDL_QUIT ){  // if x-out
+	xOut = true;
+      }
+      else if (optionEvent.type == SDL_MOUSEBUTTONDOWN){ // detect mouse clicks
+	// If left click
+	if(optionEvent.button.button == SDL_BUTTON_LEFT){
+	  // get mouse locations
+	  x = optionEvent.button.x;
+	  y = optionEvent.button.y;
+
+	  // size of buttons are 53 x 23 so check boundaries for button press
+	  if( (x > onX && x < onX + 53) && (y > onY && y < onY + 23) ){ // if on
+	    SDL_FreeSurface(offButton);
+	    SDL_FreeSurface(onButton);
+	    onButton = loadImage( "data/ONpressed.bmp" );
+	    offButton = loadImage( "data/OFF.bmp" );
+	    blit(onX,onY,onButton,optionsScreen);
+	    blit(offX,offY,offButton,optionsScreen);
+	    if (musicOn = false)
+	      gameMusic();
+	    musicOn = true;
+	    SDL_Flip(optionsScreen);
+	  }
+	  else if( (x > offX && x < offX + 53) && (y > offY && y < offY + 23) ){ // if off button
+	    SDL_FreeSurface(onButton);
+	    SDL_FreeSurface(offButton);
+	    offButton = loadImage( "data/OFFpressed.bmp" );
+	    onButton = loadImage( "data/ON.bmp" );
+	    blit(onX,onY,onButton,optionsScreen);
+	    blit(offX,offY,offButton,optionsScreen);
+	    musicOn = false;
+	    closeMusic();
+	    SDL_Flip(optionsScreen);
+	    
+
+	  }
+	  else if( (x > okX && x < okX + 109) && (y > okY && y < okY + 23) ){ // OK button
+	    SDL_FreeSurface(onButton);
+	    SDL_FreeSurface(offButton);
+	    SDL_FreeSurface(okButton);
+	    mainMenu();
+	  }
+	}
+	else if(optionEvent.button.button == SDL_BUTTON_RIGHT){
+	  // do nothing
+	}
+      }
+    }
+   }
 }
 
 void creditsMenu(){
@@ -251,8 +320,7 @@ void creditsMenu(){
   SDL_Surface *okButton = NULL;
   SDL_Surface *creditsText = NULL;
   
-  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
-
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28);
   std::ifstream credits;
   std::string line;
   const char *output;
@@ -263,17 +331,20 @@ void creditsMenu(){
       output = line.c_str();
       creditsText = TTF_RenderText_Shaded(font,output,textColor,bColor);
       blit(textX,textY, creditsText, creditsScreen);
-      if ((textX+line.length()*20+100) >= SCREEN_WIDTH){
+      if ((textX+(line.length()*25+100)) >= SCREEN_WIDTH){
 	textX = 0;
-	textY = textY + 100;
+	textY = textY + 50;
       }
-      else textX += line.length()*20;
+      else if (line.length() < 10){
+	textX += 20*line.length();
+      }
+      else textX += 13*line.length();
           }
   }
 
 
  
- SDL_Flip(creditsScreen);
+  SDL_Flip(creditsScreen);
 }
 
 void quitMenu(){
@@ -331,6 +402,9 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
   // display screen
   SDL_Flip(screen);
 
+  // sound 
+  if (musicOn)
+   gameMusic();
   // HANDLE EVENTS
 
   while (xOut == false){
@@ -357,12 +431,29 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
 
 	  }
 	  else if( (x > oX && x < oX + 109) && (y > oY && y < oY + 23) ){
+	    SDL_FreeSurface(background);
+	    SDL_FreeSurface(start);
+	    SDL_FreeSurface(options);
+	    SDL_FreeSurface(credits);
+	    SDL_FreeSurface(quit);
+	    creditsMenu();
 	    optionsMenu();
 	  }
 	  else if( (x > cX && x < cX + 109) && (y > cY && y < cY + 23) ){
+	    SDL_FreeSurface(background);
+	    SDL_FreeSurface(start);
+	    SDL_FreeSurface(options);
+	    SDL_FreeSurface(credits);
+	    SDL_FreeSurface(quit);
 	    creditsMenu();
 	  }
 	  else if( (x > qX && x < qX + 109) && (y > qY && y < qY + 23) ){
+	    SDL_FreeSurface(background);
+	    SDL_FreeSurface(start);
+	    SDL_FreeSurface(options);
+	    SDL_FreeSurface(credits);
+	    SDL_FreeSurface(quit);
+	    creditsMenu();
 	    quitMenu();
 	  }
 	}
