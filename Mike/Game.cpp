@@ -511,28 +511,35 @@ int Game::view(Player* current){
 	sdl.apply_surface(150,150, postRollImage, screen);
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
 
-	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+17, whitespace, screen);
-        if (current->notOwnTile("Ryan Hall")) sdl.apply_surface(sprite_x+95, sprite_y+17, whitespace, screen);
-        if (current->notOwnTile("McGlinn Hall")) sdl.apply_surface(sprite_x+179, sprite_y+17, whitespace, screen);
-        if (current->notOwnTile("The Grotto")) sdl.apply_surface(sprite_x+15, sprite_y+113, whitespace, screen);
-        if (current->notOwnTile("Main Building")) sdl.apply_surface(sprite_x+97, sprite_y+113, whitespace, screen);
-        if (current->notOwnTile("Seigfried Hall")) sdl.apply_surface(sprite_x+15, sprite_y+213, whitespace, screen);
-        if (current->notOwnTile("Lewis Hall")) sdl.apply_surface(sprite_x+101, sprite_y+213, whitespace, screen);
-        if (current->notOwnTile("Carrol Hall")) sdl.apply_surface(sprite_x+188, sprite_y+218, whitespace, screen);
-        if (current->notOwnTile("Pasquerilla West")) sdl.apply_surface(sprite_x+20, sprite_y+304, whitespace, screen);
-        if (current->notOwnTile("Pasquerilla East")) sdl.apply_surface(sprite_x+101, sprite_y+305, whitespace, screen);
-        if (current->notOwnTile("O'Neill Hall")) sdl.apply_surface(sprite_x+26, sprite_y+399, whitespace, screen);
-        if (current->notOwnTile("Keough Hall")) sdl.apply_surface(sprite_x+102, sprite_y+399, whitespace, screen);
-        if (current->notOwnTile("Duncan Hall")) sdl.apply_surface(sprite_x+179, sprite_y+399, whitespace, screen);
-        if (current->notOwnTile("Notre Dame Stadium")) sdl.apply_surface(sprite_x+31, sprite_y+492, whitespace, screen);
-        if (current->notOwnTile("J.A.C.C.")) sdl.apply_surface(sprite_x+106, sprite_y+493, whitespace, screen);
-        if (current->notOwnTile("Compton Ice Arena")) sdl.apply_surface(sprite_x+180, sprite_y+490, whitespace, screen);
-        if (current->notOwnTile("Badin Hall")) sdl.apply_surface(sprite_x+297, sprite_y+28, whitespace, screen);
-        if (current->notOwnTile("Howard Hall")) sdl.apply_surface(sprite_x+374, sprite_y+26, whitespace, screen);
-        if (current->notOwnTile("Lyons Hall")) sdl.apply_surface(sprite_x+444, sprite_y+24, whitespace, screen);
-        if (current->notOwnTile("Alumni Hall")) sdl.apply_surface(sprite_x+299, sprite_y+117, whitespace, screen);
-        if (current->notOwnTile("Dillon Hall")) sdl.apply_surface(sprite_x+374, sprite_y+116, whitespace, screen);
-        if (current->notOwnTile("Fisher Hall")) sdl.apply_surface(sprite_x+449, sprite_y+118, whitespace, screen);
+	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+45, whitespace, screen);
+        if (current->notOwnTile("Ryan Hall")) sdl.apply_surface(sprite_x+97, sprite_y+45, whitespace, screen);
+        if (current->notOwnTile("McGlinn Hall")) sdl.apply_surface(sprite_x+185, sprite_y+45, whitespace, screen);
+        if (current->notOwnTile("The Grotto")) sdl.apply_surface(sprite_x+16, sprite_y+122, whitespace, screen);
+        if (current->notOwnTile("Main Building")) sdl.apply_surface(sprite_x+101, sprite_y+123, whitespace, screen);
+        if (current->notOwnTile("Seigfried Hall")) sdl.apply_surface(sprite_x+20, sprite_y+203, whitespace, screen);
+        if (current->notOwnTile("Lewis Hall")) sdl.apply_surface(sprite_x+105, sprite_y+205, whitespace, screen);
+        if (current->notOwnTile("Carrol Hall")) sdl.apply_surface(sprite_x+197, sprite_y+207, whitespace, screen);
+        if (current->notOwnTile("Pasquerilla West")) sdl.apply_surface(sprite_x+21, sprite_y+275, whitespace, screen);
+        if (current->notOwnTile("Pasquerilla East")) sdl.apply_surface(sprite_x+106, sprite_y+276, whitespace, screen);
+        if (current->notOwnTile("O'Neill Hall")) sdl.apply_surface(sprite_x+27, sprite_y+351, whitespace, screen);
+        if (current->notOwnTile("Keough Hall")) sdl.apply_surface(sprite_x+105, sprite_y+351, whitespace, screen);
+        if (current->notOwnTile("Duncan Hall")) sdl.apply_surface(sprite_x+1186, sprite_y+353, whitespace, screen);
+        if (current->notOwnTile("Notre Dame Stadium")) sdl.apply_surface(sprite_x+32, sprite_y+426, whitespace, screen);
+        if (current->notOwnTile("J.A.C.C.")) sdl.apply_surface(sprite_x+110, sprite_y+427, whitespace, screen);
+        if (current->notOwnTile("Compton Ice Arena")) sdl.apply_surface(sprite_x+188, sprite_y+426, whitespace, screen);
+        if (current->notOwnTile("Badin Hall")) sdl.apply_surface(sprite_x+309, sprite_y+55, whitespace, screen);
+        if (current->notOwnTile("Howard Hall")) sdl.apply_surface(sprite_x+392, sprite_y+53, whitespace, screen);
+        if (current->notOwnTile("Lyons Hall")) sdl.apply_surface(sprite_x+464, sprite_y+52, whitespace, screen);
+        if (current->notOwnTile("Alumni Hall")) sdl.apply_surface(sprite_x+313, sprite_y+125, whitespace, screen);
+        if (current->notOwnTile("Dillon Hall")) sdl.apply_surface(sprite_x+392, sprite_y+126, whitespace, screen);
+        if (current->notOwnTile("Fisher Hall")) sdl.apply_surface(sprite_x+469, sprite_y+127, whitespace, screen);
+        if (current->notOwnTile("Hesburgh Library")) sdl.apply_surface(sprite_x+391, sprite_y+211, whitespace, screen);
+        if (current->notOwnTile("Lafortune Student Center")) sdl.apply_surface(sprite_x+467, sprite_y+211, whitespace, screen);
+        if (current->notOwnTile("Coleman Morris Center")) sdl.apply_surface(sprite_x+393, sprite_y+282, whitespace, screen);
+        if (current->notOwnTile("DeBartolo Hall")) sdl.apply_surface(sprite_x+471, sprite_y+280, whitespace, screen);
+        if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
+        if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
+
 	response = sdl.getResponse();
 
 	return 1;
@@ -548,10 +555,13 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	char answer;
 	deque<string> options;
 	deque<string> playerOwns;
+	SDL_Surface *disp;
 
 	cout << "Entered trade" << endl;
 
-	sdl.apply_surface(150, 150, tradeScreen[5], screen);
+	disp = tradeScreen[players.size()];
+
+	sdl.apply_surface(150, 150, disp, screen);
 	cout << "Applied surface" << endl;
 	cout << current->getName() << ", who would you like to trade with? Please input their number" << endl;
 	
@@ -561,7 +571,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 
 	recipIndex = sdl.getResponse();
-	if (recipIndex == 'b') return;
+	if (recipIndex == 'c') return;
 
 //	cin >> recipIndex;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
@@ -575,7 +585,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 	cout << "What would you like to trade for? Please enter the number associated with the name";
 	request = sdl.getResponse();
-	if (request == 'b') return;
+	if (request == 'c') return;
 
 	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
 
@@ -586,7 +596,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 	cout << "Your offer: ";
 	offer = sdl.getResponse(); 
-	if (offer == 'b') return;
+	if (offer == 'c') return;
 
 	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)";
 	answer = sdl.getResponse();;
