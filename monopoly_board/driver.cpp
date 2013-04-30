@@ -19,7 +19,7 @@ int main (){
 	SDL_Surface *screen = showMonopoly.getScreen();
 
 	//Victor(screen)
-	mainMenu();
+//	mainMenu();
 
 	//passses screen into Game
 	playMonopoly.addScreen(screen);

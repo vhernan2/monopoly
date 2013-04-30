@@ -18,6 +18,7 @@ class Property : public Tile
 		virtual void setGroupOwned(bool); 	//function will modify groupOwned private data member
 		virtual bool getGroupOwned();		//function gets groupOwned bool
 	
+		int buy(Player*);
 		virtual int interact(Player*);
 		virtual void payBack(Player*);
 		virtual void updateEffect(int);

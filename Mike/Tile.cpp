@@ -47,6 +47,10 @@ int Tile::getOwner()
 	return owner;
 }
 
+int Tile::buy(Player* current){
+	return -1; //default value, I suppose
+}
+
 int Tile::interact(Player* current)
 {
 	cout << "IN HERE" << endl;

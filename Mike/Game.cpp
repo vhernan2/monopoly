@@ -42,13 +42,15 @@ Game::Game()
 	cout << "someimages\n";
 	postRollImage = sdl.load_files( "JLo/postRoll.png" );
 	cout << "images\n";
-		
+	
+	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
 	tile[3] = sdl.load_files("JLo/Properties/PasquerillaWest.png");
 	tile[5] = sdl.load_files("JLo/Properties/ColemanMorseCenter.png");
 	tile[6] = sdl.load_files("JLo/Properties/SeigfriedHall.png");
 	tile[8] = sdl.load_files("JLo/Properties/LewisHall.png");
 	tile[9] = sdl.load_files("JLo/Properties/CarrolHall.png");
+	tile[10] = sdl.load_files("JLo/Properties/JustVisitingResLife.png");
 	tile[11] = sdl.load_files("JLo/Properties/FisherHall.png");
 	tile[12] = sdl.load_files("JLo/Properties/NorthDiningHall.png");
 	tile[13] = sdl.load_files("JLo/Properties/DillonHall.png");
@@ -57,6 +59,7 @@ Game::Game()
 	tile[16] = sdl.load_files("JLo/Properties/BadinHall.png");
 	tile[18] = sdl.load_files("JLo/Properties/HowardHall.png");
 	tile[19] = sdl.load_files("JLo/Properties/LyonsHall.png");
+	tile[20] = sdl.load_files("JLo/Properties/Parking.png");
 	tile[21] = sdl.load_files("JLo/Properties/RyanHall.png");
 	tile[23] = sdl.load_files("JLo/Properties/McGlinnHall.png");
 	tile[24] = sdl.load_files("JLo/Properties/WelshFamily.png");
@@ -65,6 +68,7 @@ Game::Game()
 	tile[27] = sdl.load_files("JLo/Properties/KeoughHall.png");
 	tile[28] = sdl.load_files("JLo/Properties/SouthDiningHall.png");
 	tile[29] = sdl.load_files("JLo/Properties/DuncanHall.png");
+	tile[30] = sdl.load_files("JLo/Properties/GoToResLife.png");
 	tile[31] = sdl.load_files("JLo/Properties/ComptonIceArena.png");
 	tile[32] = sdl.load_files("JLo/Properties/JACC.png");
 	tile[34] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
@@ -220,7 +224,7 @@ void Game::playerPostRoll(Player* current){
 		response = sdl.getResponse();
 		switch (response){
 			case 'b':
-				//buy
+				gameBoard.accessSpace(current->getPosition())->buy(current);
 				break;
 			case 'v':
 				//view

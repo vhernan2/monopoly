@@ -36,13 +36,8 @@ bool Property::getGroupOwned()
 	return groupOwned;
 }
 
-int Property::interact(Player* current)
-{
+int Property::buy(Player* current) {
 	char response;
-	int toBeStored;	//integer value associated with player
-	cout << current->getName() << ", you landed on " << title << endl;
-
-
 	if(getOwner() == -1)
 	{
 		if(current->getMoney() <= cost)
@@ -53,21 +48,29 @@ int Property::interact(Player* current)
 		else
 		{
 
-
-		cout << "No one owns this tile. Would you like to buy it for $" << cost << "? (y/n)";
-		
-		response = sdl.getResponse();
-		if(response == 'y')
-		{
 			cout << "You bought " << title << " for $" << cost << "!" << endl;
 			current->changeInMoney(-cost);
 			cout << "Your total money is now: $" << current->getMoney() << endl;
 			owner = current->getIndex();
 			current->addTile(title);
 			return owner;
-		}
 
 		}
+	} else {
+		cout << "This tile is owned already" << endl;
+	}
+	return owner;
+}
+
+int Property::interact(Player* current)
+{
+	char response;
+	int toBeStored;	//integer value associated with player
+	cout << current->getName() << ", you landed on " << title << endl;
+
+	if (getOwner() == -1){
+		cout << "This tile is unowned, and can be bought for $" << cost << endl;
+		return owner;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
