@@ -2,6 +2,9 @@
 #define TILE_H
 #include <iostream>
 #include <string>
+#include <cstring>
+#include <iostream>
+
 using namespace std;
 
 class Player;

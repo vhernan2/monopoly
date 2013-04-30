@@ -42,6 +42,9 @@ Game::Game()
 	cout << "someimages\n";
 	postRollImage = sdl.load_files( "JLo/postRoll.png" );
 	cout << "images\n";
+
+	sprites = sdl.load_files("JLo/Properties/SpritsofProperty.png");
+	whitespace = sdl.load_files("JLo/Properties/whitespace.png");
 	
 	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
@@ -89,7 +92,6 @@ Game::Game()
 	SAOcard[10] = sdl.load_files("JLo/SAO/FootballSeasonPass.png");
         SAOcard[11] = sdl.load_files("JLo/SAO/ClubDues.png");
         SAOcard[12] = sdl.load_files("JLo/SAO/TriviaNight.png");
-
 
 	SUBcard[0] = sdl.load_files("JLo/SUB/Raffle.png");
 	SUBcard[1] = sdl.load_files("JLo/SUB/SUBMovie.png");
@@ -177,7 +179,7 @@ void Game::playerTurn(Player* current)
 			case 'q':
 				return;
 			case 'v':
-				//view;
+				view(current);
 			break;
 
 		}
@@ -211,8 +213,6 @@ void Game::playerPostRoll(Player* current){
 		disp = tile[current->getPosition()];
 	}
 	cout << "right before postRollImage" << endl;	
-        sdl.apply_surface(150, 150, postRollImage, screen);
-        sdl.apply_surface(160, 80, disp, screen);
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 	if(output != -1)
 	{
@@ -221,13 +221,17 @@ void Game::playerPostRoll(Player* current){
 
 	response = 'z';
 	while (response != 'o'){
+	
+       		sdl.apply_surface(150, 150, postRollImage, screen);
+        	sdl.apply_surface(160, 80, disp, screen);
+
 		response = sdl.getResponse();
 		switch (response){
 			case 'b':
 				gameBoard.accessSpace(current->getPosition())->buy(current);
 				break;
 			case 'v':
-				//view
+				view(current);
 				break;
 			case 'm':
 				mortgage(current);
@@ -483,6 +487,44 @@ int Game::getCurrentPlayer(){
 
 int Game::getPlayerLocation(int player){
 	return ((&players[curPlayer])->getPosition());
+}
+
+int Game::view(Player* current){
+
+	char response;
+
+	int sprite_x = 160;
+	int sprite_y = 80;
+
+	sdl.apply_surface(150,150, postRollImage, screen);
+	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
+
+	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+17, whitespace, screen);
+        if (current->notOwnTile("Ryan Hall")) sdl.apply_surface(sprite_x+95, sprite_y+17, whitespace, screen);
+        if (current->notOwnTile("McGlinn Hall")) sdl.apply_surface(sprite_x+179, sprite_y+17, whitespace, screen);
+        if (current->notOwnTile("The Grotto")) sdl.apply_surface(sprite_x+15, sprite_y+113, whitespace, screen);
+        if (current->notOwnTile("Main Building")) sdl.apply_surface(sprite_x+97, sprite_y+113, whitespace, screen);
+        if (current->notOwnTile("Seigfried Hall")) sdl.apply_surface(sprite_x+15, sprite_y+213, whitespace, screen);
+        if (current->notOwnTile("Lewis Hall")) sdl.apply_surface(sprite_x+101, sprite_y+213, whitespace, screen);
+        if (current->notOwnTile("Carrol Hall")) sdl.apply_surface(sprite_x+188, sprite_y+218, whitespace, screen);
+        if (current->notOwnTile("Pasquerilla West")) sdl.apply_surface(sprite_x+20, sprite_y+304, whitespace, screen);
+        if (current->notOwnTile("Pasquerilla East")) sdl.apply_surface(sprite_x+101, sprite_y+305, whitespace, screen);
+        if (current->notOwnTile("O'Neill Hall")) sdl.apply_surface(sprite_x+26, sprite_y+399, whitespace, screen);
+        if (current->notOwnTile("Keough Hall")) sdl.apply_surface(sprite_x+102, sprite_y+399, whitespace, screen);
+        if (current->notOwnTile("Duncan Hall")) sdl.apply_surface(sprite_x+179, sprite_y+399, whitespace, screen);
+        if (current->notOwnTile("Notre Dame Stadium")) sdl.apply_surface(sprite_x+31, sprite_y+492, whitespace, screen);
+        if (current->notOwnTile("J.A.C.C.")) sdl.apply_surface(sprite_x+106, sprite_y+493, whitespace, screen);
+        if (current->notOwnTile("Compton Ice Arena")) sdl.apply_surface(sprite_x+180, sprite_y+490, whitespace, screen);
+        if (current->notOwnTile("Badin Hall")) sdl.apply_surface(sprite_x+297, sprite_y+28, whitespace, screen);
+        if (current->notOwnTile("Howard Hall")) sdl.apply_surface(sprite_x+374, sprite_y+26, whitespace, screen);
+        if (current->notOwnTile("Lyons Hall")) sdl.apply_surface(sprite_x+444, sprite_y+24, whitespace, screen);
+        if (current->notOwnTile("Alumni Hall")) sdl.apply_surface(sprite_x+299, sprite_y+117, whitespace, screen);
+        if (current->notOwnTile("Dillon Hall")) sdl.apply_surface(sprite_x+374, sprite_y+116, whitespace, screen);
+        if (current->notOwnTile("Fisher Hall")) sdl.apply_surface(sprite_x+449, sprite_y+118, whitespace, screen);
+	response = sdl.getResponse();
+
+	return 1;
+
 }
 
 void Game::trade(Player* current)		//this function was thrown together somewhat carelessly, I'm having problems with getline

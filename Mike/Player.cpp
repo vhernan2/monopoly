@@ -98,6 +98,15 @@ void Player::clearDeques()
 	buildHotels.clear();
 }
 
+int Player::notOwnTile(string name){
+
+	for (int i = 0; i < tilesOwned.size(); i++){
+		if (name == tilesOwned[i]) return 0;
+	}
+	return 1;
+
+}
+
 void Player::printTiles()
 {
 	cout << "Here are the tiles you own: " << endl;

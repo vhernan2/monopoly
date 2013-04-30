@@ -29,6 +29,7 @@ class Player
 		void addHouseTiles(string);	//adds name of tile to tiles player can build houses on
 		void addHotelTiles(string);	//adds name of tile to tiles player can build a hotel on
 		void clearDeques();		//will empty houses and hotels deque so there is no overlap in listing where the user can build
+		int notOwnTile(string);		//checks if player owns a tile
 		void printTiles();		//prints names of tiles player owns
 		void goToJail();		//sends player's piece to jail location and changes inJail
 		void changeInMoney(int);	//can be used to add or subtract money from totalMoney		
