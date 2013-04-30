@@ -251,23 +251,28 @@ void creditsMenu(){
   SDL_Surface *okButton = NULL;
   SDL_Surface *creditsText = NULL;
   
-SDL_Color creditsColor = {100,200,0};
-  // creditsText = TTF_RenderText_Solid(font,"credits", creditsColor);
-/* std::ifstream credits;
-  std::string line,output;
+  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
+
+  std::ifstream credits;
+  std::string line;
+  const char *output;
+  int textX=0, textY = 0;
   credits.open("credits.txt");
   if (credits.is_open()){
-    while (!credits.eof()){
-      line = getline(credits,output);
-      creditsText = TTF_RenderText_Shaded(font,line,textColor,bColor);
-      blit(10,10, creditsText,creditsScreen);
-    }
-    SDL_Flip(creditsScreen);
+    while (credits >> line){
+      output = line.c_str();
+      creditsText = TTF_RenderText_Shaded(font,output,textColor,bColor);
+      blit(textX,textY, creditsText, creditsScreen);
+      if ((textX+line.length()*20+100) >= SCREEN_WIDTH){
+	textX = 0;
+	textY = textY + 100;
+      }
+      else textX += line.length()*20;
+          }
   }
-*/
- SDL_RWops *file = SDL_RWFromFile("credits.txt", "r"); // load credits file
- creditsText = SDL_LoadBMP_RW(file,1);
- blit(100,100, creditsText, creditsScreen);
+
+
+ 
  SDL_Flip(creditsScreen);
 }
 
