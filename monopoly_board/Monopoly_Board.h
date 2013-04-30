@@ -17,9 +17,7 @@
 #include "Mike/Jail.h"
 #include "Mike/Utility.h"
 #include "Mike/SDL_logic.h"
-
 #include "Mike/SDL_logic.h"
-
 #include "PlayerPiece.h"
 
 

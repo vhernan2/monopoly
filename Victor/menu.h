@@ -214,7 +214,6 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	  }
 	  if ( (x > oX && x < oX+109) && (y > oY && y < oY+23) ) { // ok button selected
 	    xOut = true;
-	    std::cout << "NAME INFORMATION";
 	  }
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
 	    mainMenu();

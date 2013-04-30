@@ -1,6 +1,7 @@
 #include "Monopoly_Board.h"
 #include "Mike/Game.h"
 #include "Mike/SDL_logic.h"
+#include "Victor/menu.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ int main (){
 	SDL_Surface *screen = showMonopoly.getScreen();
 
 	//Victor(screen)
-	
+	mainMenu();
+
 	//passses screen into Game
 	playMonopoly.addScreen(screen);
 	cout << "playMonopoly() success\n";
