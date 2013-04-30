@@ -219,11 +219,10 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
 	    mainMenu();
 	  }
-
-	}
-	
+	}	
+      }
     }
-     }}
+  }
 }
 
 void optionsMenu(){
@@ -317,8 +316,9 @@ void optionsMenu(){
 void creditsMenu(){
   SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH , SCREEN_HEIGHT , SCREEN_BPP, SDL_SWSURFACE);
   SDL_WM_SetCaption( "Monopoly - Credits", "Credits");
-  SDL_Surface *okButton = NULL;
+  SDL_Surface *okButton = loadImage("data/OK.bmp");
   SDL_Surface *creditsText = NULL;
+  SDL_Event creditsEvent;
   
   font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28);
   std::ifstream credits;
@@ -341,10 +341,37 @@ void creditsMenu(){
       else textX += 13*line.length();
           }
   }
-
-
+  blit(SCREEN_WIDTH/2, SCREEN_HEIGHT-100, okButton, creditsScreen);
  
   SDL_Flip(creditsScreen);
+
+   while (xOut == false){
+    while (SDL_PollEvent( &creditsEvent )){
+      if(creditsEvent.type == SDL_QUIT ){  // if x-out
+	xOut = true;
+      }
+      else if (creditsEvent.type == SDL_MOUSEBUTTONDOWN){ // detect mouse clicks
+	// If left click
+	if(creditsEvent.button.button == SDL_BUTTON_LEFT){
+	  // get mouse locations
+	  x = creditsEvent.button.x;
+	  y = creditsEvent.button.y;
+
+	  if( (x > SCREEN_WIDTH/2 && x < SCREEN_WIDTH/2 + 109) && (y > SCREEN_HEIGHT-100 && y < SCREEN_HEIGHT - 77) ){ // if on
+	    SDL_FreeSurface(creditsText);
+	    SDL_FreeSurface(okButton);
+	    okButton = loadImage( "data/OKpressed.bmp" );
+	    blit(SCREEN_WIDTH/2, SCREEN_HEIGHT-100, okButton, creditsScreen);
+	    SDL_Flip(creditsScreen);
+	    mainMenu();
+	  }
+       	}
+	else if(creditsEvent.button.button == SDL_BUTTON_RIGHT){
+	  // do nothing
+	}
+      }
+    }
+   }
 }
 
 void quitMenu(){
@@ -352,18 +379,59 @@ void quitMenu(){
    SDL_Surface *verifyQuitScreen = NULL;
    SDL_Surface *quitPrompt = NULL;
    SDL_Surface *background = NULL;
+   SDL_Surface *okButton = NULL;
+   SDL_Surface *cancelButton = NULL;
+   SDL_Event quitEvent;
 
-  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
-  quitPrompt = TTF_RenderText_Shaded(font, "Are you sure you want to quit?", textColor,bColor);
-  background = loadImage("data/quitBg.bmp");
-
+   font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28);
+   quitPrompt = TTF_RenderText_Shaded(font, "Are you sure you want to quit?", textColor,bColor);
+   background = loadImage("data/quitBg.bmp");
+   okButton = loadImage( "data/OK.bmp" );
+   cancelButton = loadImage( "data/CANCEL.bmp" );
   verifyQuitScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
 
   SDL_WM_SetCaption("Are You Sure?", NULL);
   blit(0, 0, background, verifyQuitScreen);
   blit(200,600,quitPrompt,verifyQuitScreen);
+  blit(400, 700, okButton, verifyQuitScreen);
+  blit(200, 700, cancelButton, verifyQuitScreen);
   SDL_Flip(verifyQuitScreen);
-  SDL_Delay(2000);
+
+   while (xOut == false){
+    while (SDL_PollEvent( &quitEvent )){
+      if(quitEvent.type == SDL_QUIT ){  // if x-out
+	xOut = true;
+      }
+      else if (quitEvent.type == SDL_MOUSEBUTTONDOWN){ // detect mouse clicks
+	// If left click
+	if(quitEvent.button.button == SDL_BUTTON_LEFT){
+	  // get mouse locations
+	  x = quitEvent.button.x;
+	  y = quitEvent.button.y;
+
+	  if( (x > 200 && x < 309) && (y > 700 && y < 723) ){ // if cancel
+	    SDL_FreeSurface(okButton);
+	    SDL_FreeSurface(quitPrompt);
+	    SDL_FreeSurface(cancelButton);
+	    SDL_FreeSurface(background);
+	    SDL_Flip(verifyQuitScreen);
+	    mainMenu();
+	  }
+	  else if( (x>400 && x<509)&& (y>700 && y < 723) ){ // if OK
+	    SDL_FreeSurface(okButton);
+	    SDL_FreeSurface(quitPrompt);
+	    SDL_FreeSurface(background);
+	    cleanUp();
+	    xOut=true;
+	  }
+       	}
+	else if(quitEvent.button.button == SDL_BUTTON_RIGHT){
+	  // do nothing
+	}
+      }
+    }
+   }
+  
   
 }
 
@@ -436,7 +504,6 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
 	    SDL_FreeSurface(options);
 	    SDL_FreeSurface(credits);
 	    SDL_FreeSurface(quit);
-	    creditsMenu();
 	    optionsMenu();
 	  }
 	  else if( (x > cX && x < cX + 109) && (y > cY && y < cY + 23) ){
@@ -453,7 +520,6 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
 	    SDL_FreeSurface(options);
 	    SDL_FreeSurface(credits);
 	    SDL_FreeSurface(quit);
-	    creditsMenu();
 	    quitMenu();
 	  }
 	}
