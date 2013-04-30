@@ -8,8 +8,9 @@ class SAO
 {
 	public:
 		SAO();
-		SAO(string, bool, int, int, int, bool, bool, bool);
+		SAO(string, int, bool, int, int, int, bool, bool, bool);
 		int getEffect();
+		int getCardNum();
 		bool getGOOJ();
 		bool getGTJ();
 		int getMove();
@@ -20,6 +21,7 @@ class SAO
 
 	private:
 		string description;
+		int cardNum;
 		bool GOOJ;		//get out of jail
 		int moneyEffect;
 		int newLocation;

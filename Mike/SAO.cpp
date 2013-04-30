@@ -5,9 +5,10 @@ SAO::SAO()
 {
 }
 
-SAO::SAO(string entry, bool jail, int cash, int relocate, int advance, bool trouble, bool study, bool dining)
+SAO::SAO(string entry, int c, bool jail, int cash, int relocate, int advance, bool trouble, bool study, bool dining)
 {
 	description = entry;
+	cardNum = c;
 	GOOJ = jail;
 	moneyEffect = cash;
 	newLocation = relocate;
@@ -20,6 +21,11 @@ SAO::SAO(string entry, bool jail, int cash, int relocate, int advance, bool trou
 string SAO::getDescription()
 {
 	return description;
+}
+
+int SAO::getCardNum()
+{
+	return cardNum;
 }
 
 bool SAO::getGOOJ()

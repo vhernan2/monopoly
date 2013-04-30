@@ -5,9 +5,10 @@ SUB::SUB()
 {
 }
 
-SUB::SUB(string entry, bool jail, int cash, int relocate, int advance, bool trouble)
+SUB::SUB(string entry, int card, bool jail, int cash, int relocate, int advance, bool trouble)
 {
 	description = entry;
+	cardNum = card;
 	GOOJ = jail;
 	moneyEffect = cash;
 	newLocation = relocate;
@@ -18,6 +19,11 @@ SUB::SUB(string entry, bool jail, int cash, int relocate, int advance, bool trou
 string SUB::getDescription()
 {
 	return description;
+}
+
+int SUB::getCardNum()
+{
+	return cardNum;
 }
 
 bool SUB::getGOOJ()

@@ -26,6 +26,7 @@ class Board
 		//group used to access cards
 
 		int accessMoney(int);
+		int getCardNum(int);
 		int accessPos(int);
 		bool accessGOOJ(int);
 		int accessMove(int);
