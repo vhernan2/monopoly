@@ -188,6 +188,7 @@ void Game::playerTurn(Player* current)
 				return;
 			case 'v':
 				view(current);
+				sdl.getResponse();
 			break;
 
 		}
@@ -249,6 +250,7 @@ void Game::playerPostRoll(Player* current){
 				break;
 			case 'v':
 				view(current);
+				sdl.getResponse();
 				break;
 			case 'm':
 				mortgage(current);
@@ -545,8 +547,6 @@ int Game::view(Player* current){
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
 
-	response = sdl.getResponse();
-
 	return 1;
 
 }
@@ -570,20 +570,22 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	cout << "Applied surface" << endl;
 	cout << current->getName() << ", who would you like to trade with? Please input their number" << endl;
 	
-	for(int i = 0; i < players.size()-1; i++)
+	for(int i = 0; i < players.size(); i++)
 	{
 		cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
 	recipIndex = sdl.getResponse();
 	if (recipIndex == 'c') return;
-
+	recipIndex -= 48;
 //	cin >> recipIndex;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
 	options = players[recipIndex].getTiles();
 	playerOwns = current->getTiles();
 
-	for(int i = 0; i < options.size()-1; i++)
+	view(&players[recipIndex]);
+
+	for(int i = 0; i < options.size(); i++)
 	{
 		cout << options[i] << ": " << i << endl;
 	}
@@ -591,20 +593,23 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	cout << "What would you like to trade for? Please enter the number associated with the name";
 	request = sdl.getResponse();
 	if (request == 'c') return;
+	request -= 48;
 
 	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
 
-	for(int i = 0; i < playerOwns.size()-1; i++)
+	for(int i = 0; i < playerOwns.size(); i++)
 	{
 		cout << playerOwns[i] << ": " << i << endl;
 	}
 
+	view(current);
 	cout << "Your offer: ";
 	offer = sdl.getResponse(); 
 	if (offer == 'c') return;
+	offer -= 48;
 
 	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)";
-	answer = sdl.getResponse();;
+	answer = sdl.getResponse();
 
 	if(answer == 'n') return;
 	else if(answer == 'y')
