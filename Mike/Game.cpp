@@ -109,6 +109,12 @@ Game::Game()
 	SUBcard[11] = sdl.load_files("JLo/SUB/WasteFreeWednesday.png");
 	SUBcard[12] = sdl.load_files("JLo/SUB/Squirrel.png");
 	SUBcard[13] = sdl.load_files("JLo/SUB/Prospy.png");
+
+	tradeScreen[2] = sdl.load_files("JLo/Trade/Trade_2player.png");
+	tradeScreen[3] = sdl.load_files("JLo/Trade/Trade_3player.png");
+	tradeScreen[4] = sdl.load_files("JLo/Trade/Trade_4player.png");
+	tradeScreen[5] = sdl.load_files("JLo/Trade/Trade_5player.png");
+	tradeScreen[6] = sdl.load_files("JLo/Trade/Trade_6player.png");
 }
 
 Game::~Game()
@@ -548,6 +554,10 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	deque<string> options;
 	deque<string> playerOwns;
 
+	cout << "Entered trade" << endl;
+
+	sdl.apply_surface(150, 150, tradeScreen[5], screen);
+	cout << "Applied surface" << endl;
 	cout << current->getName() << ", who would you like to trade with? Please input their number" << endl;
 	
 	for(int i = 0; i < players.size()-1; i++)
@@ -555,7 +565,10 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
-	cin >> recipIndex;
+	recipIndex = sdl.getResponse();
+	if (recipIndex == 'b') return;
+
+//	cin >> recipIndex;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
 	options = players[recipIndex].getTiles();
 	playerOwns = current->getTiles();
@@ -566,7 +579,8 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 
 	cout << "What would you like to trade for? Please enter the number associated with the name";
-	cin >> request;
+	request = sdl.getResponse();
+	if (request == 'b') return;
 
 	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
 
@@ -576,10 +590,11 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 
 	cout << "Your offer: ";
-	cin >> offer; 
+	offer = sdl.getResponse(); 
+	if (offer == 'b') return;
 
 	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)";
-	cin >> answer;
+	answer = sdl.getResponse();;
 
 	if(answer == 'n') return;
 	else if(answer == 'y')
