@@ -15,35 +15,42 @@ Utility::Utility(int indicate, string words, int player, int amount, int take, b
 	mortgaged = status;
 }
 
+int Utility::buy(Player* current) {
+        char response;
+        if(getOwner() == -1)
+        {
+                if(current->getMoney() <= cost)
+                {
+                        cout << "This tile is unowned, but you can't afford it!" << endl;
+                        return owner;
+                }
+                else
+                {
+
+                        cout << "You bought " << title << " for $" << cost << "!" << endl;
+                        current->changeInMoney(-cost);
+                        cout << "Your total money is now: $" << current->getMoney() << endl;
+                        owner = current->getIndex();
+                        current->addTile(title);
+                        return owner;
+
+                }
+        } else {
+                cout << "This tile is owned already" << endl;
+        }
+        return owner;
+}
+
+
 int Utility::interact(Player* current)
 {
 	char response;
 	cout << current->getName() << ", you landed on " << title << ". ";
 	if(owner == -1)
 	{
-		if(current->getMoney() <= cost)
-		{
-			cout << "This tile is unowned, but you can't afford it!" << endl;
-			return owner;
-		}
-		else
-		{
-
-		cout << "No one owns this location. Would you like to buy for " << cost << "? (y/n)";
-		response = sdl.getResponse();
-//		cin >> response;
-		if(response == 'y')
-		{
-			current->changeInMoney(-cost);
-			cout << "You bought " << title << " for $" << cost << endl;
-			cout << "You now have $" << current->getMoney() << endl;
-			owner = current->getIndex();
-			current->addTile(title);
-			return owner;
-		}
-
-		}
-	}
+	        cout << "This tile is unowned, and can be bought for $" << cost << endl;
+                return owner;
+        }
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
 		cout << "This location is owned. You lose $" << moneyEffect << endl;

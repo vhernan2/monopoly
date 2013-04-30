@@ -49,6 +49,7 @@ Game::Game()
 	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
 	tile[3] = sdl.load_files("JLo/Properties/PasquerillaWest.png");
+	tile[4] = sdl.load_files("JLo/Properties/HallTax.png");
 	tile[5] = sdl.load_files("JLo/Properties/ColemanMorseCenter.png");
 	tile[6] = sdl.load_files("JLo/Properties/SeigfriedHall.png");
 	tile[8] = sdl.load_files("JLo/Properties/LewisHall.png");
@@ -77,6 +78,7 @@ Game::Game()
 	tile[34] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
 	tile[35] = sdl.load_files("JLo/Properties/Hesburgh.png");
 	tile[37] = sdl.load_files("JLo/Properties/MainBuilding.png");
+	tile[38] = sdl.load_files("JLo/Properties/LuxuryTax.png");
 	tile[39] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
 
 	SAOcard[0] = sdl.load_files("JLo/SAO/BengalBouts.png");
@@ -194,8 +196,10 @@ void Game::playerPostRoll(Player* current){
 
 	char response;
 	
-	playerRoll = rollDie(current);
-	gameBoard.updateEffects(playerRoll);
+	if (!(current->getJail())){	
+		playerRoll = rollDie(current);
+		gameBoard.updateEffects(playerRoll);
+	}
 
 	SDL_Surface *disp;
 

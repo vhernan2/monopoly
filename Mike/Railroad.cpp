@@ -8,34 +8,41 @@ Railroad::Railroad(int indicate, string title, int player, int money, int take, 
 	mortgaged = status;
 }
 
+int Railroad::buy(Player* current) {
+        char response;
+        if(getOwner() == -1)
+        {
+                if(current->getMoney() <= cost)
+                {
+                        cout << "This tile is unowned, but you can't afford it!" << endl;
+                        return owner;
+                }
+                else
+                {
+
+                        cout << "You bought " << title << " for $" << cost << "!" << endl;
+                        current->changeInMoney(-cost);
+                        cout << "Your total money is now: $" << current->getMoney() << endl;
+                        owner = current->getIndex();
+                        current->addTile(title);
+                        return owner;
+
+                }
+        } else {
+                cout << "This tile is owned already" << endl;
+        }
+        return owner;
+}
+
+
 int Railroad::interact(Player* current)
 {
 	char response;
 	cout << current->getName() << ", you landed on " << title << endl;
 	if(getOwner() == -1)
 	{
-		if(current->getMoney() <= cost)
-		{
-			cout << "This tile is unowned, but you can't afford it!" << endl;
-			return owner;
-		}
-		else
-		{
-
-		cout << "No one owns this location. Would you like to buy for $200? (y/n)";
-		//cin >> response;
-		response = sdl.getResponse();
-		if(response == 'y')
-		{
-			current->changeInMoney(-cost);
-			cout << "You bought " << title << " for $" << cost << endl;
-			cout << "You now have $" << current->getMoney() << endl;
-			owner = current->getIndex();
-			current->addTile(title);			
-			return owner;
-		}
-
-		}
+		cout << "This tile is unowned, and can be bought for $" << cost << endl;
+                return owner;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{

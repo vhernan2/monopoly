@@ -3,6 +3,7 @@ using namespace std;
 
 Jail::Jail() : Tile()
 {
+	sdl;
 }
 
 Jail::Jail(int indicate, string words, int player, int amount, int take, bool value) : Tile(indicate, words, player, amount, take, value)
@@ -22,7 +23,7 @@ int Jail::interact(Player* current)
 		if(current->getJail() == 1)
 		{
 			cout << "You are stuck at Res Life! Pay $50 to leave? (y/n)";
-			cin >> response;
+			response = sdl.getResponse();
 			if(response == 'y')
 			{
 				cout << "You're free to go!" << endl;

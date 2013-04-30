@@ -9,6 +9,7 @@ class Railroad : public Tile
 {
 	public:
 		Railroad(int, string, int, int, int, bool, int, int, bool);
+		virtual int buy(Player*);
 		virtual int interact(Player*);
 		virtual void payBack(Player*);
 		virtual void updateEffect(int);
