@@ -136,9 +136,6 @@ void Game::turn()
 void Game::playerTurn(Player* current)
 {
 	char response;
-	int output;	//stores index value from interact function
-	int playerRoll;		//stores value of player's roll
-	char choice;		//choice to mortgage or build
 
 	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
@@ -164,70 +161,78 @@ void Game::playerTurn(Player* current)
 		switch(response)
 		{
 			case 'r':
-				playerRoll = rollDie(current);
-				gameBoard.updateEffects(playerRoll);
-
-				SDL_Surface *disp;
-
-				if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B.")
-				{
-					gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
-					disp = SUBcard[gameBoard.getCardNum(1)];
-					cout << gameBoard.getCardNum(1) << endl;
-				}
-				else if (gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O."){
-					gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
-                        	        disp = SAOcard[gameBoard.getCardNum(2)];
-					cout << gameBoard.getCardNum(2) << endl;
-				} else {
-					disp = tile[current->getPosition()];
-				}
-				cout << "right before postRollImage" << endl;	
-        	                sdl.apply_surface(150, 150, postRollImage, screen);
-                	        sdl.apply_surface(160, 80, disp, screen);
-				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-				if(output != -1)
-				{
-					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
-				}
-				sdl.getResponse();
+				playerPostRoll(current);
 				break;
 
-			case 'p':
-				cout << "Would you like to build or mortgage?: (B/M)";
-				cin >> choice;
-				if(choice == 'b') build(current);
-				if(choice == 'm') mortgage(current);
-				cout << "Time to roll!" << endl;
-				playerRoll = rollDie(current);
-				gameBoard.updateEffects(playerRoll);
-				if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
-				{
-					gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
-				}
-				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-				if(output != -1)
-				{
-					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
-				}
+			case 'b':
+				build(current);
 			break;
+			case 'm':
+				mortgage(current);
+			break;
+			case 'q':
+				return;
+			case 'v':
+				//view;
+			break;
+
+		}
+	}
+
+}
+
+void Game::playerPostRoll(Player* current){
+
+	int output;	//stores index value from interact function
+	int playerRoll;		//stores value of player's roll
+
+	char response;
 	
+	playerRoll = rollDie(current);
+	gameBoard.updateEffects(playerRoll);
+
+	SDL_Surface *disp;
+
+	if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B.")
+	{
+		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
+		disp = SUBcard[gameBoard.getCardNum(1)];
+		cout << gameBoard.getCardNum(1) << endl;
+	}
+	else if (gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O."){
+		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
+                disp = SAOcard[gameBoard.getCardNum(2)];
+		cout << gameBoard.getCardNum(2) << endl;
+	} else {
+		disp = tile[current->getPosition()];
+	}
+	cout << "right before postRollImage" << endl;	
+        sdl.apply_surface(150, 150, postRollImage, screen);
+        sdl.apply_surface(160, 80, disp, screen);
+	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+	if(output != -1)
+	{
+		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+	}
+
+	response = 'z';
+	while (response != 'o'){
+		response = sdl.getResponse();
+		switch (response){
+			case 'b':
+				//buy
+				break;
+			case 'v':
+				//view
+				break;
+			case 'm':
+				mortgage(current);
+				break;
+			case 'q':
+				return;
 			case 't':
 				trade(current);
-				cout << "Time to roll!" << endl;
-				playerRoll = rollDie(current);
-				gameBoard.updateEffects(playerRoll);
-				if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
-				{
-					gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
-				}
-					output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-					if(output != -1)
-					{
-						gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
-					}
 				break;
-
 		}
 	}
 

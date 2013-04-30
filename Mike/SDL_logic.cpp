@@ -77,10 +77,18 @@ char SDL_logic::getResponse(){
                                         c = 'b';
                                         quit = true;
                                         break;
+				case SDLK_m:
+					c= 'm';
+					quit = true;
+					break;
                                 case SDLK_n:
                                         c = 'n';
                                         quit = true;
                                         break;
+				case SDLK_o:
+					c = 'o';
+					quit = true;
+					break;
 				case SDLK_q:
 					c = 'q';
 					quit = true;
