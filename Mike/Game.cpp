@@ -203,11 +203,13 @@ void Game::playerPostRoll(Player* current){
 	{
 		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 		disp = SUBcard[gameBoard.getCardNum(1)];
+		gameBoard.alterDeck(1);
 		cout << gameBoard.getCardNum(1) << endl;
 	}
 	else if (gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O."){
 		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
                 disp = SAOcard[gameBoard.getCardNum(2)];
+		gameBoard.alterDeck(2);
 		cout << gameBoard.getCardNum(2) << endl;
 	} else {
 		disp = tile[current->getPosition()];

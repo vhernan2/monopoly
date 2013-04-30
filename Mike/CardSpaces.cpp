@@ -80,7 +80,7 @@ void CardSpaces::manDeck(Player* current, Board* board)
 	}
 
 
-	board->alterDeck(takeCard);
+//	board->alterDeck(takeCard);
 
 	return;
 
