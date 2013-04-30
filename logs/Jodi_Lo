@@ -1,11 +1,20 @@
 friday 8 Febuary 2-2:45 pm
 	downloaded fedora on a live usb
 
+	time: 45min
+	total: 45min
+
 sunday 10 Febuary 2:50-3:03
 	modern opengl tutorial 01
 
+	time: 13min
+	total: 58
+
 tuesday 12 Febuary 6:45-7:45 pm 
 	trouble shooting and discovering fedora
+
+	time: 60 min
+	toatl: 118 min
 
 sunday 24 Febuary 4:20-5:30
 	figure on pieces and open gl
@@ -20,22 +29,41 @@ sunday 24 Febuary 4:20-5:30
 	glxgears
 	nano /etc/nanorc
 
+	time: 70 min
+	total: 118 min
+
 saturday 2 March 1:00-2:55
 	installing ubuntu
 
+	time: 115 min
+	total: 233 min 
+
 thursday 7 March 4:50-5:30
 	get git for linux
+
+	time: 40 min
+	total: 273 min
 	
 tuesday 19 March 11:15-11:45
 	learn OpenGL
+
+	time: 30 min
+	total: 303 min
 
 sunday 24 March 1:20-2:58 pm
 	finally installed all of the needed opengl stuff
 	learned some standard awesome OpenGL stuff
 
+	time: 98 min
+	total: 401 min
+
+
 sunday 24 March 10:30-11:45 pm
 	more OpenGL
 	also learned cmake...
+
+	time: 75 min
+	total: 476 min
 
 tuesday 25 March 12:30-4:20 pm
 	making a card
@@ -62,28 +90,80 @@ tuesday 25 March 12:30-4:20 pm
 Respository:
 https://github.com/vhernan2/monopoly
 
+	time: 230 min
+	total: 706 min
+
 monday 8 April 6:15-12:15
 	Learn SDL
 	Download GIMP
 	Make the cards
 
+	time: 360 min
+	total: 1066 min
+
 tuesday 9 April 3:30-5:00
 	Make property cards
 	put sao and sub cards on the board
 
+	time: 90 min
+	total: 1156 min
+
 wednesday 10 April 9:35-11:30
 	making property cards
+
+	time: 120 min
+	total: 1276 min
 
 		12:50-4:00
 	more freaking cards
 
-tuesday 16 April 10:30-11:55
+	time: 190 min
+	total: 1466 min
+
+tuesday 16 April 1:00-5:00
+		cards and designing
+
+	time: 240 min
+	total: 1706 min
+
+		10:30-11:55
 	making SAO cards
+
+	time: 85 min
+	total: 1791 min 
 
 thursday 18 April 3:50-3:59
 	downloading SDL, gimp on ubuntu and making cards
+
+	time: 9 min
+	total: 1800 min
 	
-		6:30-9:07
+		6:30-9:30
 	SAO and SUB cards
 
+	time: 180 min
+	total: 1980 min
 
+saturday 20 April 7:30-8:41
+	Making popup windows
+
+	time: 70 min
+	total: 2050 min
+
+monday 22 April 6:30-8:00
+	Making popup windows version 2 and pushing into github
+
+	time: 90 min
+	total: 2140
+
+monday 29 April 12:00-3:20
+	Random chores, resize cards, and make more cards
+
+	time: 200 min
+	total: 2340 min
+
+tuesday 30 April 1:30-2:30
+	Make one more card and cleaning things up
+
+	time: 60 min
+	total: 2400 min
