@@ -31,12 +31,14 @@ public:
 	Monopoly_Board(int);
 	~Monopoly_Board();
 	SDL_Surface *load_image( string );
-	void apply_surface (int, int, SDL_Surface *);
+	void apply_surface (int, int, SDL_Surface *, SDL_Surface *);
 	bool init();
 	bool load_files(int);
 	void clean_up();
 	bool keep_playing();
 	void turn(int, int);
+
+	SDL_Surface *getScreen();
 
 private:
 

@@ -33,8 +33,44 @@ Game::Game()
 
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
+	cout << "gameBoard\n";
 	sdl;
+	cout << "sdl\n";
+	screen = NULL;
 
+	preRollImage = sdl.load_files( "JLo/preRoll.png" );
+	cout << "someimages\n";
+	postRollImage = sdl.load_files( "JLo/postRoll.png" );
+	cout << "images\n";
+		
+	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
+	tile[3] = sdl.load_files("JLo/Properties/PasquerillaWest.png");
+	tile[5] = sdl.load_files("JLo/Properties/ColemanMorseCenter.png");
+	tile[6] = sdl.load_files("JLo/Properties/SeigfriedHall.png");
+	tile[8] = sdl.load_files("JLo/Properties/LewisHall.png");
+	tile[9] = sdl.load_files("JLo/Properties/CarrolHall.png");
+	tile[11] = sdl.load_files("JLo/Properties/FisherHall.png");
+	tile[12] = sdl.load_files("JLo/Properties/NorthDiningHall.png");
+	tile[13] = sdl.load_files("JLo/Properties/DillonHall.png");
+	tile[14] = sdl.load_files("JLo/Properties/AlumniHall.png");
+	tile[15] = sdl.load_files("JLo/Properties/Debartolo.png");
+	tile[16] = sdl.load_files("JLo/Properties/BadinHall.png");
+	tile[18] = sdl.load_files("JLo/Properties/HowardHall.png");
+	tile[19] = sdl.load_files("JLo/Properties/LyonsHall.png");
+	tile[21] = sdl.load_files("JLo/Properties/RyanHall.png");
+	tile[23] = sdl.load_files("JLo/Properties/McGlinnHall.png");
+	tile[24] = sdl.load_files("JLo/Properties/WelshFamily.png");
+	tile[25] = sdl.load_files("JLo/Properties/Lafortune.png");
+	tile[26] = sdl.load_files("JLo/Properties/ONeillHall.png");
+	tile[27] = sdl.load_files("JLo/Properties/KeoughHall.png");
+	tile[28] = sdl.load_files("JLo/Properties/SouthDiningHall.png");
+	tile[29] = sdl.load_files("JLo/Properties/DuncanHall.png");
+	tile[31] = sdl.load_files("JLo/Properties/ComptonIceArena.png");
+	tile[32] = sdl.load_files("JLo/Properties/JACC.png");
+	tile[34] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
+	tile[35] = sdl.load_files("JLo/Properties/Hesburgh.png");
+	tile[37] = sdl.load_files("JLo/Properties/MainBuilding.png");
+	tile[39] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
 }
 
 Game::~Game()
@@ -87,6 +123,8 @@ void Game::playerTurn(Player* current)
 	current->printTiles();
 
 	cout << "What would you like to do? (R)oll, (P)lay, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
+
+	sdl.apply_surface(175, 500, preRollImage, screen);
 
 //	response = getResponse(event);
 	response = sdl.getResponse();
@@ -521,4 +559,8 @@ void Game::jailTime(Player* current)
 				current->addTimeJail();
 			}
 	}
+}
+
+void Game::addScreen(SDL_Surface *point){
+	screen = point;
 }

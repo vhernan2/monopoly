@@ -1,5 +1,7 @@
 #include "SDL_logic.h"
 
+#include <iostream>
+
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 
@@ -11,7 +13,7 @@ SDL_logic::~SDL_logic(){
 
 }
 
-void apply_surface( int x, int y, SDL_Surface* source )
+void SDL_logic::apply_surface( int x, int y, SDL_Surface* source , SDL_Surface* destination)
 {
         //Temporary rectangle to hold the offsets
         SDL_Rect offset;
@@ -21,9 +23,42 @@ void apply_surface( int x, int y, SDL_Surface* source )
         offset.y = y;
 
 	//Blit the surface
-//	SDL_BlitSurface( source, NULL, destination, &offset );
+	SDL_BlitSurface( source, NULL, destination, &offset );
+	SDL_Flip(destination);
 }
-                        
+                       
+SDL_Surface* SDL_logic::load_files(string filename)
+{
+
+    cout << "welcome\n";
+
+    SDL_Surface* loadedImage = NULL;
+
+    SDL_Surface* optimizedImage = NULL;
+
+    loadedImage = IMG_Load( filename.c_str() );
+
+    cout << "loadedImage\n";
+
+    if( loadedImage != NULL )
+    {
+	cout << "Loaded image exists\n";
+
+    } else { 
+	cout <<"Oh no...\n";
+    }
+
+    cout << "Return the optimized image\n";
+
+    return loadedImage;
+ 
+
+}
+
+void SDL_logic::clean_up()
+{
+}
+ 
 
 char SDL_logic::getResponse(){
 

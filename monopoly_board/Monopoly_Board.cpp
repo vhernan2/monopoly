@@ -30,7 +30,7 @@ SDL_Surface* Monopoly_Board::load_image( string filename )
         if( optimizedImage != NULL )
         {
             //Map the color key
-            Uint32 colorkey = SDL_MapRGB( optimizedImage->format, 0xFF, 0xFF, 0xFF );
+            Uint32 colorkey = SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF );
 
             //Set all pixels of color R 0, G 0xFF, B 0xFF to be transparent
             SDL_SetColorKey( optimizedImage, SDL_SRCCOLORKEY, colorkey );
@@ -41,7 +41,7 @@ SDL_Surface* Monopoly_Board::load_image( string filename )
     return optimizedImage;
 }
 
-void Monopoly_Board::apply_surface( int x, int y, SDL_Surface* source )
+void Monopoly_Board::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface *background )
 {
     //Temporary rectangle to hold the offsets
     SDL_Rect offset;
@@ -51,7 +51,7 @@ void Monopoly_Board::apply_surface( int x, int y, SDL_Surface* source )
     offset.y = y;
 
     //Blit the surface
-    SDL_BlitSurface( source, NULL, screen, &offset );
+    SDL_BlitSurface( source, NULL, background, &offset );
 }
 
 bool Monopoly_Board::init()
@@ -80,10 +80,8 @@ bool Monopoly_Board::init()
 
 bool Monopoly_Board::load_files(int numPlayers)
 {
-    //Load the background image
     background = load_image( "DuLacpoly_840.png" );
 
-    //If the background didn't load
     if( background == NULL )
     {
         return false;
@@ -106,24 +104,16 @@ bool Monopoly_Board::load_files(int numPlayers)
             dataFile.close();
     }
 
-    //Load the piece figure
     piece[0] = load_image( "Piece_Images/" + names[0] );
     piece[1] = load_image( "Piece_Images/" + names[1] );
     piece[2] = load_image( "Piece_Images/" + names[2] );
     piece[3] = load_image( "Piece_Images/" + names[3] );
-
-    //If the piece figure didn't load
-//    if( pieceObject == NULL )
-//    {
-//        return false;
-//    }
 
     return true;
 }
 
 void Monopoly_Board::clean_up()
 {
-    //Free the surfaces
     cout << "Entered\n";
     SDL_FreeSurface( background );
     cout << "Freed background\n";
@@ -131,14 +121,7 @@ void Monopoly_Board::clean_up()
 	SDL_FreeSurface( piece[i] ); 
 	cout << "Freed piece["<<i<<"]\n";
     }
-//    SDL_FreeSurface( piece2 );
-//    SDL_FreeSurface( piece3 );
-//    SDL_FreeSurface( piece4 );
-//    SDL_FreeSurface( piece5 );
-//    SDL_FreeSurface( piece6 );
-//    SDL_FreeSurface( piece7 );
-//    SDL_FreeSurface( piece8 );
-
+    
     SDL_Quit();
     
 }
@@ -176,8 +159,8 @@ Monopoly_Board::Monopoly_Board( int numPlayers )
     } else cout << "CHEER FOR ";
 
     //Apply the surfaces to the screen
-    apply_surface( 0, 0, background );
-    for (int i = 0; i < players; i++) { apply_surface( unique_piece[i].getX(), unique_piece[i].getY(), piece[i] ); }
+    apply_surface( 0, 0, background, screen );
+    for (int i = 0; i < players; i++) { apply_surface( unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen ); }
 
     //Update the screen
     if( SDL_Flip( screen ) == -1 )
@@ -221,11 +204,15 @@ bool Monopoly_Board::keep_playing(){
 
 void Monopoly_Board::turn(int currentPlayer, int currentLocation){
 
-    apply_surface(0, 0, background);
+    apply_surface(0, 0, background, screen);
     unique_piece[currentPlayer].move(currentLocation);
     for (int i = 0; i < players; i++ ) { 
-	apply_surface(unique_piece[i].getX(), unique_piece[i].getY(), piece[i]); 
+	apply_surface(unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen); 
 	cout << "Player " << i << "- (" << unique_piece[i].getX() << "," << unique_piece[i].getY() << ")\n";
     }
     SDL_Flip(screen);
 }
+
+SDL_Surface* Monopoly_Board::getScreen(){
+	return screen; 
+} 
