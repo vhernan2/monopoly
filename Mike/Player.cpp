@@ -12,7 +12,7 @@ Player::Player()
 
 Player::Player(int locVector)
 {
-	totalMoney = 1000;
+	totalMoney = 1500;
 	inJail = 0;
 	timeJail = 0;
 	position = 0;
