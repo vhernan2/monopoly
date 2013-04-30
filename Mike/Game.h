@@ -43,6 +43,8 @@ class Game
 		SDL_Surface *preRollImage;
 		SDL_Surface *postRollImage;
 		SDL_Surface *tile[40];
+		SDL_Surface *SAOcard[13];
+		SDL_Surface *SUBcard[14];
 
 };
 #endif

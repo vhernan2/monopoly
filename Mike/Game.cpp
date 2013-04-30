@@ -71,6 +71,36 @@ Game::Game()
 	tile[35] = sdl.load_files("JLo/Properties/Hesburgh.png");
 	tile[37] = sdl.load_files("JLo/Properties/MainBuilding.png");
 	tile[39] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
+
+	SAOcard[0] = sdl.load_files("JLo/SAO/BengalBouts.png");
+	SAOcard[1] = sdl.load_files("JLo/SAO/BarakaBouts.png");
+        SAOcard[2] = sdl.load_files("JLo/SAO/MBBall.png");
+        SAOcard[3] = sdl.load_files("JLo/SAO/DomeDate.png");
+        SAOcard[4] = sdl.load_files("JLo/SAO/Football.png");
+        SAOcard[5] = sdl.load_files("JLo/SAO/RectorGotYourBack.png");
+        SAOcard[6] = sdl.load_files("JLo/SAO/BedBugs.png");
+        SAOcard[7] = sdl.load_files("JLOo/SAO/TaxiFare.png");
+        SAOcard[8] = sdl.load_files("JLo/SAO/EddyStreet.png");
+        SAOcard[9] = sdl.load_files("JLo/SAO/PayDay.png");
+	SAOcard[10] = sdl.load_files("JLo/SAO/FootballSeasonPass.png");
+        SAOcard[11] = sdl.load_files("JLo/SAO/ClubDues.png");
+        SAOcard[12] = sdl.load_files("JLo/SAO/TriviaNight.png");
+
+
+	SUBcard[0] = sdl.load_files("JLo/SUB/Raffle.png");
+	SUBcard[1] = sdl.load_files("JLo/SUB/SUBMovie.png");
+	SUBcard[2] = sdl.load_files("JLo/SUB/DPAC.png");
+	SUBcard[3] = sdl.load_files("JLo/SUB/Legends.png");
+	SUBcard[4] = sdl.load_files("JLo/SUB/Reckers.png");
+	SUBcard[5] = sdl.load_files("JLo/SUB/Grotto.png");
+	SUBcard[6] = sdl.load_files("JLo/SUB/GetOutofJail.png");
+	SUBcard[7] = sdl.load_files("JLo/SUB/Chicago.png");
+	SUBcard[8] = sdl.load_files("JLo/SUB/BarTab.png");
+	SUBcard[9] = sdl.load_files("JLo/SUB/BandStipend.png");
+	SUBcard[10] = sdl.load_files("JLo/SUB/Tow.png");
+	SUBcard[11] = sdl.load_files("JLo/SUB/WasteFreeWednesday.png");
+	SUBcard[12] = sdl.load_files("JLo/SUB/Squirrel.png");
+	SUBcard[13] = sdl.load_files("JLo/SUB/Prospy.png");
 }
 
 Game::~Game()
@@ -135,15 +165,31 @@ void Game::playerTurn(Player* current)
 		case 'r':
 			playerRoll = rollDie(current);
 			gameBoard.updateEffects(playerRoll);
-			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B." || gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O.")
+
+			SDL_Surface *disp;
+
+			if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B.")
 			{
 				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
+				disp = SUBcard[gameBoard.getCardNum(1)];
+				cout << gameBoard.getCardNum(1) << endl;
 			}
-				output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
-				if(output != -1)
-				{
-					gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
-				}
+			else if (gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O."){
+				gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
+                                disp = SAOcard[gameBoard.getCardNum(2)];
+				cout << gameBoard.getCardNum(2) << endl;
+			} else {
+				disp = tile[current->getPosition()];
+			}
+			cout << "right before postRollImage" << endl;	
+                        sdl.apply_surface(150, 150, postRollImage, screen);
+                        sdl.apply_surface(160, 80, disp, screen);
+			output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+			if(output != -1)
+			{
+				gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+			}
+			sdl.getResponse();
 			break;
 
 		case 'p':

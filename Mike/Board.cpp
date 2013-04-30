@@ -75,20 +75,20 @@ void Board::buildSUB()
 	int j;
 //	srand(time(NULL));
 
-	subDeck.push_back(SUB("You won a student raffle! Collect $50!", 0, 50, -1, 0, 0));
-	subDeck.push_back(SUB("Pay for a SUB movie for a friend! You lose $25!", 0, -25, -1, 0, 0));
-	subDeck.push_back(SUB("Went to see a movie at DPAC! Spent $25!", 0, -25, -1, 0, 0));
-	subDeck.push_back(SUB("Picked up at Legends by NDSP! Go to Res Life!", 0, 0, -1, 0, 1));
-	subDeck.push_back(SUB("Got to Reckers at 2:01 a.m. on the weekend... Move back 3 spaces", 0, 0, -1, -3, 0));
-	subDeck.push_back(SUB("Dorm trip to the Grotto.", 0, 0, 39, 0, 0));
-	subDeck.push_back(SUB("Your RA lost their paperwork. You can get out of Res Life early next time!", 1, 0, -1, 0, 0));
-	subDeck.push_back(SUB("Weekend trip to Chicago! Spent $250", 0, -250, -1, 0, 0));
-	subDeck.push_back(SUB("You picked up the tab at Brothers. You lose $100!", 0, -100, -1, 0, 0));
-	subDeck.push_back(SUB("Band stipend! Gained $200!", 0, 200, -1, 0, 0));
-	subDeck.push_back(SUB("Forgot to get a parking pass, your car got towed! Lost $50!", 0, -50, -1, 0, 0));
-	subDeck.push_back(SUB("Waste free Wednesday! And you won! Collect $50", 0, 50, -1, 0, 0));
-	subDeck.push_back(SUB("Got bitten trying to feed a squirrel! $40 for a vaccination", 0, -40, -1, 0, 0));
-	subDeck.push_back(SUB("Assisting a prospective student, go to Main Building", 0, 0, 37, 0, 0));
+	subDeck.push_back(SUB("You won a student raffle! Collect $50!", 0, 0, 50, -1, 0, 0));
+	subDeck.push_back(SUB("Pay for a SUB movie for a friend! You lose $25!", 1, 0, -25, -1, 0, 0));
+	subDeck.push_back(SUB("Went to see a movie at DPAC! Spent $25!", 2, 0, -25, -1, 0, 0));
+	subDeck.push_back(SUB("Picked up at Legends by NDSP! Go to Res Life!", 3, 0, 0, -1, 0, 1));
+	subDeck.push_back(SUB("Got to Reckers at 2:01 a.m. on the weekend... Move back 3 spaces", 4, 0, 0, -1, -3, 0));
+	subDeck.push_back(SUB("Dorm trip to the Grotto.", 5, 0, 0, 39, 0, 0));
+	subDeck.push_back(SUB("Your RA lost their paperwork. You can get out of Res Life early next time!", 6, 1, 0, -1, 0, 0));
+	subDeck.push_back(SUB("Weekend trip to Chicago! Spent $250", 7, 0, -250, -1, 0, 0));
+	subDeck.push_back(SUB("You picked up the tab at Brothers. You lose $100!", 8, 0, -100, -1, 0, 0));
+	subDeck.push_back(SUB("Band stipend! Gained $200!", 9, 0, 200, -1, 0, 0));
+	subDeck.push_back(SUB("Forgot to get a parking pass, your car got towed! Lost $50!", 10, 0, -50, -1, 0, 0));
+	subDeck.push_back(SUB("Waste free Wednesday! And you won! Collect $50", 11, 0, 50, -1, 0, 0));
+	subDeck.push_back(SUB("Got bitten trying to feed a squirrel! $40 for a vaccination", 12, 0, -40, -1, 0, 0));
+	subDeck.push_back(SUB("Assisting a prospective student, go to Main Building", 13, 0, 0, 37, 0, 0));
 
 	for(i = subDeck.size() -1; i > -1; i--)
 	{
@@ -107,19 +107,19 @@ void Board::buildSAO()
 	int j;
 //	srand(time(NULL));
 
-	saoDeck.push_back(SAO("Attended Bengal Bouts. Donated $20", 0, -20, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Attended Baraka Bouts. Donated $20", 0, -20, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("The basketball team scored 88 points! You collect $30!", 0, 30, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Got lunch with your dome date", 0, 0, -1, 0, 0, 0, 1));
-	saoDeck.push_back(SAO("Football season! Get to the stadium!", 0, 0, 34, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Rector's got your back! Get out of Res Life early next time", 1, 0, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Bed bugs! Your room has to be fumigated! Move to next study location", 0, 0, -1, 0, 0, 1, 0));
-	saoDeck.push_back(SAO("Headed off campus! You picked up the cab fare, spent $30", 0, -30, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Dinner at Eddy Street! You spent $25", 0, -25, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Pay day! Proceed to GO", 0, 0, 0, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Purchased football season tickets. Cost $220", 0, -220, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Paid club dues. Lost $40", 0, -40, -1, 0, 0, 0, 0));
-	saoDeck.push_back(SAO("Won trivia night at Legends! $300 prize!", 0, 300, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Attended Bengal Bouts. Donated $20", 0, 0, -20, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Attended Baraka Bouts. Donated $20", 1, 0, -20, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("The basketball team scored 88 points! You collect $30!", 2, 0, 30, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Got lunch with your dome date", 3, 0, 0, -1, 0, 0, 0, 1));
+	saoDeck.push_back(SAO("Football season! Get to the stadium!", 4, 0, 0, 34, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Rector's got your back! Get out of Res Life early next time", 5, 1, 0, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Bed bugs! Your room has to be fumigated! Move to next study location", 6, 0, 0, -1, 0, 0, 1, 0));
+	saoDeck.push_back(SAO("Headed off campus! You picked up the cab fare, spent $30", 7, 0, -30, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Dinner at Eddy Street! You spent $25", 8, 0, -25, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Pay day! Proceed to GO", 9, 0, 0, 0, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Purchased football season tickets. Cost $220", 10, 0, -220, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Paid club dues. Lost $40", 11, 0, -40, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Won trivia night at Legends! $300 prize!", 12, 0, 300, -1, 0, 0, 0, 0));
 
 	for(i = subDeck.size() - 1; i > -1; i--)
 	{
@@ -290,6 +290,17 @@ void Board::printDescription(int choice)
 	{
 		temp = saoDeck[0].getDescription();
 		cout << temp << endl;
+	}
+}
+
+int Board::getCardNum(int choice)
+{
+	if (choice == 1)
+	{
+		return subDeck[0].getCardNum();
+	}
+	if (choice == 2){
+		return saoDeck[0].getCardNum();
 	}
 }
 

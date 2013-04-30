@@ -8,8 +8,9 @@ class SUB
 {
 	public:
 		SUB();
-		SUB(string, bool, int, int, int, bool);
+		SUB(string, int, bool, int, int, int, bool);
 		int getEffect();
+		int getCardNum();
 		bool getGOOJ();
 		bool getGTJ();
 		int getMove();
@@ -18,6 +19,7 @@ class SUB
 
 	private:
 		string description;
+		int cardNum;
 		bool GOOJ;		//get out of jail
 		int moneyEffect;
 		int newLocation;
