@@ -5,7 +5,6 @@
 #include "Board.h"
 #include "Property.h"
 #include "SDL_logic.h"
-#include "monopoly_board/Monopoly_Board.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
