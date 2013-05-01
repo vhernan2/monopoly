@@ -46,6 +46,8 @@ Game::Game()
 	sprites = sdl.load_files("JLo/Properties/SpritsofProperty.png");
 	whitespace = sdl.load_files("JLo/Properties/whitespace.png");
 	
+	houseImage = sdl.load_files("JLo/House.png");
+
 	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
 	tile[3] = sdl.load_files("JLo/Properties/PasquerillaWest.png");
@@ -115,6 +117,7 @@ Game::Game()
 	tradeScreen[4] = sdl.load_files("JLo/Trade/Trade_4player.png");
 	tradeScreen[5] = sdl.load_files("JLo/Trade/Trade_5player.png");
 	tradeScreen[6] = sdl.load_files("JLo/Trade/Trade_6player.png");
+
 }
 
 Game::~Game()
@@ -162,7 +165,11 @@ void Game::playerTurn(Player* current)
 
 	while (response != 'r'){
 
-		sdl.apply_surface(145, 500, preRollImage, screen);
+		for (int i = 0; i < players.size(); i++){
+			players[i].buildTiles(gameBoard);
+		}
+
+		sdl.apply_surface(150, 500, preRollImage, screen);
 
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;
@@ -180,10 +187,13 @@ void Game::playerTurn(Player* current)
 
 			case 'b':
 				build(current);
-			break;
+				break;
 			case 'm':
 				mortgage(current);
-			break;
+				break;
+			case 't':
+				trade(current);
+				break;
 			case 'q':
 				return;
 			case 'v':
@@ -520,10 +530,10 @@ int Game::view(Player* current){
 
 	char response;
 
-	int sprite_x = 160;
-	int sprite_y = 80;
+	int sprite_x = 150;
+	int sprite_y = 150;
 
-	sdl.apply_surface(150,150, postRollImage, screen);
+//	sdl.apply_surface(150,150, postRollImage, screen);
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
 
 	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+45, whitespace, screen);
@@ -580,7 +590,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	
 	for(int i = 0; i < players.size(); i++)
 	{
-		cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
+		if (players[i].getIndex() != current->getIndex()) cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
 	recipIndex = sdl.getResponse();
@@ -599,6 +609,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 
 	cout << "What would you like to trade for? Please enter the number associated with the name";
+	cout << endl;
 	request = sdl.getResponse();
 	if (request == 'c') return;
 	request -= 48;
@@ -612,11 +623,12 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 	view(current);
 	cout << "Your offer: ";
+	cout << endl;
 	offer = sdl.getResponse(); 
 	if (offer == 'c') return;
 	offer -= 48;
 
-	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)";
+	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)" << endl;
 	answer = sdl.getResponse();
 
 	if(answer == 'n') return;

@@ -92,6 +92,17 @@ void Player::addHotelTiles(string newTile)
 	buildHotels.push_back(newTile);
 }
 
+void Player::buildTiles(Board b)
+{
+	tilesOwned.clear();
+	for (int i = 0; i < 40; i++){
+		if (b.accessSpace(i)->getOwner() == index){
+			tilesOwned.push_back(b.accessSpace(i)->getTitle());
+		}
+	}
+	
+}
+
 void Player::clearDeques()
 {
 	buildHouses.clear();

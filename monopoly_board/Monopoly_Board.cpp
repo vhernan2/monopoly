@@ -72,7 +72,7 @@ bool Monopoly_Board::init()
     }
 
     //Set the window caption
-    SDL_WM_SetCaption( "Foo says \"Hello!\"", NULL );
+    SDL_WM_SetCaption( "DuLacpoly" , NULL );
 
     //If everything initialized fine
     return true;

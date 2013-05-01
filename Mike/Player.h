@@ -4,7 +4,9 @@
 #include <deque>
 #include <string>
 #include "Tile.h"
+#include "Board.h"
 using namespace std;
+
 
 class Player
 {
@@ -29,6 +31,7 @@ class Player
 		void addTile(string);		//adds name of tile to list of player's owned locations
 		void addHouseTiles(string);	//adds name of tile to tiles player can build houses on
 		void addHotelTiles(string);	//adds name of tile to tiles player can build a hotel on
+		void buildTiles(Board);		//builds the list of owned tiles
 		void clearDeques();		//will empty houses and hotels deque so there is no overlap in listing where the user can build
 		int notOwnTile(string);		//checks if player owns a tile
 		void printTiles();		//prints names of tiles player owns
