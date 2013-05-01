@@ -77,3 +77,6 @@ TUESDAY APRIL 30
 4:00 PM - walk into lab
 5:00 PM - debugged Railroad, Utility, and part of Jail with Mike, added more
 	images to the screen display, debugged SAO and SUB
+7:00 PM - Got trade up and running, continued work on view, and further
+	resolved issues with SAO and SUB
+8:00 PM - came back from dinner
