@@ -103,6 +103,12 @@ Game::Game(int numPlayers)
 	unmortgage = sdl.load_files("JLo/Text/Unmortgage.png");
 	buildHere = sdl.load_files("JLo/Text/buildHere.png");
 	
+	oneButton = sdl.load_files("JLo/Text/One.png");
+	twoButton = sdl.load_files("JLo/Text/Two.png");
+	threeButton = sdl.load_files("JLo/Text/Three.png");
+	fourButton = sdl.load_files("JLo/Text/Four.png");
+	hotelButton = sdl.load_files("JLo/Text/Hotel.png");
+
 	houseImage[1] = sdl.load_files("JLo/Rooms/Single.png");
 	houseImage[2] = sdl.load_files("JLo/Rooms/Double.png");
 	houseImage[3] = sdl.load_files("JLo/Rooms/Triple.png");

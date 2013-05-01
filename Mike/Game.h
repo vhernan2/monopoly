@@ -61,6 +61,19 @@ class Game
         	SDL_Surface *tradeThis;
 	        SDL_Surface *yesButton;
 
+	        SDL_Surface *mortgageHere;
+	        SDL_Surface *mortgage;
+	        SDL_Surface *unmortgage;
+	        SDL_Surface *buildHere;
+        
+	        SDL_Surface *oneButton;
+        	SDL_Surface *twoButton;
+	        SDL_Surface *threeButton;
+        	SDL_Surface *fourButton;
+	        SDL_Surface *hotelButton;
+
+
+
 		SDL_Surface *houseImage[6];
 		SDL_Surface *tile[40];
 		SDL_Surface *backTile[40];
