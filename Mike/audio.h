@@ -4,14 +4,14 @@
 #include "SDL/SDL_mixer.h"
 
 // game audio
-extern Mix_Music *music;// = NULL;
+Mix_Music *music = NULL;
 
   // Sound Effects
-extern Mix_Chunk *roll;// = NULL;
-extern Mix_Chunk *gamePause;// = NULL;
-extern Mix_Chunk *purchase;// = NULL;
-extern Mix_Chunk *trade;// = NULL;
-extern Mix_Chunk *penalty;// = NULL;
+Mix_Chunk *roll = NULL;
+Mix_Chunk *gamePause = NULL;
+Mix_Chunk *purchase = NULL;
+Mix_Chunk *trade = NULL;
+Mix_Chunk *penalty = NULL;
 
 
 inline void gameMusic(){

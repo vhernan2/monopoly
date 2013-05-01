@@ -2,6 +2,8 @@
 #define GAME_H
 #include "Player.h"
 #include "Tile.h"
+//#include "menu.h"
+//#include "prompts.h"
 #include "Board.h"
 #include "Property.h"
 #include "SDL_logic.h"

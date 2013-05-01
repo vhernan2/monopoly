@@ -1,14 +1,15 @@
 #include "Monopoly_Board.h"
 #include "Mike/Game.h"
 #include "Mike/SDL_logic.h"
-#include "Victor/menu.h"
-#include "Victor/audio.h"
-
+#include "Mike/menu.h"
+//#include "audio.h"
 using namespace std;
 
 int main (){
 
-	int players = 2;
+	int players;
+	if (mainMenu() == -1 )
+	  players = startMenu();
 	Game playMonopoly(players);
 
 	int current, location;
