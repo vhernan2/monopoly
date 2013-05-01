@@ -215,8 +215,9 @@ inline int startMenu(){
 	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
 	    SDL_FreeSurface(ok);
 	    SDL_FreeSurface(mainMenuButton);
+	    SDL_FillRect(display,NULL,0x000000);
+	    SDL_Flip(display);
 	    return numberOfPlayers;
-	    SDL_Quit();
 	  }
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
 	    mainMenu();
@@ -499,8 +500,7 @@ musicOn = true;
 	    SDL_FreeSurface(credits);
 	    SDL_FreeSurface(quit);
 	    SDL_Flip(display);
-	    numberOfPlayers = -1;
-	    startMenu();
+	    return -1;
 
 	  }
 	  else if( (x > oX && x < oX + 109) && (y > oY && y < oY + 23) ){
