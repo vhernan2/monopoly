@@ -68,6 +68,7 @@ char SDL_logic::getResponse(int type){
 
 	bool quit = false;
         char c;
+	int mouseX, mouseY;
 
         while (quit == false) {
                 while( SDL_PollEvent( &event ) ){

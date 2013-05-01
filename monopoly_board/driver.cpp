@@ -8,8 +8,7 @@ using namespace std;
 
 int main (){
 
-	int players;
-
+	int players = 2;
 	Game playMonopoly(players);
 
 	int current, location;
