@@ -193,6 +193,7 @@ Game::Game(int numPlayers)
 	FS[100] = sdl.load_files("JLo/FS/FS100.png");
 	FS[120] = sdl.load_files("JLo/FS/FS120.png");
 	FS[140] = sdl.load_files("JLo/FS/FS140.png");
+	FS[150] = sdl.load_files("JLo/FS/FS150.png");
 	FS[160] = sdl.load_files("JLo/FS/FS160.png");
 	FS[180] = sdl.load_files("JLo/FS/FS180.png");
 	FS[200] = sdl.load_files("JLo/FS/FS200.png");
