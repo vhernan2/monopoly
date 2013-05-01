@@ -5,7 +5,6 @@
 #include "audio.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include "prompts.h"
 #include <sstream>
 using namespace std;
 
@@ -99,9 +98,12 @@ Game::Game(int numPlayers)
 
 	sprites = sdl.load_files("JLo/Properties/SpritsofProperty.png");
 	whitespace = sdl.load_files("JLo/Properties/whitespace.png");
-	
-	houseImage = sdl.load_files("JLo/House.png");
-	hotelImage = sdl.load_files("JLo/House.png");
+		
+	houseImage[1] = sdl.load_files("JLo/Rooms/Single.png");
+	houseImage[2] = sdl.load_files("JLo/Rooms/Double.png");
+	houseImage[3] = sdl.load_files("JLo/Rooms/Triple.png");
+	houseImage[4] = sdl.load_files("JLo/Rooms/Quad.png");
+	houseImage[5] = sdl.load_files("JLo/Rooms/SixMan.png");
 
 	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
@@ -326,6 +328,9 @@ void Game::playerPostRoll(Player* current){
 		t = gameBoard.accessSpace(current->getPosition());
 		group = t->getGroup();
 		if ((group > 0) && (group <= 8)) isProperty = 1;
+		if (isProperty){
+			if (gameBoard.accessSpace(current->getPosition())->getMortgage()) disp = backTile[current->getPosition()];
+		}
 	}
 	cout << "right before postRollImage" << endl;	
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
@@ -405,13 +410,10 @@ void Game::applyHouses(int numHouses, int numHotels){
 	int x = 155;
 	int y = 155;
 
-	for (int i = 0; i < numHouses; i++){
-		sdl.apply_surface(x, y, houseImage, screen);
-		y += 35;
-	}
+	if (numHouses > 0) sdl.apply_surface(x, y, houseImage[numHouses], screen);
 
 	if (numHotels > 0) {
-		sdl.apply_surface(620, 155, hotelImage, screen);
+		sdl.apply_surface(620, 155, houseImage[5], screen);
 	}
 
 }
