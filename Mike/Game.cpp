@@ -238,7 +238,7 @@ void Game::playerTurn(Player* current)
 			players[i].buildTiles(gameBoard);
 		}
 
-		sdl.apply_surface(150, 500, preRollImage, screen);
+		sdl.apply_surface(150, 150, preRollImage, screen);
 
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;

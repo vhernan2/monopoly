@@ -10,7 +10,6 @@ int main (){
 
 	int players;
 
-	players = startMenu();
 	Game playMonopoly(players);
 
 	int current, location;
