@@ -33,60 +33,42 @@ Game::Game(int numPlayers)
 */
 
   initializeText();
-  SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
+  //SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
   SDL_Surface *sdlText = NULL;
-  TTF_Font *font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
-  SDL_Color textColor = {255,255,255};
-  SDL_Color bColor = {0,0,0};
-  string text;
+  //SDL_Color textColor = {255,255,255};
+  //  SDL_Color bColor = {0,0,0};
   stringstream buffer;
-  const char *output;
-
-  text= "Welcome to Monopoly!";
-  output = text.c_str();
-  sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-  sdl.apply_surface(100,100,sdlText,prompt);
-  SDL_Flip(screen);
-  SDL_Delay(1500);
+  sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
+  sdl.apply_surface(100,100,sdlText,display);
+  SDL_Flip(display);
 
         for(int j = 0; j < numPlayers; j++)
-        {
-                players.push_back(Player(j));
-        }
-        int i = 0;
-        string name = "";
+	  {
+	  players.push_back(Player(j));
+	  }
 
-        while(i < numPlayers)
+        string name;
+	string append(decipher(display));
+        for (int i = 0 ; i < numPlayers ; i++ )
         {
           SDL_FreeSurface(sdlText);
-          SDL_FillRect(prompt,NULL,0x000000);
-          SDL_Flip(prompt);
+          SDL_FillRect(display,NULL,0x000000);
+          SDL_Flip(display);
           buffer << "Player " << (i+1) << " what is your name? ";
-          output = buffer.str().c_str();
+          const char* output = buffer.str().c_str();
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(10,10,sdlText,prompt);
-          SDL_Flip(prompt);
+          sdl.apply_surface(10,10,sdlText,display);
+          SDL_Flip(display);
 
-          while (decipher(prompt)){
-            sdlText = TTF_RenderText_Shaded(font, decipher(prompt), textColor, bColor);
-            if (decipher(prompt) == "done")
-              break;
-            else{
-              string temp( decipher(prompt));
-              name = name+temp;
-              cout << "HERE: " <<  name;
-            }
-
-          }
-
-
-          players[i].setName(name);
-          i++;
-
-        }
-
+          while (append != "0" ){
+	    name = name+append;
+	    append = decipher(display);
+	  }
+	  players[i].setName(name);
+	}	
 
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
