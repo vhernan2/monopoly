@@ -2,16 +2,17 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-#include "audio.h"
+#include "prompts.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
 #include <sstream>
 using namespace std;
 
 Game::Game(int numPlayers)
 {
 
-	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
+  /*	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
 	cin >> numPlayers;
 
 	for(int j = 0; j < numPlayers; j++)
@@ -31,46 +32,53 @@ Game::Game(int numPlayers)
 
 		i++;
 	}
-/*
-
-  initializeText();
-  //SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
+  */
+  SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
   SDL_Surface *sdlText = NULL;
-  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
+  TTF_Init();
+  TTF_Font *font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
-  //SDL_Color textColor = {255,255,255};
-  //  SDL_Color bColor = {0,0,0};
+  SDL_Color textColor = {255,255,255};
+  SDL_Color bColor = {0,0,0};
   stringstream buffer;
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
-  sdl.apply_surface(100,100,sdlText,display);
-  SDL_Flip(display);
+  sdl.apply_surface(100,100,sdlText,prompt);
+  SDL_Flip(prompt);
 
         for(int j = 0; j < numPlayers; j++)
 	  {
 	  players.push_back(Player(j));
 	  }
-
-        string name;
-	string append(decipher(display));
-        for (int i = 0 ; i < numPlayers ; i++ )
+	SDL_Delay(1200);
+          SDL_FillRect(prompt,NULL,0x000000);
+	  SDL_Flip(prompt);
+	int i = 0;
+        while ( i < numPlayers )
         {
-          SDL_FreeSurface(sdlText);
-          SDL_FillRect(display,NULL,0x000000);
-          SDL_Flip(display);
+	  string name;
+	  string append(decipher(prompt));
+ 
           buffer << "Player " << (i+1) << " what is your name? ";
           const char* output = buffer.str().c_str();
-          sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(10,10,sdlText,display);
-          SDL_Flip(display);
 
+          sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
+          sdl.apply_surface(10,10,sdlText,prompt);
+
+          SDL_Flip(prompt);
           while (append != "0" ){
 	    name = name+append;
-	    append = decipher(display);
+	    append = decipher(prompt);
+	    if (append == "0"){
+	      SDL_FillRect(prompt,NULL,0x000000);
+	      SDL_Flip(prompt);
+	    }
 	  }
 	  players[i].setName(name);
+	  buffer.str(string());
+	  cout << buffer;
+	  i++;
 	}	
-*/
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
 	sdl;
@@ -206,6 +214,7 @@ Game::Game(int numPlayers)
 	FS[350] = sdl.load_files("JLo/FS/FS350.png");
 	FS[400] = sdl.load_files("JLo/FS/FS400.png");
 }
+
 
 Game::~Game()
 {

@@ -20,8 +20,10 @@ int main (int argc, char* argv[]){
   if(mainMenu() == -1)
     players = startMenu();
   
+  if (players != 0 ){
   blit(10,10,test,display);
   SDL_Flip(display);
+
 
   string append(decipher(display));
   string name;
@@ -40,6 +42,6 @@ int main (int argc, char* argv[]){
     SDL_Flip(display);
 
   }
-
+  }
 
 }
