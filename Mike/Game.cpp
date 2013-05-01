@@ -99,8 +99,8 @@ Game::Game(int numPlayers)
 	yesButton = sdl.load_files("JLo/Text/Yes.png");
 
 	mortgageHere = sdl.load_files("JLo/Text/MortgageHere.png");
-	mortgage = sdl.load_files("JLo/Text/Mortgage.png");
-	unmortgage = sdl.load_files("JLo/Text/Unmortgage.png");
+	mortgageText = sdl.load_files("JLo/Text/Mortgage.png");
+	unmortgageText = sdl.load_files("JLo/Text/Unmortgage.png");
 	buildHere = sdl.load_files("JLo/Text/buildHere.png");
 	
 	oneButton = sdl.load_files("JLo/Text/One.png");
@@ -645,7 +645,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 void Game::mortgage(Player* current)
 {
-	int place;
+	int place = -1;
 	deque<string> owned;
 	int moveOn;	//is set to 1 if the player picks a valid tile
 	int mortgageReturn;	//amount player receives for mortgaging
@@ -653,11 +653,18 @@ void Game::mortgage(Player* current)
 	int j;
 	bool status;		//bool representing mortgaged status of selected location
 
+	char answer = 'z';
+
+	int yes_x = 175;
+        int yes_y = 575;
+        int no_x = 575;
+        int no_y = 575;
+
+	SDL_Surface *disp;
+	SDL_Surface *message;
+
 	owned = current->getTiles();
 	
-	view(current);
-
-//	current->printTiles();
 	cout << "What would you like to mortgage or unmortgage?";
 		
 	for(int i = 0; i < owned.size(); i++)
@@ -665,71 +672,61 @@ void Game::mortgage(Player* current)
 		cout << owned[i] << ": " << i << endl;
 	}
 
+	while (answer != 'y'){
+		view(current);
 
-	place = sdl.getResponse(4);
-	if (place == 'q') return;
-	place -= 48;
-/*
-	for(int i = 0; i < owned.size(); i++)
-	{
-		if(place == owned[i])
-		{
-			moveOn = 1;
-		}
-	}
-
-	if(moveOn == 0)
-	{
-		cout << "Sorry! That's not a tile you own!" << endl;
-		return;
-	}
-	else if(moveOn == 1)
-	{*/
-		for(j = 0; j < 40; j++)
-		{
-			if(gameBoard.accessSpace(j)->getTitle() == owned[place])
-			{
-				mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
-				status = gameBoard.accessSpace(j)->getMortgage();
-				break;
+		while (place <= 0){
+			place = sdl.getResponse(1);
+			if (place == 'q') return;
+			if (gameBoard.accessSpace(place)->getOwner() != current->getIndex()){
+				place = -1;
+			}
+			if ((place != -1) && current->getMoney() <= mortgageReturn){
+				place = -1;
 			}
 		}
-		
-		if(status == 0)
-		{
-			cout << "Would you like to mortgage " << owned[place] << " and gain " << mortgageReturn << "? (y/n)";
-			cout << endl;
-			mortgageYN = sdl.getResponse(4);
+
+	        if (gameBoard.accessSpace(place)->getMortgage()){
+			disp = backTile[place];
+			message = unmortgageText;
+		} else {
+			disp = tile[place];
+			message = mortgageText;
+		}
 	
-			if(mortgageYN == 'y')
-			{
-				cout << "Entered changeInMoney" << endl;
-				current->changeInMoney(mortgageReturn);
-				cout << "Attepmting to setMortgage" << endl;
-				gameBoard.accessSpace(j)->setMortgage(true);
-				cout << "setMortgage successful" << endl;
-			}
-		}
-		else if(status == 1 && current->getMoney() > mortgageReturn)
-		{
-			cout << "Would you like to unmortgage " << owned[place] << "? It will cost you " << mortgageReturn << ". (y/n)";
-			cout << endl;
-			mortgageYN = sdl.getResponse(4);
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+        	sdl.apply_surface(175, 210, disp, screen);
+		sdl.apply_surface(225, 150, message, screen);
+		sdl.apply_surface(yes_x, yes_y, yesButton, screen);
+	        sdl.apply_surface(no_x, no_y, noButton, screen);
 
-			if(mortgageYN == 'y')
-			{
-				current->changeInMoney(-mortgageReturn);
-				gameBoard.accessSpace(j)->setMortgage(false);
-			}
-		}
-		else if(status == 1 && current->getMoney() <= mortgageReturn)
-		{
-			cout << "This location is mortgaged, and you can't afford to unmortgage it!" << endl;
-		}
+		answer = sdl.getResponse(31);
+		if (answer != 'y') answer = -1;
+		if (answer == 'q') return;
+	}
+//	for(j = 0; j < 40; j++)
+//	{
+//		if(gameBoard.accessSpace(j)->getTitle() == owned[place])
+//		{
+	mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
+	status = gameBoard.accessSpace(j)->getMortgage();
+//			break;
+//	}
+//	}
+	
+	if(status == 0)
+	{
+		current->changeInMoney(mortgageReturn);
+		gameBoard.accessSpace(j)->setMortgage(true);
+	}
+	if(status == 1)
+	{
+		current->changeInMoney(-mortgageReturn);
+		gameBoard.accessSpace(j)->setMortgage(false);
+	}
 
 	return;
 
-//	}
 }
 
 	
@@ -754,11 +751,14 @@ int Game::view_zoom(Player* current){
         if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
                 disp = tile[response];
                 if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
-        }
 
         sdl.apply_surface(175, 180, disp, screen);
 
-        return 1;
+        return response;
+
+	}
+
+	return 0;
 
 }
 

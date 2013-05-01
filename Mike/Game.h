@@ -62,8 +62,8 @@ class Game
 	        SDL_Surface *yesButton;
 
 	        SDL_Surface *mortgageHere;
-	        SDL_Surface *mortgage;
-	        SDL_Surface *unmortgage;
+	        SDL_Surface *mortgageText;
+	        SDL_Surface *unmortgageText;
 	        SDL_Surface *buildHere;
         
 	        SDL_Surface *oneButton;
