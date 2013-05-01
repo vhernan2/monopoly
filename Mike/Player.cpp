@@ -200,11 +200,16 @@ void Player::changeGOOJ(bool status)
 void Player::payOffResLife()
 {
 	inJail = 0;
+	timeJail = 0;
 	changeInMoney(-50);
 }
 
 void Player::setJail(bool status)
 {
+	if(status == 0)
+	{
+		timeJail = 0;
+	}
 	inJail = status;
 }
 

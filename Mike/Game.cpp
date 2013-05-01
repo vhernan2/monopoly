@@ -1001,6 +1001,7 @@ void Game::jailTime(Player* current)
 				if(current->getGOOJ() == 1)
 				{
 					current->setJail(0);
+					current->changeGOOJ(0);
 					cout << "You got out of res life for free!" << endl;
 					return;
 				}
