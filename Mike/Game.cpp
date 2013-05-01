@@ -778,9 +778,11 @@ int Game::view(Player* current){
 void Game::trade(Player* current)		//this function was thrown together somewhat carelessly, I'm having problems with getline
 {
 	string recipient;
-	int recipIndex;
+	int recipIndexi = -1;
 	int offer = -1;
+	int offerIndex = -1;
 	int request = -1;
+	int requestIndex = -1;
 	char answer;
 	deque<string> options;
 	deque<string> playerOwns;
@@ -799,13 +801,16 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		if (players[i].getIndex() != current->getIndex()) cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
-	recipIndex = sdl.getResponse(3);
-	if (recipIndex == 'c') {
-		cout << "return from trade" << endl;	
-		return;
+	while (recipIndex < 0){
+		recipIndex = sdl.getResponse(3);
+		if (recipIndex == 'c') {
+			cout << "return from trade" << endl;	
+			return;
+		}
+		recipIndex -= 48;
+		if (recipIndex >= current->getIndex()) recipIndex++;
+		if (recipIndex >= players.size()) recipIndex = -1;
 	}
-	recipIndex -= 48;
-	if (recipIndex >= current->getIndex()) recipIndex++;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
 	options = players[recipIndex].getTiles();
 	playerOwns = current->getTiles();
@@ -825,7 +830,18 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		request = sdl.getResponse(1);
 		if (request == 'c') return;
 		request -= 48;
-//		gameBoard.accessSpace(request)->
+		if (gameBoard.accessSpace(request)->getOwner() == recipIndex){
+			sdl.apply_surface(175, 180, tile[request], screen);
+			answer = sdl.get_response(31);
+			if (answer == 'y') break;
+		}
+	}
+
+	for(int i = 0; i < options.size(); i++){
+		if (options[i] == gameBoard.accessSpace(request)->getTitle()){
+			requestIndex = i;
+			break;
+		}
 	}
 
 	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
@@ -835,14 +851,37 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << playerOwns[i] << ": " << i << endl;
 	}
 
-	view(current);
-	cout << "Your offer: ";
-	cout << endl;
-	offer = sdl.getResponse(3); 
-	if (offer == 'c') return;
-	offer -= 48;
+	while (request < 0){
 
-	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)" << endl;
+                view(current);
+
+		cout << "Your offer: ";
+                cout << endl;
+                offer = sdl.getResponse(1);
+                if (offer == 'c') return;
+                offer -= 48;
+                if (gameBoard.accessSpace(offer)->getOwner() == current->getIndex()){
+                        sdl.apply_surface(175, 180, tile[offer], screen);
+                        answer = sdl.get_response(31);
+                        if (answer == 'y') break;
+                }
+        }
+
+        for(int i = 0; i < playerOwns.size(); i++){
+                if (playerOwns[i] == gameBoard.accessSpace(offer)->getTitle()){
+                        offerIndex = i;
+                        break;
+                }
+        }
+
+
+
+	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offerIndex] << " for " << options[requestIndex] << "? (y/n)" << endl;
+	//applywhitespace
+	sdl.apply_surface(150, 160, tile[request], screen);
+	sdl.apply_surface(190, 200, tile[offer], screen);
+	//apply buttons
+
 	answer = sdl.getResponse(3);
 
 	if(answer == 'n') return;
@@ -851,11 +890,11 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << "Congratulations! Trade completed!" << endl;
 		for(int i = 0; i < 40; i++)
 		{
-			if(gameBoard.accessSpace(i)->getTitle() == options[request])
+			if(gameBoard.accessSpace(i)->getTitle() == options[requestIndex])
 			{
 				gameBoard.accessSpace(i)->setOwner(current->getIndex());
 			}
-			if(gameBoard.accessSpace(i)->getTitle() == playerOwns[offer])
+			if(gameBoard.accessSpace(i)->getTitle() == playerOwns[offerIndex])
 			{
 				gameBoard.accessSpace(i)->setOwner(recipIndex);
 			}
