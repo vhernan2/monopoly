@@ -4,7 +4,6 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "functions.h"
-#include "menu.h"
 #include <iostream>
 #include <string>
 
@@ -17,7 +16,7 @@ int textX = 20, textY=100;
 inline void initializeText(){
   TTF_Init();
   if (TTF_Init()==-1){
-    cout << "TTF_Init Error: " << TTF_GetError() << endl;
+    std::cout << "TTF_Init Error: " << TTF_GetError() << std::endl;
     exit(2);
   }
 }
@@ -42,7 +41,7 @@ bool done = false;
 	    blit(textX,textY,text,displaySurface);
 	    SDL_Flip(displaySurface);
 	    textX+=15;
-	    return a.c_str();
+	    return "a";
 	    break;
 	  case SDLK_b:
 	    text = TTF_RenderText_Shaded(font,"b",textColor,bColor);
@@ -221,7 +220,7 @@ bool done = false;
 	    break;
 	  case SDLK_RETURN:
 	    done = true;
-	    return "done";
+	    return "0";
 	    break;
 	  }
 	}
