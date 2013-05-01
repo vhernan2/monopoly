@@ -162,7 +162,7 @@ void Game::playerTurn(Player* current)
 
 	while (response != 'r'){
 
-		sdl.apply_surface(175, 500, preRollImage, screen);
+		sdl.apply_surface(145, 500, preRollImage, screen);
 
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;
@@ -241,7 +241,7 @@ void Game::playerPostRoll(Player* current){
 	while (response != 'o'){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
-        	sdl.apply_surface(160, 80, disp, screen);
+        	sdl.apply_surface(175, 180, disp, screen);
 
 		response = sdl.getResponse();
 		switch (response){
@@ -305,7 +305,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 	int hotelLoop = 1;
 	int housesAdded;
 	int hotelsAdded;
-	string location;	//where the user wants to build
+	int location;	//where the user wants to build
 
 	deque<string> houseOptions;
 	deque<string> hotelOptions;
@@ -316,9 +316,12 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		hotelOptions = current->getHotelTiles();
 		houseLoop = 1;
 		hotelLoop = 1;
+
+		view(current);
 	
 		cout << "What would you like to build? 1 for houses ($50 each), 2 for hotels ($100 each), 3 to exit";
-		cin >> select;
+		select = sdl.getResponse();
+		select -= 48;
 		if(select == 1)
 		{
 			if(houseOptions.empty() != 1)
@@ -328,21 +331,23 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					cout << "Where would you like to build a house? ";
 					for(int i = 0; i < houseOptions.size(); i++)
 					{
-						cout << houseOptions[i] << ", ";
+						cout << houseOptions[i] << ": " << i << endl;
 					}
-					cout << endl;
-					getline(cin, location);
+			
+					location = sdl.getResponse();
+					location -= 48;
 
-					for(int i = 0; i < houseOptions.size(); i++)
-					{
-						if(location == houseOptions[i])
-						{
+				//	for(int i = 0; i < houseOptions.size(); i++)
+				//	{
+				//		if(location == houseOptions[i])
+				//		{
 							for(int j = 0; j < 40; j++)
 							{
-								if(location == gameBoard.accessSpace(j)->getTitle())
+								if(houseOptions[location] == gameBoard.accessSpace(j)->getTitle())
 								{
 									cout << "There are " << gameBoard.accessSpace(j)->getHouses() << " houses here. How many would you like to add? (Max 4)";
-									cin >> housesAdded;
+									housesAdded = sdl.getResponse();
+									housesAdded -= 48;
 									if(current->getMoney() <= 50*housesAdded)
 									{
 										cout << "You can't afford that many houses!" << endl;
@@ -354,11 +359,12 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 									houseLoop = 0;
 								}
 							}
-						}
-					}
+				//		}
+				//	}
 					if(houseLoop != 0)
 					{
 						cout << "That is not somewhere you can build a house" << endl;
+						return;
 					}
 				}
 			}
@@ -376,21 +382,23 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					cout << "Where would you like to build a hotel? ";
 					for(int i = 0; i < hotelOptions.size(); i++)
 					{
-						cout << hotelOptions[i] << ", ";
+						cout << hotelOptions[i] << ": " << i << endl;
 					}
 					cout << endl;
-					getline(cin, location);
+					location = sdl.getResponse();
+					location -= 48;
 
-					for(int i = 0; i < hotelOptions.size(); i++)
-					{
-						if(location == hotelOptions[i])
-						{
+				//	for(int i = 0; i < hotelOptions.size(); i++)
+				//	{
+				//		if(location == hotelOptions[i])
+				//		{
 							for(int j = 0; j < 40; j++)
 							{
-								if(location == gameBoard.accessSpace(j)->getTitle())
+								if(hotelOptions[location] == gameBoard.accessSpace(j)->getTitle())
 								{
 									cout << "There are " << gameBoard.accessSpace(j)->getHotels() << " hotels here. How many would you like to add? (Max 1)";
-									cin >> hotelsAdded;
+									hotelsAdded = sdl.getResponse();
+									hotelsAdded -= 48;
 									if(current->getMoney() <= 100*hotelsAdded)
 									{
 										cout << "You can't afford to buy a hotel!" << endl;
@@ -403,8 +411,8 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 									hotelLoop = 0;
 								}
 							}
-						}
-					}
+				//		}
+				//	}
 					if(hotelLoop != 0)
 					{
 						cout << "That is not somewhere you can build a hotel" << endl;
