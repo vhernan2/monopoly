@@ -224,6 +224,8 @@ void Game::playerTurn(Player* current)
 {
 	char response;
 
+	int keepView;
+
 	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
 	gameBoard.updateRentRR();		//updates the rent of the railroads based on how many a player owns
@@ -267,8 +269,13 @@ void Game::playerTurn(Player* current)
 			case 'q':
 				return;
 			case 'v':
-				view(current);
-				sdl.getResponse(99);
+				keepView = 1;
+                                while(keepView){
+                                        keepView = view(current);
+					if (!keepView) break;
+                                        sdl.getResponse(99);
+                                }
+
 			break;
 
 		}
@@ -284,6 +291,8 @@ void Game::playerPostRoll(Player* current){
 	Tile *t;
 	int group;
 	int isProperty = 0;
+
+	int keepView;
 
 	char response;
 	
@@ -325,10 +334,10 @@ void Game::playerPostRoll(Player* current){
 	response = 'z';
 	if(current->getJail())
 	{
-		response = 'o';
+		response = 'r';
 	}
 
-	while (response != 'o'){
+	while (response != 'r'){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
@@ -341,11 +350,18 @@ void Game::playerPostRoll(Player* current){
 				gameBoard.accessSpace(current->getPosition())->buy(current);
 				break;
 			case 'v':
-				view(current);
-				sdl.getResponse(99);
+				keepView = 1;
+				while(keepView){
+					keepView = view(current);
+					if (!keepView);
+					sdl.getResponse(99);
+				}
 				break;
 			case 'm':
 				mortgage(current);
+				break;
+			case 'o':
+				response = 'r';
 				break;
 			case 'q':
 				return;
@@ -677,6 +693,8 @@ int Game::view(Player* current){
 	int sprite_x = 150;
 	int sprite_y = 150;
 
+	SDL_Surface *disp;
+
 //	sdl.apply_surface(150,150, postRollImage, screen);
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
 
@@ -709,6 +727,16 @@ int Game::view(Player* current){
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
 
+	response = sdl.getResponse(1);
+	if (response == 'q') return 0;
+
+	if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){	
+		disp = tile[response];
+		if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
+	}
+	
+	sdl.apply_surface(175, 180, disp, screen);	
+
 	return 1;
 
 }
@@ -738,7 +766,10 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	}
 
 	recipIndex = sdl.getResponse(3);
-	if (recipIndex == 'c') return;
+	if (recipIndex == 'c') {
+		cout << "return from trade" << endl;	
+		return;
+	}
 	recipIndex -= 48;
 //	cin >> recipIndex;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
