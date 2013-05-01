@@ -10,7 +10,7 @@
 #include <string>
 
 // loadImage function will be used to load any image used for the game
-SDL_Surface *loadImage( std::string fileName ){
+inline SDL_Surface *loadImage( std::string fileName ){
 
   SDL_Surface* loaded = NULL;   // temp storage for laoded image
   SDL_Surface* optimized = NULL;
@@ -29,7 +29,7 @@ SDL_Surface *loadImage( std::string fileName ){
 }
 
 // Surface Blitting Function
-void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL){
+inline void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL){
 
   SDL_Rect offset;
 
@@ -40,8 +40,8 @@ void blit(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect*
 
 }
 
-int keyDetect(){
-  SDL_Event keyPress;
+inline int keyDetect(){
+  extern SDL_Event keyPress;
   while (SDL_PollEvent(&keyPress)){
       switch (keyPress.type){
       case SDLK_0:

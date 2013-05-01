@@ -2,15 +2,16 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-
+#include "audio.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-
+#include "prompts.h"
+#include <sstream>
 using namespace std;
 
-Game::Game()
+Game::Game(int numPlayers)
 {
-	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
+/*	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
 	cin >> numPlayers;
 
 	for(int j = 0; j < numPlayers; j++)
@@ -30,6 +31,63 @@ Game::Game()
 
 		i++;
 	}
+*/
+
+  initializeText();
+  SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
+  SDL_Surface *sdlText = NULL;
+  TTF_Font *font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
+  if (font == NULL)
+    cout << "ERROR LOADING FONT!" << endl;
+  SDL_Color textColor = {255,255,255};
+  SDL_Color bColor = {0,0,0};
+  string text;
+  stringstream buffer;
+  const char *output;
+
+  text= "Welcome to Monopoly!";
+  output = text.c_str();
+  sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
+  sdl.apply_surface(100,100,sdlText,prompt);
+  SDL_Flip(screen);
+  SDL_Delay(1500);
+
+        for(int j = 0; j < numPlayers; j++)
+        {
+                players.push_back(Player(j));
+        }
+        int i = 0;
+        string name = "";
+
+        while(i < numPlayers)
+        {
+          SDL_FreeSurface(sdlText);
+          SDL_FillRect(prompt,NULL,0x000000);
+          SDL_Flip(prompt);
+          buffer << "Player " << (i+1) << " what is your name? ";
+          output = buffer.str().c_str();
+          sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
+          sdl.apply_surface(10,10,sdlText,prompt);
+          SDL_Flip(prompt);
+
+          while (decipher(prompt)){
+            sdlText = TTF_RenderText_Shaded(font, decipher(prompt), textColor, bColor);
+            if (decipher(prompt) == "done")
+              break;
+            else{
+              string temp( decipher(prompt));
+              name = name+temp;
+              cout << "HERE: " <<  name;
+            }
+
+          }
+
+
+          players[i].setName(name);
+          i++;
+
+        }
+
 
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;

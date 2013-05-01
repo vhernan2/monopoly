@@ -2,23 +2,22 @@
 #include "Mike/Game.h"
 #include "Mike/SDL_logic.h"
 #include "Victor/menu.h"
+#include "Victor/audio.h"
 
 using namespace std;
 
 int main (){
 
-	Game playMonopoly;
-	int players = playMonopoly.getPlayers();
+	int players;
+
+	players = startMenu();
+	Game playMonopoly(players);
+
 	int current, location;
 	Monopoly_Board showMonopoly(players);
-
 	//this gets the screen that we display on
 	SDL_Surface *screen = showMonopoly.getScreen();
 
-	//Victor(screen)
-//	mainMenu();
-
-	//passses screen into Game
 	playMonopoly.addScreen(screen);
 //	while not quit
 //		Victor

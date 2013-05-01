@@ -11,40 +11,42 @@
 #include <iostream>
 #include <fstream>
 
-// included functions
-void startMenu();
-void mainMenu();
 
-//Window Attributes
-const int SCREEN_WIDTH = 840;
-const int SCREEN_HEIGHT = 840;
-const int SCREEN_BPP = 32;
+int mainMenu();
 
 // Globals
-static int numberOfPlayers;
+
 int x, y; // used for offsets
-bool xOut = false; // used to detect xing out of screen
-bool musicOn = true; // used to determine whether to play music
-bool SFXOn = true; // used to determine whether to enable Sound Effects
-// Font
-TTF_Font *font = NULL;
+bool SFXOn;// used to determine whether to enable Sound Effects
+bool xOut;
+extern TTF_Font *font;
 // Text Color
-SDL_Color textColor = {255,255,255};
-SDL_Color bColor = {0,0,0};
+extern SDL_Color textColor;
+extern SDL_Color bColor;
 SDL_Event mouseEvent; // used to detect mouse clicks
-SDL_Event keyPress; // used to detect a key press
+SDL_Event keyPress;
+static int numberOfPlayers;
+
+// testing one display
+SDL_Surface *display;
+
+
+// Font
+ // used to detect a key press
+bool musicOn;// = true; // used to determine whether to play music
 
 
 
-void cleanUp(){
+inline void cleanUp(){
 	TTF_CloseFont(font);
 	TTF_Quit();
 
 }
 
-void startMenu(){
-SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
-  SDL_Surface *startMenu = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+inline int startMenu(){
+  xOut = false;
+  SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
+  display = SDL_SetVideoMode( 840,840,32, SDL_SWSURFACE );
   SDL_Surface *ok = loadImage("data/OK.bmp");
   SDL_Surface *mainMenuButton = loadImage("data/mainMenu.bmp");
   SDL_Surface *namePrompt = NULL;
@@ -59,10 +61,6 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
   font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
   namePrompt = TTF_RenderText_Shaded(font, "How Many Players will be participating today?:", textColor,bColor);
 
-
-  
-
-
   //  if (font == NULL)
   //  mainMenu();
     
@@ -75,26 +73,26 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
   b6 = loadImage("data/6.bmp");
 
   // define button locations
-  b1X = ( SCREEN_WIDTH/7 );
-  b2X = ( SCREEN_WIDTH*2/7 );
-  b3X = ( SCREEN_WIDTH*3/7 );
-  b4X = ( SCREEN_WIDTH*4/7 );
-  b5X = ( SCREEN_WIDTH*5/7 );
-  b6X = ( SCREEN_WIDTH*6/7 );
-  b1Y = b2Y = b3Y = b4Y = b5Y = b6Y = ( SCREEN_HEIGHT/3 );
-  oX = 3*SCREEN_WIDTH/4; oY = SCREEN_HEIGHT-100 ;
-  mmX = SCREEN_WIDTH/4; mmY= SCREEN_HEIGHT-100;
-     blit(10, 200, namePrompt, startMenu);
-     blit(b1X, b1Y, b1, startMenu);
-     blit(b2X, b2Y, b2, startMenu);
-     blit(b3X, b3Y, b3, startMenu);
-     blit(b4X, b4Y, b4, startMenu);
-     blit(b5X, b5Y, b5, startMenu);
-     blit(b6X, b6Y, b6, startMenu);
-     blit(oX, oY, ok, startMenu);
-     blit(mmX, mmY, mainMenuButton,startMenu);
-
-   SDL_Flip(startMenu);
+  b1X = ( 840/7 );
+  b2X = ( 840*2/7 );
+  b3X = ( 840*3/7 );
+  b4X = ( 840*4/7 );
+  b5X = ( 840*5/7 );
+  b6X = ( 840*6/7 );
+  b1Y = b2Y = b3Y = b4Y = b5Y = b6Y = ( 840/3 );
+  oX = 3*840/4; oY = 840-100 ;
+  mmX = 840/4; mmY= 840-100;
+  blit(10, 200, namePrompt, display);
+  blit(b1X, b1Y, b1, display);
+  blit(b2X, b2Y, b2, display);
+  blit(b3X, b3Y, b3, display);
+  blit(b4X, b4Y, b4, display);
+  blit(b5X, b5Y, b5, display);
+  blit(b6X, b6Y, b6, display);
+  blit(oX, oY, ok, display);
+  blit(mmX, mmY, mainMenuButton,display);
+  
+  SDL_Flip(display);
   
   while (xOut == false){
     while (SDL_PollEvent( &mouseEvent )){  
@@ -115,13 +113,13 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=1; // Player Value 
 	    
 	  }
@@ -129,20 +127,20 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    // This allows for returning a pressed button to unpressed
 	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
 	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
-	    SDL_FreeSurface(startMenu);
+	    SDL_FreeSurface(display);
 	    b1 = loadImage("data/1.bmp"); b6 = loadImage("data/6.bmp");
 	    b2 = loadImage("data/2pressed.bmp"); b3 = loadImage("data/3.bmp");
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=2; // Player Value 
-
+	    
 	  }
 	  else if ( (x > b3X && x < b3X+43) && (y > b3Y && y < b3Y+31) ) { // 3 players
 	    // This allows for returning a pressed button to unpressed
@@ -152,13 +150,13 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3pressed.bmp");
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=3; // Player Value 
 	  }
 	  else if ( (x > b4X && x < b4X+43) && (y > b4Y && y < b4Y+31) ) { // 4 players
@@ -169,13 +167,13 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
 	    b4 = loadImage("data/4pressed.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=4; // Player Value 
 	  }
 	  else if ( (x > b5X && x < b5X+43) && (y > b5Y && y < b5Y+31) ) { // 5 players
@@ -186,13 +184,13 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5pressed.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=5; // Player Value 
 	  }
 	  else if ( (x > b6X && x < b6X+43) && (y > b6Y && y < b6Y+41) ) { // 6 players
@@ -203,17 +201,22 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
 	    b2 = loadImage("data/2.bmp"); b3 = loadImage("data/3.bmp");
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
-	    blit(b1X, b1Y, b1, startMenu);
-	    blit(b2X, b2Y, b2, startMenu);
-	    blit(b3X, b3Y, b3, startMenu);
-	    blit(b4X, b4Y, b4, startMenu);
-	    blit(b5X, b5Y, b5, startMenu);
-	    blit(b6X, b6Y, b6, startMenu);
-	    SDL_Flip(startMenu); // Refresh Screen
+	    blit(b1X, b1Y, b1, display);
+	    blit(b2X, b2Y, b2, display);
+	    blit(b3X, b3Y, b3, display);
+	    blit(b4X, b4Y, b4, display);
+	    blit(b5X, b5Y, b5, display);
+	    blit(b6X, b6Y, b6, display);
+	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers=6; // Player Value 
 	  }
 	  if ( (x > oX && x < oX+109) && (y > oY && y < oY+23) ) { // ok button selected
-	    xOut = true;
+	    SDL_FreeSurface(b1); SDL_FreeSurface(b2); SDL_FreeSurface(b3);
+	    SDL_FreeSurface(b4); SDL_FreeSurface(b5); SDL_FreeSurface(b6);
+	    SDL_FreeSurface(ok);
+	    SDL_FreeSurface(mainMenuButton);
+	    return numberOfPlayers;
+	    SDL_Quit();
 	  }
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
 	    mainMenu();
@@ -224,39 +227,40 @@ SDL_WM_SetCaption( "Monopoly - Start", "Monopoly");
   }
 }
 
-void optionsMenu(){
-  // Surface for Options Menu
-  SDL_Surface *optionsScreen = SDL_SetVideoMode( SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP, SDL_SWSURFACE);
-  SDL_Surface *soundPrompt = NULL;
-  SDL_Surface *onButton = NULL;
-  SDL_Surface *offButton = NULL;
-  SDL_Surface *okButton = loadImage( "data/OK.bmp" );
-  SDL_Event optionEvent;
+inline void optionsMenu(){
+xOut = false;
+// Surface for Options Menu
+ display = SDL_SetVideoMode( 840,840,32, SDL_SWSURFACE);
+ SDL_Surface *soundPrompt = NULL;
+ SDL_Surface *onButton = NULL;
+ SDL_Surface *offButton = NULL;
+ SDL_Surface *okButton = loadImage( "data/OK.bmp" );
+ SDL_Event optionEvent;
   
-  SDL_WM_SetCaption( "Monopoly - Options", "Options"); // Caption
-  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28); // Font
+ SDL_WM_SetCaption( "Monopoly - Options", "Options"); // Caption
+ font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28); // Font
 
   // locations
-  int onX = 100;
-  int offX = 300;
-  int okX = SCREEN_WIDTH/2;
-  int onY = 100;
-  int offY = onY;
-  int okY = SCREEN_HEIGHT-100;
+ int onX = 100;
+ int offX = 300;
+ int okX = 840/2;
+ int onY = 100;
+ int offY = onY;
+ int okY = 840-100;
 
-  // Load Surfaces
-  onButton = loadImage( "data/ON.bmp" );
-  offButton = loadImage( "data/OFF.bmp" );
-  soundPrompt = TTF_RenderText_Shaded(font, "Sound: ", textColor,bColor);
-  
-  // Apply Surfaces
-  blit (10, 50, soundPrompt,optionsScreen);
-  blit (onX, onY, onButton, optionsScreen);
-  blit (offX, offY, offButton, optionsScreen);
-  blit (okX, okY, okButton, optionsScreen);
+ // Load Surfaces
+ onButton = loadImage( "data/ON.bmp" );
+ offButton = loadImage( "data/OFF.bmp" );
+ soundPrompt = TTF_RenderText_Shaded(font, "Sound: ", textColor,bColor);
+ 
+ // Apply Surfaces
+ blit (10, 50, soundPrompt,display);
+ blit (onX, onY, onButton, display);
+ blit (offX, offY, offButton, display);
+ blit (okX, okY, okButton, display);
 
-  // FLIP
-  SDL_Flip(optionsScreen);
+ // FLIP
+ SDL_Flip(display);
 
   // Option Menu Event Handling
    while (xOut == false){
@@ -277,23 +281,23 @@ void optionsMenu(){
 	    SDL_FreeSurface(onButton);
 	    onButton = loadImage( "data/ONpressed.bmp" );
 	    offButton = loadImage( "data/OFF.bmp" );
-	    blit(onX,onY,onButton,optionsScreen);
-	    blit(offX,offY,offButton,optionsScreen);
+	    blit(onX,onY,onButton,display);
+	    blit(offX,offY,offButton,display);
 	    if (musicOn = false)
 	      gameMusic();
 	    musicOn = true;
-	    SDL_Flip(optionsScreen);
+	    SDL_Flip(display);
 	  }
 	  else if( (x > offX && x < offX + 53) && (y > offY && y < offY + 23) ){ // if off button
 	    SDL_FreeSurface(onButton);
 	    SDL_FreeSurface(offButton);
 	    offButton = loadImage( "data/OFFpressed.bmp" );
 	    onButton = loadImage( "data/ON.bmp" );
-	    blit(onX,onY,onButton,optionsScreen);
-	    blit(offX,offY,offButton,optionsScreen);
+	    blit(onX,onY,onButton,display);
+	    blit(offX,offY,offButton,display);
 	    musicOn = false;
 	    closeMusic();
-	    SDL_Flip(optionsScreen);
+	    SDL_Flip(display);
 	    
 
 	  }
@@ -312,8 +316,8 @@ void optionsMenu(){
    }
 }
 
-void creditsMenu(){
-  SDL_Surface *creditsScreen = SDL_SetVideoMode( SCREEN_WIDTH , SCREEN_HEIGHT , SCREEN_BPP, SDL_SWSURFACE);
+inline void creditsMenu(){
+  display = SDL_SetVideoMode( 840 , 840 , 32, SDL_SWSURFACE);
   SDL_WM_SetCaption( "Monopoly - Credits", "Credits");
   SDL_Surface *okButton = loadImage("data/OK.bmp");
   SDL_Surface *creditsText = NULL;
@@ -329,8 +333,8 @@ void creditsMenu(){
     while (credits >> line){
       output = line.c_str();
       creditsText = TTF_RenderText_Shaded(font,output,textColor,bColor);
-      blit(textX,textY, creditsText, creditsScreen);
-      if ((textX+(line.length()*25+100)) >= SCREEN_WIDTH){
+      blit(textX,textY, creditsText, display);
+      if ((textX+(line.length()*25+100)) >= 840){
 	textX = 0;
 	textY = textY + 50;
       }
@@ -340,9 +344,9 @@ void creditsMenu(){
       else textX += 13*line.length();
           }
   }
-  blit(SCREEN_WIDTH/2, SCREEN_HEIGHT-100, okButton, creditsScreen);
+  blit(840/2, 840-100, okButton, display);
  
-  SDL_Flip(creditsScreen);
+  SDL_Flip(display);
 
    while (xOut == false){
     while (SDL_PollEvent( &creditsEvent )){
@@ -356,12 +360,12 @@ void creditsMenu(){
 	  x = creditsEvent.button.x;
 	  y = creditsEvent.button.y;
 
-	  if( (x > SCREEN_WIDTH/2 && x < SCREEN_WIDTH/2 + 109) && (y > SCREEN_HEIGHT-100 && y < SCREEN_HEIGHT - 77) ){ // if on
+	  if( (x > 840/2 && x < 840/2 + 109) && (y > 840-100 && y < 840 - 77) ){ // if on
 	    SDL_FreeSurface(creditsText);
 	    SDL_FreeSurface(okButton);
 	    okButton = loadImage( "data/OKpressed.bmp" );
-	    blit(SCREEN_WIDTH/2, SCREEN_HEIGHT-100, okButton, creditsScreen);
-	    SDL_Flip(creditsScreen);
+	    blit(840/2, 840-100, okButton, display);
+	    SDL_Flip(display);
 	    mainMenu();
 	  }
        	}
@@ -373,7 +377,7 @@ void creditsMenu(){
    }
 }
 
-void quitMenu(){
+inline void quitMenu(){
    SDL_WM_SetCaption("Quit?", "Quit");
    SDL_Surface *verifyQuitScreen = NULL;
    SDL_Surface *quitPrompt = NULL;
@@ -387,7 +391,7 @@ void quitMenu(){
    background = loadImage("data/quitBg.bmp");
    okButton = loadImage( "data/OK.bmp" );
    cancelButton = loadImage( "data/CANCEL.bmp" );
-  verifyQuitScreen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+  verifyQuitScreen = SDL_SetVideoMode( 840, 840, 32, SDL_SWSURFACE );
 
   SDL_WM_SetCaption("Are You Sure?", NULL);
   blit(0, 0, background, verifyQuitScreen);
@@ -435,8 +439,9 @@ void quitMenu(){
 }
 
 // the main menu function will display the main menu for the game
-void mainMenu(){
-SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
+inline int mainMenu(){
+musicOn = true;
+  display = SDL_SetVideoMode( 840, 840, 32, SDL_SWSURFACE );
   SDL_Surface *quit = loadImage("data/QUIT.bmp");
   SDL_Surface *mainMenuButton = loadImage("data/mainMenu.bmp"); // like quit
 
@@ -447,8 +452,8 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
   SDL_Surface *options = NULL;
   SDL_Surface *credits = NULL;
   
-  int sX = SCREEN_WIDTH/2 , oX = SCREEN_WIDTH/2, cX = SCREEN_WIDTH/2, qX = SCREEN_WIDTH/2;
-  int sY = (SCREEN_HEIGHT*2/3);
+  int sX = 840/2 , oX = 840/2, cX = 840/2, qX = 840/2;
+  int sY = (840*2/3);
   int oY = sY + 75;
   int cY = oY + 75;
   int qY = cY + 75;
@@ -460,18 +465,18 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
   credits = loadImage("data/CREDITS.bmp");
 
   // place buttons
-  blit(0,0, background,screen);
-  blit(sX, sY, start, screen);
-  blit(oX, oY, options, screen);
-  blit(cX, cY,  credits, screen);
-  blit(qX, qY, quit, screen);
+  blit(0,0, background,display);
+  blit(sX, sY, start, display);
+  blit(oX, oY, options, display);
+  blit(cX, cY,  credits, display);
+  blit(qX, qY, quit, display);
   
-  // display screen
-  SDL_Flip(screen);
+  // display display
+  SDL_Flip(display);
 
   // sound 
   if (musicOn)
-   gameMusic();
+    gameMusic();
   // HANDLE EVENTS
 
   while (xOut == false){
@@ -493,7 +498,8 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
 	    SDL_FreeSurface(options);
 	    SDL_FreeSurface(credits);
 	    SDL_FreeSurface(quit);
-	    SDL_Flip(screen);
+	    SDL_Flip(display);
+	    numberOfPlayers = -1;
 	    startMenu();
 
 	  }
@@ -526,9 +532,7 @@ SDL_Surface *screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
 	  // do nothing
 	}
       }
-    }
-
+    } 
   }
- }
-
+}
 #endif

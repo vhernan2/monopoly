@@ -1,0 +1,4 @@
+- When editing, edit Mike/Game.cpp ( WHY IS THERE A GAME.CPP IN MONOPOLY BOARD IF IT ALREADY EXISTS??)
+
+- I think we should make a new directory with the functional stuff and get rid of all the extras...
+

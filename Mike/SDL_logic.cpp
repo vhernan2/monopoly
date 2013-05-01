@@ -67,6 +67,69 @@ char SDL_logic::getResponse(){
 
         while (quit == false) {
                 while( SDL_PollEvent( &event ) ){
+			if (event.type == SDL_QUIT){
+				c = 'q';
+				quit = true;
+			}
+//=======================================
+
+/*
+			if (event.type == SDL_MOUSEBUTTONDOWN){
+if(event.button.button == SDL_BUTTON_LEFT){
+                mouseX = event.button.x;
+                mouseY = event.button.y;
+                if( (mouseX > 150+329 && mouseX <150+507) && (mouseY > 500+57 && mouseY < 500+102) ){ 
+                  c = 'r';
+                  quit = true;
+                }
+                else if( (mouseX > 150+81 && mouseX < 150+214 ) && (mouseY > 500+60 && mouseY < 500+102) ){ 
+                  c = 'v';
+                  quit = true;
+                }
+                else if( (mouseX > 150+15 && mouseX < 150+281 ) && (mouseY > 500+7 && mouseY < 500+57) ){ 
+                  c = 'm';
+                  quit = true;
+                }
+                else if( (mouseX > 150+361 && mouseX < 150+513 ) && (mouseY > 500+10 && mouseY<500+56) ){ 
+                  c = 'b';
+                  quit = true;
+                }
+              }    
+            }
+
+*/
+
+//=======================================
+//=======================================
+
+/*
+
+if (event.type == SDL_MOUSEBUTTONDOWN){
+              if(event.button.button == SDL_BUTTON_LEFT){
+                mouseX = event.button.x;
+                mouseY = event.button.y;
+                if( (mouseX > 150+398 && mouseX <150+479) && (mouseY > 150+504 && mouseY < 150+541) ){
+                  c = 'r';
+                  quit = true;
+                }
+                else if( (mouseX > 150+81 && mouseX < 150+214 ) && (mouseY > 150+504 && mouseY < 150+540) ){
+                  c = 'v';
+                  quit = true;
+                }
+                else if( (mouseX > 150+15 && mouseX < 150+281 ) && (mouseY > 150+454 && mouseY < 150+538) ){
+                  c = 'm';
+                  quit = true;
+                }
+                else if( (mouseX > 150+361 && mouseX < 150+513 ) && (mouseY > 150+455 && mouseY<150+500) ){
+                  c = 'y';
+                  quit = true;
+                }
+              }
+            }
+
+*/
+
+//=======================================
                         if (event.type == SDL_KEYDOWN){
                                 switch (event.key.keysym.sym){
 				case SDLK_SPACE:
