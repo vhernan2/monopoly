@@ -6,12 +6,17 @@
 
 using namespace std;
 
-Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, bool group, bool status) : Tile(indicate, title, player, money, take, refresh)
+Property::Property(int indicate, string title, int player, int money, int take, bool refresh, int amount, int houses, int hotels, int value, int one, int two, int three, int four, int hotel, bool group, bool status) : Tile(indicate, title, player, money, take, refresh)
 {
 	cost = amount;
 	numHouses = houses;
 	numHotels = hotels;
 	rent = value;
+	H1 = one;
+	H2 = two;
+	H3 = three;
+	H4 = four;
+	HOTEL = hotel;
 	groupOwned = group;
 	mortgaged = status;
 }
@@ -107,18 +112,34 @@ void Property::updateEffect(int count)
 {
 	if(groupOwned == 1)
 	{
-		if(numHouses == 0 && numHotels == 0)
+		switch(numHouses)
 		{
-			moneyEffect = (rent*2);
+			case 0: 
+				if(numHotels == 0)
+				{
+					moneyEffect = (rent*2);
+				}
+				else if(numHotels == 1)
+				{
+					moneyEffect = HOTEL;
+				}
+				break;
+			case 1:
+				moneyEffect = H1;
+				break;
+			case 2:
+				moneyEffect = H2;
+				break;
+			case 3:
+				moneyEffect = H3;
+				break;
+			case 4:
+				moneyEffect = H4;
+				break;
+			default:
+				moneyEffect = rent;
+				break;
 		}
-		else
-		{
-			moneyEffect = rent + (75*numHouses) + (150*numHotels);
-		}
-	}
-	else
-	{
-		moneyEffect = rent;
 	}
 }
 

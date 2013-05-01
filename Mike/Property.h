@@ -11,7 +11,7 @@ using namespace std;
 class Property : public Tile
 {
 	public:
-		Property(int, string, int, int, int, bool, int, int, int, int, bool, bool);
+		Property(int, string, int, int, int, bool, int, int, int, int, int, int, int, int, int, bool, bool);
 
 		virtual void addHouses(int);	//should these functions be in Player? Or be called from Player using a buyHouse and buyHotel function?
 		virtual void addHotels(int);	//ignore the above comment. This is good, and I prefer typing to deleting
@@ -35,6 +35,11 @@ class Property : public Tile
 		int numHotels;
 		int numHouses;
 		int rent;
+		int H1;
+		int H2;
+		int H3;
+		int H4;
+		int HOTEL;
 		bool groupOwned;
 		bool mortgaged;
 		SDL_logic sdl;
