@@ -34,9 +34,9 @@ Game::Game(int numPlayers)
 	}
   */
   SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
-  SDL_Surface *sdlText = NULL;
+  sdlText = NULL;
   TTF_Init();
-  TTF_Font *font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
   SDL_Color textColor = {255,255,255};
@@ -807,10 +807,18 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	deque<string> playerOwns;
 	SDL_Surface *disp;
 
+	string str;
+
 	int yes_x = 175;
 	int yes_y = 575;
 	int no_x = 575;
 	int no_y = 575;
+
+	int nameDisp_x = 150+150;
+	int nameDisp_y = 150+133;
+
+	SDL_Color textColor = {255,255,255};
+	SDL_Color bColor = {0, 0, 0};
 
 	cout << "Entered trade" << endl;
 
@@ -822,7 +830,12 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	
 	for(int i = 0; i < players.size(); i++)
 	{
-		if (players[i].getIndex() != current->getIndex()) cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
+		if (players[i].getIndex() != current->getIndex()){ 
+			str = players[i].getName();
+			sdlText = TTF_RenderText_Shaded(font, str.c_str(), bColor, textColor);
+			sdl.apply_surface(nameDisp_x, nameDisp_y, sdlText, screen); 
+			nameDisp_y += 87;
+		}
 	}
 
 	while (recipIndex < 0){

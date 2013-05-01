@@ -9,6 +9,7 @@
 #include "SDL_logic.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
 
 using namespace std;
 
@@ -43,7 +44,10 @@ class Game
 		Board gameBoard;
 		SDL_logic sdl;
 		SDL_Surface* screen;
-		
+
+		SDL_Surface *sdlText;
+		TTF_Font *font;
+
 		SDL_Surface *preRollImage;
 		SDL_Surface *postRollImage;
 		SDL_Surface *sprites;
