@@ -6,7 +6,7 @@
 #include "Property.h"
 #include "SDL_logic.h"
 #include "prompts.h"
-
+#include "menu.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 
