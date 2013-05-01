@@ -233,3 +233,19 @@ Done:
 
 Time Spent: 3 hr 25 min
 Total Time: 37 hr 05 min
+
+April 30 2013
+4:00 p.m.
+
+To Do:
+	Work with Kyle to fully implement my logic with the rest of the group's graphics, make the game fully functional in a graphical version. Do not
+	leave Fitzpatrick until it is finished. Do not collect $200
+
+May 1 2013
+8:30 a.m.
+
+Done:
+	Graphical interface fully linked with logic, save for some interaction with build and mortgage functionality
+
+Time Spent: 16 hr 30 min
+Total Time: 53 hr 35 min
