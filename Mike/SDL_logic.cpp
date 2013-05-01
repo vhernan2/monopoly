@@ -246,6 +246,16 @@ char SDL_logic::getResponse(int type){
                                                 }
 
 					}
+					if ((type == 31) || (type == 99)){
+						if( (mouseX >150+25 && mouseX <150+125) && (mouseY > 150+425 && mouseY < 150+525) ){
+							c = 'y';
+							quit = true;
+						}
+                                                if( (mouseX >150+425 && mouseX <150+525) && (mouseY > 150+425 && mouseY < 150+525) ){
+						        c = 'n';
+                                                        quit = true;
+                                                }
+					}
 			       }    
 			}
                         if (event.type == SDL_KEYDOWN){

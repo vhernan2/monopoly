@@ -27,7 +27,8 @@ class Game
 		int getPlayers();
 		int getCurrentPlayer();
 		int getPlayerLocation(int);
-		int view(Player*);
+		int view_zoom(Player*);
+		void view(Player*);
 		void trade(Player*);
 		int gameOver();
 		void jailTime(Player*);
@@ -47,6 +48,14 @@ class Game
 		SDL_Surface *postRollImage;
 		SDL_Surface *sprites;
 		SDL_Surface *whitespace;
+
+		SDL_Surface *acceptTrade;
+        	SDL_Surface *cleanBackground;
+	        SDL_Surface *closeButton;
+        	SDL_Surface *noButton;
+	        SDL_Surface *tradeForThis;
+        	SDL_Surface *tradeThis;
+	        SDL_Surface *yesButton;
 
 		SDL_Surface *houseImage[6];
 		SDL_Surface *tile[40];

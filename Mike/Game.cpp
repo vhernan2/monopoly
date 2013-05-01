@@ -89,7 +89,15 @@ Game::Game(int numPlayers)
 
 	sprites = sdl.load_files("JLo/Properties/SpritsofProperty.png");
 	whitespace = sdl.load_files("JLo/Properties/whitespace.png");
-		
+
+	acceptTrade = sdl.load_files("JLo/Text/AcceptTrade.png");
+	cleanBackground = sdl.load_files("JLo/Text/Clean.png");
+	closeButton = sdl.load_files("JLo/Text/Close.png");
+	noButton = sdl.load_files("JLo/Text/No.png");
+	tradeForThis = sdl.load_files("JLo/Text/TradeForThis.png");
+	tradeThis = sdl.load_files("JLo/Text/TradeThis.png");
+	yesButton = sdl.load_files("JLo/Text/Yes.png");
+	
 	houseImage[1] = sdl.load_files("JLo/Rooms/Single.png");
 	houseImage[2] = sdl.load_files("JLo/Rooms/Double.png");
 	houseImage[3] = sdl.load_files("JLo/Rooms/Triple.png");
@@ -297,12 +305,12 @@ void Game::playerTurn(Player* current)
 			case 'v':
 				keepView = 1;
                                 while(keepView){
-                                        keepView = view(current);
+					view(current);
+                                        keepView = view_zoom(current);
 					if (!keepView) break;
                                         sdl.getResponse(99);
                                 }
-
-			break;
+				break;
 
 		}
 	}
@@ -366,6 +374,11 @@ void Game::playerPostRoll(Player* current){
 	}
 
 	while (response != 'r'){
+
+		for (int i = 0; i < players.size(); i++){
+                        players[i].buildTiles(gameBoard);
+                }
+
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
@@ -386,8 +399,9 @@ void Game::playerPostRoll(Player* current){
 			case 'v':
 				keepView = 1;
 				while(keepView){
-					keepView = view(current);
-					if (!keepView);
+					view(current);
+					keepView = view_zoom(current);
+					if (!keepView) break;
 					sdl.getResponse(99);
 				}
 				break;
@@ -720,7 +734,24 @@ int Game::getPlayerLocation(int player){
 	return ((&players[curPlayer])->getPosition());
 }
 
-int Game::view(Player* current){
+int Game::view_zoom(Player* current){
+	char response;
+	SDL_Surface *disp;
+        response = sdl.getResponse(1);
+        if (response == 'q') return 0;
+
+        if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
+                disp = tile[response];
+                if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
+        }
+
+        sdl.apply_surface(175, 180, disp, screen);
+
+        return 1;
+
+}
+
+void Game::view(Player* current){
 
 	char response;
 
@@ -761,24 +792,12 @@ int Game::view(Player* current){
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
 
-	response = sdl.getResponse(1);
-	if (response == 'q') return 0;
-
-	if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){	
-		disp = tile[response];
-		if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
-	}
-	
-	sdl.apply_surface(175, 180, disp, screen);	
-
-	return 1;
-
 }
 
 void Game::trade(Player* current)		//this function was thrown together somewhat carelessly, I'm having problems with getline
 {
 	string recipient;
-	int recipIndexi = -1;
+	int recipIndex = -1;
 	int offer = -1;
 	int offerIndex = -1;
 	int request = -1;
@@ -787,6 +806,11 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	deque<string> options;
 	deque<string> playerOwns;
 	SDL_Surface *disp;
+
+	int yes_x = 175;
+	int yes_y = 575;
+	int no_x = 575;
+	int no_y = 575;
 
 	cout << "Entered trade" << endl;
 
@@ -824,16 +848,21 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	while (request < 0){
 
 		view(&players[recipIndex]);
+		sdl.apply_surface(225, 150, tradeForThis, screen);
 
 		cout << "What would you like to trade for? Please enter the number associated with the name";
 		cout << endl;
 		request = sdl.getResponse(1);
 		if (request == 'c') return;
-		request -= 48;
 		if (gameBoard.accessSpace(request)->getOwner() == recipIndex){
-			sdl.apply_surface(175, 180, tile[request], screen);
-			answer = sdl.get_response(31);
-			if (answer == 'y') break;
+			sdl.apply_surface(150, 140, cleanBackground, screen);
+			sdl.apply_surface(175, 200, tile[request], screen);
+			sdl.apply_surface(225, 150, tradeForThis, screen);
+			sdl.apply_surface(yes_x, yes_y, yesButton, screen);
+			sdl.apply_surface(no_x, no_y, noButton, screen);
+
+			answer = sdl.getResponse(31);
+			if (answer != 'y') request = -1;
 		}
 	}
 
@@ -851,19 +880,24 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << playerOwns[i] << ": " << i << endl;
 	}
 
-	while (request < 0){
+	while (offer < 0){
 
                 view(current);
+                sdl.apply_surface(225, 150, tradeThis, screen);
 
 		cout << "Your offer: ";
                 cout << endl;
                 offer = sdl.getResponse(1);
                 if (offer == 'c') return;
-                offer -= 48;
                 if (gameBoard.accessSpace(offer)->getOwner() == current->getIndex()){
-                        sdl.apply_surface(175, 180, tile[offer], screen);
-                        answer = sdl.get_response(31);
-                        if (answer == 'y') break;
+			sdl.apply_surface(150, 140, cleanBackground, screen);
+                        sdl.apply_surface(175, 200, tile[offer], screen);
+                        sdl.apply_surface(225, 150, tradeThis, screen);
+                        sdl.apply_surface(yes_x, yes_y, yesButton, screen);
+                        sdl.apply_surface(no_x, no_y, noButton, screen);
+
+                        answer = sdl.getResponse(31);
+                        if (answer != 'y') offer = -1;
                 }
         }
 
@@ -877,12 +911,13 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 
 	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offerIndex] << " for " << options[requestIndex] << "? (y/n)" << endl;
-	//applywhitespace
-	sdl.apply_surface(150, 160, tile[request], screen);
-	sdl.apply_surface(190, 200, tile[offer], screen);
-	//apply buttons
+	sdl.apply_surface(150, 150, cleanBackground, screen);
+	sdl.apply_surface(100, 160, tile[request], screen);
+	sdl.apply_surface(240, 300, tile[offer], screen);
+	sdl.apply_surface(yes_x, yes_y, yesButton, screen);
+	sdl.apply_surface(no_x, no_y, noButton, screen);
 
-	answer = sdl.getResponse(3);
+	answer = sdl.getResponse(31);
 
 	if(answer == 'n') return;
 	else if(answer == 'y')
