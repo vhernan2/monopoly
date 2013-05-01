@@ -211,6 +211,10 @@ void Game::playerPostRoll(Player* current){
 	int output;	//stores index value from interact function
 	int playerRoll;		//stores value of player's roll
 
+	Tile *t;
+	int group;
+	int isProperty = 0;
+
 	char response;
 	
 	if (!(current->getJail())){	
@@ -234,6 +238,9 @@ void Game::playerPostRoll(Player* current){
 		cout << gameBoard.getCardNum(2) << endl;
 	} else {
 		disp = tile[current->getPosition()];
+		t = gameBoard.accessSpace(current->getPosition());
+		group = t->getGroup();
+		if ((group > 0) && (group <= 8)) isProperty = 1;
 	}
 	cout << "right before postRollImage" << endl;	
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
@@ -252,6 +259,8 @@ void Game::playerPostRoll(Player* current){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
+
+		if (isProperty) applyHouses(t->getHouses());
 
 		response = sdl.getResponse();
 		switch (response){
@@ -305,6 +314,18 @@ void Game::buildCheck(Player* current)
 		}
 	}
 }	
+
+void Game::applyHouses(int numHouses){
+
+	int x = 155;
+	int y = 155;
+
+	for (int i = 0; i < numHouses; i++){
+		sdl.apply_surface(x, y, houseImage, screen);
+		y += 35;
+	}
+
+}
 
 void Game::build(Player* current)		//pretty sure getline is causing a weird print error in this function somewhere as well
 {
