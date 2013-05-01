@@ -183,7 +183,7 @@ bool Monopoly_Board::keep_playing(){
     //While the user hasn't quit
     while( quit == false )
     {
-	    char c = sdl.getResponse();
+	    char c = sdl.getResponse(99);
 	    switch (c){
 	        case 'n':
 		    forReturn = true;

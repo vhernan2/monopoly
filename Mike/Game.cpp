@@ -10,7 +10,8 @@ using namespace std;
 
 Game::Game(int numPlayers)
 {
-/*	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
+
+	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
 	cin >> numPlayers;
 
 	for(int j = 0; j < numPlayers; j++)
@@ -30,7 +31,7 @@ Game::Game(int numPlayers)
 
 		i++;
 	}
-*/
+/*
 
   initializeText();
   //SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
@@ -69,7 +70,7 @@ Game::Game(int numPlayers)
 	  }
 	  players[i].setName(name);
 	}	
-
+*/
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
 	sdl;
@@ -223,6 +224,8 @@ void Game::playerTurn(Player* current)
 {
 	char response;
 
+	int keepView;
+
 	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
 	gameBoard.updateRentRR();		//updates the rent of the railroads based on how many a player owns
@@ -246,7 +249,7 @@ void Game::playerTurn(Player* current)
 
 		cout << "What would you like to do? (R)oll, (P)lay, (T)rade: \n";	//all 3 options presented, although trade currently does not function properly
 
-		response = sdl.getResponse();
+		response = sdl.getResponse(0);
 		
 		switch(response)
 		{
@@ -266,8 +269,13 @@ void Game::playerTurn(Player* current)
 			case 'q':
 				return;
 			case 'v':
-				view(current);
-				sdl.getResponse();
+				keepView = 1;
+                                while(keepView){
+                                        keepView = view(current);
+					if (!keepView) break;
+                                        sdl.getResponse(99);
+                                }
+
 			break;
 
 		}
@@ -283,6 +291,8 @@ void Game::playerPostRoll(Player* current){
 	Tile *t;
 	int group;
 	int isProperty = 0;
+
+	int keepView;
 
 	char response;
 	
@@ -324,27 +334,34 @@ void Game::playerPostRoll(Player* current){
 	response = 'z';
 	if(current->getJail())
 	{
-		response = 'o';
+		response = 'r';
 	}
 
-	while (response != 'o'){
+	while (response != 'r'){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
 
 		if (isProperty) applyHouses(t->getHouses(), t->getHotels());
 
-		response = sdl.getResponse();
+		response = sdl.getResponse(0);
 		switch (response){
 			case 'b':
 				gameBoard.accessSpace(current->getPosition())->buy(current);
 				break;
 			case 'v':
-				view(current);
-				sdl.getResponse();
+				keepView = 1;
+				while(keepView){
+					keepView = view(current);
+					if (!keepView);
+					sdl.getResponse(99);
+				}
 				break;
 			case 'm':
 				mortgage(current);
+				break;
+			case 'o':
+				response = 'r';
 				break;
 			case 'q':
 				return;
@@ -429,7 +446,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 	
 		cout << "What would you like to build? 1 for houses ($50 each), 2 for hotels ($100 each), 3 to exit";
 		cout << endl;
-		select = sdl.getResponse();
+		select = sdl.getResponse(2);
 		if (select == 'q') return;
 		select -= 48;
 		if(select == 1)
@@ -445,7 +462,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					}
 					cout << endl;
 			
-					location = sdl.getResponse();
+					location = sdl.getResponse(2);
 					if (location == 'q') return;
 					location -= 48;
 
@@ -466,7 +483,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 										houseLoop = 0;
 										break;
 									}
-									housesAdded = sdl.getResponse();
+									housesAdded = sdl.getResponse(2);
 									if (housesAdded == 'q') return;
 									housesAdded -= 48;
 									if(current->getMoney() <= housePrice*housesAdded)
@@ -507,7 +524,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 						cout << hotelOptions[i] << ": " << i << endl;
 					}
 					cout << endl;
-					location = sdl.getResponse();
+					location = sdl.getResponse(2);
 					if (location == 'q') return;
 					location -= 48;
 
@@ -531,7 +548,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 									cout << endl;
 									if (currentHotels == 1) break;
-									hotelsAdded = sdl.getResponse();
+									hotelsAdded = sdl.getResponse(2);
 									if (hotelsAdded == 'q') return;
 									hotelsAdded -= 48;
 									if(current->getMoney() <= 100*hotelsAdded)
@@ -590,7 +607,7 @@ void Game::mortgage(Player* current)
 	}
 
 
-	place = sdl.getResponse();
+	place = sdl.getResponse(4);
 	if (place == 'q') return;
 	place -= 48;
 /*
@@ -623,7 +640,7 @@ void Game::mortgage(Player* current)
 		{
 			cout << "Would you like to mortgage " << owned[place] << " and gain " << mortgageReturn << "? (y/n)";
 			cout << endl;
-			mortgageYN = sdl.getResponse();
+			mortgageYN = sdl.getResponse(4);
 	
 			if(mortgageYN == 'y')
 			{
@@ -638,7 +655,7 @@ void Game::mortgage(Player* current)
 		{
 			cout << "Would you like to unmortgage " << owned[place] << "? It will cost you " << mortgageReturn << ". (y/n)";
 			cout << endl;
-			mortgageYN = sdl.getResponse();
+			mortgageYN = sdl.getResponse(4);
 
 			if(mortgageYN == 'y')
 			{
@@ -676,6 +693,8 @@ int Game::view(Player* current){
 	int sprite_x = 150;
 	int sprite_y = 150;
 
+	SDL_Surface *disp;
+
 //	sdl.apply_surface(150,150, postRollImage, screen);
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
 
@@ -708,6 +727,16 @@ int Game::view(Player* current){
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
 
+	response = sdl.getResponse(1);
+	if (response == 'q') return 0;
+
+	if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){	
+		disp = tile[response];
+		if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
+	}
+	
+	sdl.apply_surface(175, 180, disp, screen);	
+
 	return 1;
 
 }
@@ -736,8 +765,11 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		if (players[i].getIndex() != current->getIndex()) cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
 	}
 
-	recipIndex = sdl.getResponse();
-	if (recipIndex == 'c') return;
+	recipIndex = sdl.getResponse(3);
+	if (recipIndex == 'c') {
+		cout << "return from trade" << endl;	
+		return;
+	}
 	recipIndex -= 48;
 //	cin >> recipIndex;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
@@ -753,7 +785,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 	cout << "What would you like to trade for? Please enter the number associated with the name";
 	cout << endl;
-	request = sdl.getResponse();
+	request = sdl.getResponse(3);
 	if (request == 'c') return;
 	request -= 48;
 
@@ -767,12 +799,12 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	view(current);
 	cout << "Your offer: ";
 	cout << endl;
-	offer = sdl.getResponse(); 
+	offer = sdl.getResponse(3); 
 	if (offer == 'c') return;
 	offer -= 48;
 
 	cout << players[recipIndex].getName() << ", do you accept this trade? " << playerOwns[offer] << " for " << options[request] << "? (y/n)" << endl;
-	answer = sdl.getResponse();
+	answer = sdl.getResponse(3);
 
 	if(answer == 'n') return;
 	else if(answer == 'y')
@@ -844,7 +876,7 @@ void Game::jailTime(Player* current)
 				if(current->getMoney() > 50)
 				{
 					cout << "Would you like to pay off the service hours? (y/n)";
-					pay = sdl.getResponse();
+					pay = sdl.getResponse(5);
 					if(pay == 'y')
 					{
 						current->payOffResLife();

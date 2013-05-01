@@ -68,6 +68,7 @@ char SDL_logic::getResponse(int type){
 
 	bool quit = false;
         char c;
+	int mouseX, mouseY;
 
         while (quit == false) {
                 while( SDL_PollEvent( &event ) ){
@@ -103,119 +104,126 @@ char SDL_logic::getResponse(int type){
 					}
 					if ((type == 1) || (type == 99)){
 						if( (mouseX > 150+19 && mouseX <150+74) && (mouseY > 150+49 && mouseY < 150+106) ){ 
-                                                        c = 0;
+                                                        c = 24;
                                                         quit = true;
                                                 }
 						if( (mouseX > 150+99 && mouseX <150+158) && (mouseY > 150+47 && mouseY < 150+105) ){ 
-                                                        c = 'm';
+                                                        c = 23;
                                                         quit = true;
                                                 }
-						if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){ 
-                                                        c = 'm';
+						if( (mouseX > 150+188 && mouseX <150+246) && (mouseY > 150+48 && mouseY < 150+106) ){ 
+                                                        c = 21;
                                                         quit = true;
                                                 }
-						if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){ 
-                                                        c = 'm';
+						if( (mouseX > 150+20 && mouseX <150+78) && (mouseY > 150+126 && mouseY < 150+184) ){ 
+                                                        c = 39;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+102 && mouseX <150+162) && (mouseY > 150+126 && mouseY < 150+184) ){
+                                                        c = 37;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+22 && mouseX <150+80) && (mouseY > 150+207 && mouseY < 150+264) ){
+                                                        c = 6;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+107 && mouseX <150+166) && (mouseY > 150+207 && mouseY < 150+265) ){
+                                                        c = 8;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+198 && mouseX <150+257) && (mouseY > 150+209 && mouseY < 150+267) ){
+                                                        c = 9;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+22 && mouseX <150+80) && (mouseY > 150+279 && mouseY < 150+336) ){
+                                                        c = 3;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+107 && mouseX <150+165) && (mouseY > 150+279 && mouseY < 150+336) ){
+                                                        c = 1;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+30 && mouseX <150+87) && (mouseY > 150+355 && mouseY < 150+412) ){
+                                                        c = 26;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+108 && mouseX <150+166) && (mouseY > 150+355 && mouseY < 150+412) ){
+                                                        c = 27;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+188 && mouseX <150+246) && (mouseY > 150+356 && mouseY < 150+412) ){
+                                                        c = 29;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+34 && mouseX <150+90) && (mouseY > 150+429 && mouseY < 150+486) ){
+                                                        c = 34;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+112 && mouseX <150+169) && (mouseY > 150+430 && mouseY < 150+486) ){
+                                                        c = 32;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+190 && mouseX <150+248) && (mouseY > 150+429 && mouseY < 150+485) ){
+                                                        c = 31;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+312 && mouseX <150+370) && (mouseY > 150+58 && mouseY < 150+115) ){
+                                                        c = 16;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+394 && mouseX <150+452) && (mouseY > 150+56 && mouseY < 150+113) ){
+                                                        c = 18;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+467 && mouseX <150+524) && (mouseY > 150+56 && mouseY < 150+111) ){
+                                                        c = 19;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+315 && mouseX <150+372) && (mouseY > 150+130 && mouseY < 150+186) ){
+                                                        c = 14;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+394 && mouseX <150+452) && (mouseY > 150+130 && mouseY < 150+186) ){
+                                                        c = 13;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+471 && mouseX <150+529) && (mouseY > 150+130 && mouseY < 150+186) ){
+                                                        c = 11;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+394 && mouseX <150+451) && (mouseY > 150+214 && mouseY < 150+270) ){
+                                                        c = 35;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+470 && mouseX <150+527) && (mouseY > 150+213 && mouseY < 150+270) ){
+                                                        c = 25;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+395 && mouseX <150+453) && (mouseY > 150+284 && mouseY < 150+340) ){
+                                                        c = 5;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+474 && mouseX <150+531) && (mouseY > 150+283 && mouseY < 150+337) ){
+                                                        c = 15;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+396 && mouseX <150+452) && (mouseY > 150+355 && mouseY < 150+412) ){
+                                                        c = 12;
                                                         quit = true;
                                                 }
-                                                if( (mouseX > 150+59 && mouseX <150+301) && (mouseY > 150+460 && mouseY < 150+490) ){
-                                                        c = 'm';
+                                                if( (mouseX > 150+475 && mouseX <150+531) && (mouseY > 150+356 && mouseY < 150+411) ){
+                                                        c = 28;
                                                         quit = true;
                                                 }
 
 
+					}
+					if ((type == 3) || (type == 99)){
+						cout << "entered 3" << endl;
+						if( (mouseX >150+386 && mouseX <150+536) && (mouseY > 150+486 && mouseY < 150+544) ){
+							c = 'c';
+							quit = true;
+						}	
 					}
 			       }    
 			}
