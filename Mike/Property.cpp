@@ -160,7 +160,9 @@ int Property::getCost()
 
 void Property::setMortgage(bool status)
 {
+	cout << "Entered setMortgage" << endl;
 	mortgaged = status;
+	cout << "Leaving setMortgage" << endl;
 }
 
 bool Property::getMortgage()

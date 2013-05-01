@@ -585,7 +585,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 void Game::mortgage(Player* current)
 {
-	string place;
+	int place;
 	deque<string> owned;
 	int moveOn;	//is set to 1 if the player picks a valid tile
 	int mortgageReturn;	//amount player receives for mortgaging
@@ -594,11 +594,22 @@ void Game::mortgage(Player* current)
 	bool status;		//bool representing mortgaged status of selected location
 
 	owned = current->getTiles();
+	
+	view(current);
 
-	current->printTiles();
+//	current->printTiles();
 	cout << "What would you like to mortgage or unmortgage?";
-	getline(cin, place);
+		
+	for(int i = 0; i < owned.size(); i++)
+	{
+		cout << owned[i] << ": " << i << endl;
+	}
 
+
+	place = sdl.getResponse();
+	if (place == 'q') return;
+	place -= 48;
+/*
 	for(int i = 0; i < owned.size(); i++)
 	{
 		if(place == owned[i])
@@ -613,38 +624,42 @@ void Game::mortgage(Player* current)
 		return;
 	}
 	else if(moveOn == 1)
-	{
+	{*/
 		for(j = 0; j < 40; j++)
 		{
-			if(gameBoard.accessSpace(j)->getTitle() == place)
+			if(gameBoard.accessSpace(j)->getTitle() == owned[place])
 			{
 				mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
 				status = gameBoard.accessSpace(j)->getMortgage();
+				break;
 			}
 		}
 		
 		if(status == 0)
 		{
-			cout << "Would you like to mortgage " << place << " and gain " << mortgageReturn << "? (y/n)";
-			cin >> mortgageYN;
+			cout << "Would you like to mortgage " << owned[place] << " and gain " << mortgageReturn << "? (y/n)";
+			cout << endl;
+			mortgageYN = sdl.getResponse();
 	
-			if(mortgageYN == 'n') return;
 			if(mortgageYN == 'y')
 			{
+				cout << "Entered changeInMoney" << endl;
 				current->changeInMoney(mortgageReturn);
-				gameBoard.accessSpace(j)->setMortgage(1);
+				cout << "Attepmting to setMortgage" << endl;
+				gameBoard.accessSpace(j)->setMortgage(true);
+				cout << "setMortgage successful" << endl;
 			}
 		}
 		else if(status == 1 && current->getMoney() > mortgageReturn)
 		{
-			cout << "Would you like to unmortgage " << place << "? It will cost you " << mortgageReturn << ". (y/n)";
-			cin >> mortgageYN;
-	
-			if(mortgageYN == 'n') return;
+			cout << "Would you like to unmortgage " << owned[place] << "? It will cost you " << mortgageReturn << ". (y/n)";
+			cout << endl;
+			mortgageYN = sdl.getResponse();
+
 			if(mortgageYN == 'y')
 			{
 				current->changeInMoney(-mortgageReturn);
-				gameBoard.accessSpace(j)->setMortgage(0);
+				gameBoard.accessSpace(j)->setMortgage(false);
 			}
 		}
 		else if(status == 1 && current->getMoney() <= mortgageReturn)
@@ -652,7 +667,9 @@ void Game::mortgage(Player* current)
 			cout << "This location is mortgaged, and you can't afford to unmortgage it!" << endl;
 		}
 
-	}
+	return;
+
+//	}
 }
 
 	
