@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "Property.h"
 #include "SDL_logic.h"
+#include "prompts.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -46,9 +47,8 @@ class Game
 		SDL_Surface *postRollImage;
 		SDL_Surface *sprites;
 		SDL_Surface *whitespace;
-		SDL_Surface *houseImage;
-		SDL_Surface *hotelImage;
 
+		SDL_Surface *houseImage[6];
 		SDL_Surface *tile[40];
 		SDL_Surface *backTile[40];
 		SDL_Surface *SAOcard[13];
