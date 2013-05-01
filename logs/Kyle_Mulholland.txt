@@ -93,3 +93,7 @@ TUESDAY APRIL 30
 	discussed strategy for how do implement click design
 5:45 AM - view has awesome functionality now, render prices on unsold
 	properties, more functionality to SDL_logic
+6:30 AM - finalized view - broke it into two functions to have more
+	sensical and versital output
+8:00 AM - trade is 100% complete - some nice Object Oriented
+	Programming and incorporation of TTF functions

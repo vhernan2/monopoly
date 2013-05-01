@@ -97,6 +97,11 @@ Game::Game(int numPlayers)
 	tradeForThis = sdl.load_files("JLo/Text/TradeForThis.png");
 	tradeThis = sdl.load_files("JLo/Text/TradeThis.png");
 	yesButton = sdl.load_files("JLo/Text/Yes.png");
+
+	mortgageHere = sdl.load_files("JLo/Text/MortgageHere.png");
+	mortgage = sdl.load_files("JLo/Text/Mortgage.png");
+	unmortgage = sdl.load_files("JLo/Text/Unmortgage.png");
+	buildHere = sdl.load_files("JLo/Text/buildHere.png");
 	
 	houseImage[1] = sdl.load_files("JLo/Rooms/Single.png");
 	houseImage[2] = sdl.load_files("JLo/Rooms/Double.png");
