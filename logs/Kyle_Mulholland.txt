@@ -85,3 +85,9 @@ TUESDAY APRIL 30
 	large bug in trading that caused pieces not to actually trade
 	completely, other small bugs, began work with Jodi on revisualizing
 	singles, doubles, triples, quads, and six man (vs. houses/hotels)
+1:30 AM - resolved merge issue where two pushes were quite incompatible,
+	presented a challenge in merging but we were able to organize
+	everything properly
+2:30 AM - Mortgage up and running, functional
+3:30 AM - began work on linking in room designs, tile backs, and 
+	discussed strategy for how do implement click design
