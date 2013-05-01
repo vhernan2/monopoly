@@ -188,6 +188,22 @@ Game::Game(int numPlayers)
 	tradeScreen[5] = sdl.load_files("JLo/Trade/Trade_5player.png");
 	tradeScreen[6] = sdl.load_files("JLo/Trade/Trade_6player.png");
 
+
+	FS[60] = sdl.load_files("JLo/FS/FS60.png");
+	FS[100] = sdl.load_files("JLo/FS/FS100.png");
+	FS[120] = sdl.load_files("JLo/FS/FS120.png");
+	FS[140] = sdl.load_files("JLo/FS/FS140.png");
+	FS[160] = sdl.load_files("JLo/FS/FS160.png");
+	FS[180] = sdl.load_files("JLo/FS/FS180.png");
+	FS[200] = sdl.load_files("JLo/FS/FS200.png");
+	FS[220] = sdl.load_files("JLo/FS/FS220.png");
+	FS[240] = sdl.load_files("JLo/FS/FS240.png");
+	FS[260] = sdl.load_files("JLo/FS/FS260.png");
+	FS[280] = sdl.load_files("JLo/FS/FS280.png");
+	FS[300] = sdl.load_files("JLo/FS/FS300.png");
+	FS[320] = sdl.load_files("JLo/FS/FS320.png");
+	FS[350] = sdl.load_files("JLo/FS/FS350.png");
+	FS[400] = sdl.load_files("JLo/FS/FS400.png");
 }
 
 Game::~Game()
@@ -291,6 +307,7 @@ void Game::playerPostRoll(Player* current){
 	Tile *t;
 	int group;
 	int isProperty = 0;
+	int isColorProperty = 0;
 
 	int keepView;
 
@@ -319,7 +336,8 @@ void Game::playerPostRoll(Player* current){
 		disp = tile[current->getPosition()];
 		t = gameBoard.accessSpace(current->getPosition());
 		group = t->getGroup();
-		if ((group > 0) && (group <= 8)) isProperty = 1;
+		if ((group > 0) && (group <= 8)) isColorProperty = 1;
+		if ((group > 0) && (group <= 10)) isProperty = 1;
 		if (isProperty){
 			if (gameBoard.accessSpace(current->getPosition())->getMortgage()) disp = backTile[current->getPosition()];
 		}
@@ -342,7 +360,13 @@ void Game::playerPostRoll(Player* current){
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
 
-		if (isProperty) applyHouses(t->getHouses(), t->getHotels());
+		if (isProperty){
+			if (t->getOwner() == -1){
+				sdl.apply_surface(500, 180, FS[t->getCost()], screen);
+			}
+		}
+
+		if (isColorProperty) applyHouses(t->getHouses(), t->getHotels());
 
 		response = sdl.getResponse(0);
 		switch (response){
