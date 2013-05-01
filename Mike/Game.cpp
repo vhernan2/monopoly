@@ -155,7 +155,7 @@ Game::Game(int numPlayers)
         backTile[5] = sdl.load_files("JLo/PropertiesBack/ColemanMorseCenter.png");
         backTile[6] = sdl.load_files("JLo/PropertiesBack/SeigfriedHall.png");
         backTile[8] = sdl.load_files("JLo/PropertiesBack/LewisHall.png");
-        backTile[9] = sdl.load_files("JLo/PropertiesBack/CarrolHall.png");
+        backTile[9] = sdl.load_files("JLo/PropertiesBack/CarrollHall.png");
         backTile[11] = sdl.load_files("JLo/PropertiesBack/FisherHall.png");
         backTile[12] = sdl.load_files("JLo/PropertiesBack/NorthDiningHall.png");
         backTile[13] = sdl.load_files("JLo/PropertiesBack/DillonHall.png");
@@ -650,7 +650,6 @@ void Game::mortgage(Player* current)
 	int moveOn;	//is set to 1 if the player picks a valid tile
 	int mortgageReturn;	//amount player receives for mortgaging
 	char mortgageYN;	//players final decision	
-	int j;
 	bool status;		//bool representing mortgaged status of selected location
 
 	char answer = 'z';
@@ -673,15 +672,17 @@ void Game::mortgage(Player* current)
 	}
 
 	while (answer != 'y'){
-		view(current);
 
 		while (place <= 0){
+			view(current);
 			place = sdl.getResponse(1);
 			if (place == 'q') return;
+			mortgageReturn = (gameBoard.accessSpace(place)->getCost())/2;
+			cout << place << endl;
 			if (gameBoard.accessSpace(place)->getOwner() != current->getIndex()){
 				place = -1;
 			}
-			if ((place != -1) && current->getMoney() <= mortgageReturn){
+			if (gameBoard.accessSpace(place)->getMortgage() && (current->getMoney() < mortgageReturn)) {
 				place = -1;
 			}
 		}
@@ -700,29 +701,37 @@ void Game::mortgage(Player* current)
 		sdl.apply_surface(yes_x, yes_y, yesButton, screen);
 	        sdl.apply_surface(no_x, no_y, noButton, screen);
 
+
+		cout << "Waiting for " << answer << endl;
 		answer = sdl.getResponse(31);
-		if (answer != 'y') answer = -1;
+		cout << "answer is " << answer << endl;
+
+		if (answer != 'y') place = -1;
 		if (answer == 'q') return;
 	}
 //	for(j = 0; j < 40; j++)
 //	{
 //		if(gameBoard.accessSpace(j)->getTitle() == owned[place])
 //		{
-	mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
-	status = gameBoard.accessSpace(j)->getMortgage();
+	mortgageReturn = (gameBoard.accessSpace(place)->getCost())/2;
+	status = gameBoard.accessSpace(place)->getMortgage();
 //			break;
 //	}
 //	}
+
+	cout << "Mortgage status: " << status << endl;
+	cout << "Mortgage status of " << gameBoard.accessSpace(place)->getTitle() << ": " << gameBoard.accessSpace(place)->getMortgage() << endl;
+	cout << endl;
 	
 	if(status == 0)
 	{
 		current->changeInMoney(mortgageReturn);
-		gameBoard.accessSpace(j)->setMortgage(true);
+		gameBoard.accessSpace(place)->setMortgage(true);
 	}
 	if(status == 1)
 	{
 		current->changeInMoney(-mortgageReturn);
-		gameBoard.accessSpace(j)->setMortgage(false);
+		gameBoard.accessSpace(place)->setMortgage(false);
 	}
 
 	return;
