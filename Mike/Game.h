@@ -21,7 +21,7 @@ class Game
 		void playerPostRoll(Player *);
 		int rollDie(Player*);
 		void buildCheck(Player*);
-		void applyHouses(int);
+		void applyHouses(int, int);
 		void build(Player*);
 		int getPlayers();
 		int getCurrentPlayer();
@@ -47,8 +47,10 @@ class Game
 		SDL_Surface *sprites;
 		SDL_Surface *whitespace;
 		SDL_Surface *houseImage;
+		SDL_Surface *hotelImage;
 
 		SDL_Surface *tile[40];
+		SDL_Surface *backTile[40];
 		SDL_Surface *SAOcard[13];
 		SDL_Surface *SUBcard[14];
 		SDL_Surface *tradeScreen[7];

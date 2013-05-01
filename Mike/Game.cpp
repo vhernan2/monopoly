@@ -33,20 +33,17 @@ Game::Game()
 
 	curPlayer=100; //really big to ensure it resets on first call
 	gameBoard;
-	cout << "gameBoard\n";
 	sdl;
-	cout << "sdl\n";
 	screen = NULL;
 
 	preRollImage = sdl.load_files( "JLo/preRoll.png" );
-	cout << "someimages\n";
 	postRollImage = sdl.load_files( "JLo/postRoll.png" );
-	cout << "images\n";
 
 	sprites = sdl.load_files("JLo/Properties/SpritsofProperty.png");
 	whitespace = sdl.load_files("JLo/Properties/whitespace.png");
 	
 	houseImage = sdl.load_files("JLo/House.png");
+	hotelImage = sdl.load_files("JLo/House.png");
 
 	tile[0] = sdl.load_files("JLo/Properties/GO.png");	
 	tile[1] = sdl.load_files("JLo/Properties/PasquerillaEast.png");
@@ -81,7 +78,37 @@ Game::Game()
 	tile[35] = sdl.load_files("JLo/Properties/Hesburgh.png");
 	tile[37] = sdl.load_files("JLo/Properties/MainBuilding.png");
 	tile[38] = sdl.load_files("JLo/Properties/LuxuryTax.png");
-	tile[39] = sdl.load_files("JLo/Properties/NotreDameStadium.png");
+	tile[39] = sdl.load_files("JLo/Properties/TheGrotto.png");
+
+        backTile[1] = sdl.load_files("JLo/PropertiesBack/PasquerillaEast.png");
+        backTile[3] = sdl.load_files("JLo/PropertiesBack/PasquerillaWest.png");
+        backTile[5] = sdl.load_files("JLo/PropertiesBack/ColemanMorseCenter.png");
+        backTile[6] = sdl.load_files("JLo/PropertiesBack/SeigfriedHall.png");
+        backTile[8] = sdl.load_files("JLo/PropertiesBack/LewisHall.png");
+        backTile[9] = sdl.load_files("JLo/PropertiesBack/CarrolHall.png");
+        backTile[11] = sdl.load_files("JLo/PropertiesBack/FisherHall.png");
+        backTile[12] = sdl.load_files("JLo/PropertiesBack/NorthDiningHall.png");
+        backTile[13] = sdl.load_files("JLo/PropertiesBack/DillonHall.png");
+        backTile[14] = sdl.load_files("JLo/PropertiesBack/AlumniHall.png");
+        backTile[15] = sdl.load_files("JLo/PropertiesBack/Debartolo.png");
+        backTile[16] = sdl.load_files("JLo/PropertiesBack/BadinHall.png");
+        backTile[18] = sdl.load_files("JLo/PropertiesBack/HowardHall.png");
+        backTile[19] = sdl.load_files("JLo/PropertiesBack/LyonsHall.png");
+        backTile[21] = sdl.load_files("JLo/PropertiesBack/RyanHall.png");
+        backTile[23] = sdl.load_files("JLo/PropertiesBack/McGlinnHall.png");
+        backTile[24] = sdl.load_files("JLo/PropertiesBack/WelshFamily.png");
+        backTile[25] = sdl.load_files("JLo/PropertiesBack/Lafortune.png");
+        backTile[26] = sdl.load_files("JLo/PropertiesBack/ONeillHall.png");
+        backTile[27] = sdl.load_files("JLo/PropertiesBack/KeoughHall.png");
+        backTile[28] = sdl.load_files("JLo/PropertiesBack/SouthDiningHall.png");
+        backTile[29] = sdl.load_files("JLo/PropertiesBack/DuncanHall.png");
+        backTile[31] = sdl.load_files("JLo/PropertiesBack/ComptonIceArena.png");
+        backTile[32] = sdl.load_files("JLo/PropertiesBack/JACC.png");
+        backTile[34] = sdl.load_files("JLo/PropertiesBack/NotreDameStadium.png");
+        backTile[35] = sdl.load_files("JLo/PropertiesBack/Hesburgh.png");
+        backTile[37] = sdl.load_files("JLo/PropertiesBack/MainBuilding.png");
+        backTile[39] = sdl.load_files("JLo/PropertiesBack/TheGrotto.png");
+
 
 	SAOcard[0] = sdl.load_files("JLo/SAO/BengalBouts.png");
 	SAOcard[1] = sdl.load_files("JLo/SAO/BarakaBouts.png");
@@ -260,7 +287,7 @@ void Game::playerPostRoll(Player* current){
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
 
-		if (isProperty) applyHouses(t->getHouses());
+		if (isProperty) applyHouses(t->getHouses(), t->getHotels());
 
 		response = sdl.getResponse();
 		switch (response){
@@ -315,7 +342,7 @@ void Game::buildCheck(Player* current)
 	}
 }	
 
-void Game::applyHouses(int numHouses){
+void Game::applyHouses(int numHouses, int numHotels){
 
 	int x = 155;
 	int y = 155;
@@ -323,6 +350,10 @@ void Game::applyHouses(int numHouses){
 	for (int i = 0; i < numHouses; i++){
 		sdl.apply_surface(x, y, houseImage, screen);
 		y += 35;
+	}
+
+	if (numHotels > 0) {
+		sdl.apply_surface(620, 155, hotelImage, screen);
 	}
 
 }
@@ -336,6 +367,10 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 	int hotelLoop = 1;
 	int housesAdded;
 	int hotelsAdded;
+	int currentHouses;
+	int currentHotels;
+	int groupNum;
+	int housePrice;
 	int location;	//where the user wants to build
 
 	deque<string> houseOptions;
@@ -351,7 +386,9 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		view(current);
 	
 		cout << "What would you like to build? 1 for houses ($50 each), 2 for hotels ($100 each), 3 to exit";
+		cout << endl;
 		select = sdl.getResponse();
+		if (select == 'q') return;
 		select -= 48;
 		if(select == 1)
 		{
@@ -364,8 +401,10 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					{
 						cout << houseOptions[i] << ": " << i << endl;
 					}
+					cout << endl;
 			
 					location = sdl.getResponse();
+					if (location == 'q') return;
 					location -= 48;
 
 				//	for(int i = 0; i < houseOptions.size(); i++)
@@ -376,17 +415,27 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 							{
 								if(houseOptions[location] == gameBoard.accessSpace(j)->getTitle())
 								{
-									cout << "There are " << gameBoard.accessSpace(j)->getHouses() << " houses here. How many would you like to add? (Max 4)";
+									groupNum = gameBoard.accessSpace(j)->getGroup();
+									housePrice = ((groupNum-1)/2)*50 + 50;
+									currentHouses = gameBoard.accessSpace(j)->getHouses();
+									cout << "There are " << currentHouses << " houses here. How many houses would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
+									cout << endl;
+									if (currentHouses == 4) {
+										houseLoop = 0;
+										break;
+									}
 									housesAdded = sdl.getResponse();
+									if (housesAdded == 'q') return;
 									housesAdded -= 48;
-									if(current->getMoney() <= 50*housesAdded)
+									if(current->getMoney() <= housePrice*housesAdded)
 									{
 										cout << "You can't afford that many houses!" << endl;
 										houseLoop = 0;
 										break;
 									}
+									if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
 									gameBoard.accessSpace(j)->addHouses(housesAdded);
-									current->changeInMoney((-50) * housesAdded);
+									current->changeInMoney((-housePrice) * housesAdded);
 									houseLoop = 0;
 								}
 							}
@@ -417,6 +466,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					}
 					cout << endl;
 					location = sdl.getResponse();
+					if (location == 'q') return;
 					location -= 48;
 
 				//	for(int i = 0; i < hotelOptions.size(); i++)
@@ -427,8 +477,20 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 							{
 								if(hotelOptions[location] == gameBoard.accessSpace(j)->getTitle())
 								{
-									cout << "There are " << gameBoard.accessSpace(j)->getHotels() << " hotels here. How many would you like to add? (Max 1)";
+									if (gameBoard.accessSpace(j)->getHouses() != 4){
+										cout << "Need four houses to build hotel" << endl;
+										hotelLoop = 0;
+										break;
+									}
+ 									groupNum = gameBoard.accessSpace(j)->getGroup();
+                                                                        housePrice = ((groupNum-1)/2)*50 + 50;
+                                                                        currentHotels = gameBoard.accessSpace(j)->getHotels();
+                                                                        cout << "There are " << currentHotels << " hotels here. How many hotels would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
+
+									cout << endl;
+									if (currentHotels == 1) break;
 									hotelsAdded = sdl.getResponse();
+									if (hotelsAdded == 'q') return;
 									hotelsAdded -= 48;
 									if(current->getMoney() <= 100*hotelsAdded)
 									{
@@ -436,6 +498,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 										hotelLoop = 0;
 										break;
 									}
+									if (hotelsAdded != 1) hotelsAdded = 1;
 									gameBoard.accessSpace(j)->addHotels(hotelsAdded);
 									gameBoard.accessSpace(j)->addHouses(-4);
 									current->changeInMoney(-100);

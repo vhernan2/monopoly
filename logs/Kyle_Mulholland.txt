@@ -80,3 +80,8 @@ TUESDAY APRIL 30
 7:00 PM - Got trade up and running, continued work on view, and further
 	resolved issues with SAO and SUB
 8:00 PM - came back from dinner
+11:00 PM - Mike and I further resolved visualizaition of pre and post roll,
+	buying houses and hotels is now functioning and visible, fixed
+	large bug in trading that caused pieces not to actually trade
+	completely, other small bugs, began work with Jodi on revisualizing
+	singles, doubles, triples, quads, and six man (vs. houses/hotels)
