@@ -223,7 +223,28 @@ char SDL_logic::getResponse(int type){
 						if( (mouseX >150+386 && mouseX <150+536) && (mouseY > 150+486 && mouseY < 150+544) ){
 							c = 'c';
 							quit = true;
-						}	
+						}
+						if( (mouseX >150+128 && mouseX <150+383) && (mouseY > 150+125 && mouseY < 150+175) ){
+                                                        c = '0';
+                                                        quit = true;
+                                                }
+                                                if( (mouseX >150+127 && mouseX <150+383) && (mouseY > 150+210 && mouseY < 150+260) ){
+                                                        c = '1';
+                                                        quit = true;
+                                                }
+                                                if( (mouseX >150+127 && mouseX <150+381) && (mouseY > 150+297 && mouseY < 150+347) ){
+                                                        c = '2';
+                                                        quit = true;
+                                                }
+                                                if( (mouseX >150+125 && mouseX <150+379) && (mouseY > 150+377 && mouseY < 150+426) ){
+                                                        c = '3';
+                                                        quit = true;
+                                                }
+                                                if( (mouseX >150+122 && mouseX <150+377) && (mouseY > 150+460 && mouseY < 150+509) ){
+                                                        c = '4';
+                                                        quit = true;
+                                                }
+
 					}
 			       }    
 			}

@@ -91,3 +91,5 @@ TUESDAY APRIL 30
 2:30 AM - Mortgage up and running, functional
 3:30 AM - began work on linking in room designs, tile backs, and 
 	discussed strategy for how do implement click design
+5:45 AM - view has awesome functionality now, render prices on unsold
+	properties, more functionality to SDL_logic

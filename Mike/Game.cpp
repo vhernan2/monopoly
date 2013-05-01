@@ -770,8 +770,8 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 {
 	string recipient;
 	int recipIndex;
-	int offer;
-	int request;
+	int offer = -1;
+	int request = -1;
 	char answer;
 	deque<string> options;
 	deque<string> playerOwns;
@@ -796,23 +796,28 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		return;
 	}
 	recipIndex -= 48;
-//	cin >> recipIndex;
+	if (recipIndex >= current->getIndex()) recipIndex++;
 	cout << "Here is what " << players[recipIndex].getName() << " owns: " << endl;
 	options = players[recipIndex].getTiles();
 	playerOwns = current->getTiles();
 
-	view(&players[recipIndex]);
 
 	for(int i = 0; i < options.size(); i++)
 	{
 		cout << options[i] << ": " << i << endl;
 	}
+	
+	while (request < 0){
 
-	cout << "What would you like to trade for? Please enter the number associated with the name";
-	cout << endl;
-	request = sdl.getResponse(3);
-	if (request == 'c') return;
-	request -= 48;
+		view(&players[recipIndex]);
+
+		cout << "What would you like to trade for? Please enter the number associated with the name";
+		cout << endl;
+		request = sdl.getResponse(1);
+		if (request == 'c') return;
+		request -= 48;
+//		gameBoard.accessSpace(request)->
+	}
 
 	cout << "Here is what you can offer. Enter the number of the location you'd like to offer in return" << endl;
 
