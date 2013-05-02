@@ -271,6 +271,20 @@ void Game::turn()
 
 void Game::playerTurn(Player* current)
 {
+
+        SDL_Color textColor = {255,255,255};
+        SDL_Color bColor = {0, 0, 0};
+
+        int name_x = 305;
+        int name_y = 285;
+        int money_x = name_x;
+        int money_y = name_y+50;
+
+        ostringstream oss;
+
+        string name;
+        string money;
+
 	char response;
 
 	int keepView;
@@ -292,6 +306,18 @@ void Game::playerTurn(Player* current)
 
 		sdl.apply_surface(150, 150, preRollImage, screen);
 
+	        cout << "Print name and money" << endl;
+	        name = "Name: " + current->getName();
+	        cout << name << endl;
+	        oss << current->getMoney();
+	        money = "Money: $" + oss.str();
+        	cout << money << endl;
+
+	        sdlText = TTF_RenderText_Shaded(font, name.c_str(), bColor, textColor);
+        	sdl.apply_surface (name_x, name_y, sdlText, screen);
+	        sdlText = TTF_RenderText_Shaded(font, money.c_str(), bColor, textColor);
+	        sdl.apply_surface (money_x, money_y, sdlText, screen);
+	
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;
 		current->printTiles();
@@ -818,7 +844,19 @@ void Game::view(Player* current){
 
 	SDL_Surface *disp;
 
-//	sdl.apply_surface(150,150, postRollImage, screen);
+	SDL_Color textColor = {255,255,255};
+        SDL_Color bColor = {0, 0, 0};
+
+	int name_x = 475;
+	int name_y = 575;
+	int money_x = name_x;
+	int money_y = name_y+50;
+
+	ostringstream oss;
+
+	string name;
+	string money;
+
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
 
 	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+45, whitespace, screen);
@@ -849,6 +887,19 @@ void Game::view(Player* current){
         if (current->notOwnTile("DeBartolo Hall")) sdl.apply_surface(sprite_x+471, sprite_y+280, whitespace, screen);
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
+
+	cout << "Print name and money" << endl;
+	name = "Name: " + current->getName();
+	cout << name << endl;
+	oss << current->getMoney();
+	money = "Money: $" + oss.str();
+	cout << money << endl;
+	
+	sdlText = TTF_RenderText_Shaded(font, name.c_str(), bColor, textColor);
+	sdl.apply_surface (name_x, name_y, sdlText, screen);
+	sdlText = TTF_RenderText_Shaded(font, money.c_str(), bColor, textColor);
+        sdl.apply_surface (money_x, money_y, sdlText, screen);
+
 
 }
 
