@@ -218,6 +218,20 @@ char SDL_logic::getResponse(int type){
 
 
 					}
+					if ((type == 2) || (type == 99)){
+						if( (mouseX > 150+75 && mouseX <150+225) && (mouseY > 150+225 && mouseY < 150+375) ){
+                                                        c = 1;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+325 && mouseX <150+425) && (mouseY > 150+225 && mouseY < 150+375) ){
+                                                        c = 2;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+425 && mouseX <150+525) && (mouseY > 150+425 && mouseY < 150+525) ){
+                                                        c = 3;
+                                                        quit = true;
+                                                }
+					}
 					if ((type == 3) || (type == 99)){
 						cout << "entered 3" << endl;
 						if( (mouseX >150+386 && mouseX <150+536) && (mouseY > 150+486 && mouseY < 150+544) ){

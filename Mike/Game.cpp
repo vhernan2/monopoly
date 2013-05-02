@@ -509,13 +509,18 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		houseLoop = 1;
 		hotelLoop = 1;
 
-		view(current);
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+		sdl.apply_surface(225, 375, houseImage[1], screen);
+		sdl.apply_surface(475, 375, houseImage[5], screen);
+		sdl.apply_surface(575, 575, closeButton, screen);
+		select = sdl.getResponse(2);
 	
 		cout << "What would you like to build? 1 for houses ($50 each), 2 for hotels ($100 each), 3 to exit";
 		cout << endl;
-		select = sdl.getResponse(2);
+
+	//	view(current);	
+	//	location = view_zoom(current);
 		if (select == 'q') return;
-		select -= 48;
 		if(select == 1)
 		{
 			if(houseOptions.empty() != 1)
