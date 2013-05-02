@@ -220,15 +220,15 @@ char SDL_logic::getResponse(int type){
 					}
 					if ((type == 2) || (type == 99)){
 						if( (mouseX > 150+75 && mouseX <150+225) && (mouseY > 150+225 && mouseY < 150+375) ){
-                                                        c = 1;
+                                                        c = 'h';
                                                         quit = true;
                                                 }
 						if( (mouseX > 150+325 && mouseX <150+425) && (mouseY > 150+225 && mouseY < 150+375) ){
-                                                        c = 2;
+                                                        c = 'l';
                                                         quit = true;
                                                 }
 						if( (mouseX > 150+425 && mouseX <150+525) && (mouseY > 150+425 && mouseY < 150+525) ){
-                                                        c = 3;
+                                                        c = 'e';
                                                         quit = true;
                                                 }
 					}

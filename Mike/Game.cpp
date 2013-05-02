@@ -380,6 +380,7 @@ void Game::playerPostRoll(Player* current){
 	{
 		sdl.apply_surface(150, 150, cleanBackground, screen);
         	sdl.apply_surface(175, 180, disp, screen);
+		sdl.getResponse(99);
 	}
 
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
@@ -524,7 +525,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 		view(current);	
 		if (select == 'q') return;
-		if(select == 1)
+		if(select == 'h')
 		{
 			if(houseOptions.empty() != 1)
 			{
@@ -540,55 +541,48 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					location = view_zoom(current);
 					if (location == 'q') return;
 
-				//	for(int i = 0; i < houseOptions.size(); i++)
-				//	{
-				//		if(location == houseOptions[i])
-				//		{
-							for(int j = 0; j < houseOptions.size(); j++)
-							{
-								if(houseOptions[j] == gameBoard.accessSpace(location)->getTitle())
-								{
-									groupNum = gameBoard.accessSpace(location)->getGroup();
-									housePrice = ((groupNum-1)/2)*50 + 50;
-									currentHouses = gameBoard.accessSpace(location)->getHouses();
-									cout << "There are " << currentHouses << " houses here. How many houses would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
-									cout << endl;
-										
-									if (currentHouses == 4) {
-										houseLoop = 0;
-										break;
-									}
-
-									sdl.apply_surface(150, 150, cleanBackground, screen);
-									sdl.apply_surface(225, 250, buildRooms, screen);
-									sdl.apply_surface(175, 300, oneButton, screen);
-									sdl.apply_surface(300, 300, twoButton, screen);
-									sdl.apply_surface(425, 300, threeButton, screen);
-									sdl.apply_surface(550, 300, fourButton, screen);
-									sdl.apply_surface(575, 575, closeButton, screen);
-
-									housesAdded = sdl.getResponse(21);
-
-									if (housesAdded == 'q') return;
+					for(int j = 0; j < houseOptions.size(); j++)
+					{
+						if(houseOptions[j] == gameBoard.accessSpace(location)->getTitle())
+						{
+							groupNum = gameBoard.accessSpace(location)->getGroup();
+							housePrice = ((groupNum-1)/2)*50 + 50;
+							currentHouses = gameBoard.accessSpace(location)->getHouses();
+							cout << "There are " << currentHouses << " houses here. How many houses would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
+							cout << endl;
 								
-									if(current->getMoney() <= housePrice*housesAdded)
-									{
-										cout << "You can't afford that many houses!" << endl;
-										houseLoop = 0;
-										break;
-									}
-									if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
-									gameBoard.accessSpace(location)->addHouses(housesAdded);
-									current->changeInMoney((-housePrice) * housesAdded);
-									houseLoop = 0;
-								}
+							if (currentHouses == 4) {
+								houseLoop = 0;
+								break;
 							}
-				//		}
-				//	}
+
+							sdl.apply_surface(150, 150, cleanBackground, screen);
+							sdl.apply_surface(225, 250, buildRooms, screen);
+							sdl.apply_surface(175, 300, oneButton, screen);
+							sdl.apply_surface(300, 300, twoButton, screen);
+							sdl.apply_surface(425, 300, threeButton, screen);
+							sdl.apply_surface(550, 300, fourButton, screen);
+							sdl.apply_surface(575, 575, closeButton, screen);
+
+							housesAdded = sdl.getResponse(21);
+							if (housesAdded == 'q') return;
+								
+							if(current->getMoney() <= housePrice*housesAdded)
+							{
+								cout << "You can't afford that many houses!" << endl;
+								houseLoop = 0;
+								break;
+							}
+							if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
+							gameBoard.accessSpace(location)->addHouses(housesAdded);
+							current->changeInMoney((-housePrice) * housesAdded);
+							houseLoop = 0;
+						}
+					}
 					if(houseLoop != 0)
 					{
 						cout << "That is not somewhere you can build a house" << endl;
-						return;
+						houseLoop = 0;
 					}
 				}
 			}
@@ -597,7 +591,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 				cout << "You can't build houses anywhere" << endl;
 			}	
 		}
-		if(select == 2)
+		if(select == 'l')
 		{
 			if(hotelOptions.empty() != 1)
 			{
@@ -612,58 +606,51 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					location = view_zoom(current);
 					if (location == 'q') return;
 
-				//	for(int i = 0; i < hotelOptions.size(); i++)
-				//	{
-				//		if(location == hotelOptions[i])
-				//		{
-							for(int j = 0; j < hotelOptions.size(); j++)
-							{
-								if(hotelOptions[j] == gameBoard.accessSpace(location)->getTitle())
-								{
-									if (gameBoard.accessSpace(location)->getHouses() != 4){
-										cout << "Need four houses to build hotel" << endl;
-										hotelLoop = 0;
-										break;
-									}
- 									groupNum = gameBoard.accessSpace(location)->getGroup();
-                                                                        housePrice = ((groupNum-1)/2)*50 + 50;
-                                                                        currentHotels = gameBoard.accessSpace(location)->getHotels();
-                                                                        cout << "There are " << currentHotels << " hotels here. How many hotels would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
-
-									cout << endl;
-
-									if (currentHotels == 1) {
-										hotelLoop = 0;
-										break;
-									}
-									
-									sdl.apply_surface(150, 150, cleanBackground, screen);
-									sdl.apply_surface(225, 250, buildSM, screen);
-									sdl.apply_surface(225, 375, yesButton, screen);
-									sdl.apply_surface(525, 375, noButton, screen);
-									sdl.apply_surface(575, 575, closeButton, screen);
-
-
-									hotelsAdded = sdl.getResponse(22);
-									if (hotelsAdded == 'q' || hotelsAdded == 0) return;
-									if(current->getMoney() <= 100*hotelsAdded)
-									{
-										cout << "You can't afford to buy a hotel!" << endl;
-										hotelLoop = 0;
-										break;
-									}
-									if (hotelsAdded != 1) hotelsAdded = 1;
-									gameBoard.accessSpace(location)->addHotels(hotelsAdded);
-									gameBoard.accessSpace(location)->addHouses(-4);
-									current->changeInMoney(-100);
-									hotelLoop = 0;
-								}
+					for(int j = 0; j < hotelOptions.size(); j++)
+					{
+						if(hotelOptions[j] == gameBoard.accessSpace(location)->getTitle())
+						{
+							if (gameBoard.accessSpace(location)->getHouses() != 4){
+								cout << "Need four houses to build hotel" << endl;
+								hotelLoop = 0;
+								break;
 							}
-				//		}
-				//	}
+ 							groupNum = gameBoard.accessSpace(location)->getGroup();
+                                                        housePrice = ((groupNum-1)/2)*50 + 50;
+                                                        currentHotels = gameBoard.accessSpace(location)->getHotels();
+                                                        cout << "There are " << currentHotels << " hotels here. How many hotels would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
+
+							cout << endl;
+							if (currentHotels == 1) {
+								hotelLoop = 0;
+								break;
+							}
+							
+							sdl.apply_surface(150, 150, cleanBackground, screen);
+							sdl.apply_surface(225, 250, buildSM, screen);
+							sdl.apply_surface(225, 375, yesButton, screen);
+							sdl.apply_surface(525, 375, noButton, screen);
+							sdl.apply_surface(575, 575, closeButton, screen);
+
+							hotelsAdded = sdl.getResponse(22);
+							if (hotelsAdded == 'q' || hotelsAdded == 0) return;
+							if(current->getMoney() <= 100*hotelsAdded)
+							{
+								cout << "You can't afford to buy a hotel!" << endl;
+								hotelLoop = 0;
+								break;
+							}
+							if (hotelsAdded != 1) hotelsAdded = 1;
+							gameBoard.accessSpace(location)->addHotels(hotelsAdded);
+							gameBoard.accessSpace(location)->addHouses(-4);
+							current->changeInMoney(-100);
+							hotelLoop = 0;
+						}
+					}
 					if(hotelLoop != 0)
 					{
 						cout << "That is not somewhere you can build a hotel" << endl;
+						hotelLoop = 0;
 					}
 				}
 			}
@@ -672,7 +659,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 				cout << "You can't build hotels anywhere" << endl;
 			}	
 		}
-		if(select == 3)
+		if(select == 'e')
 		{
 			return;
 		}
