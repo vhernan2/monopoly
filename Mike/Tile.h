@@ -32,6 +32,7 @@ class Tile
 		virtual int getHotels();		//gets number of hotels, only used for Property inheritance
 		virtual void addHouses(int);		//adds houses, only used for Property inheritance
 		virtual void addHotels(int);		//adds hotels, only used for Property inheritance
+		virtual void implosion();		//removes all houses and hotels
 
 		virtual void manDeck(Player*, Board*);	//will be used solely by CardSpaces
 

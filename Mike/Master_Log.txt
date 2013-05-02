@@ -250,9 +250,18 @@ Done:
 Time Spent: 16 hr 30 min
 Total Time: 53 hr 35 min
 
-April 30 2013
+May 1 2013
 9:00 p.m.
 
 To Do:
 	Putting finishing touches on game interactivity with logic, begin debugging all seg faults caused by "mislcicks"
 
+May 2 2013
+12:41 a.m.
+
+Done:
+	Fully implemented Jail and Building graphics, edited method of checking for group owned status to remove houses/hotels from properties that
+	no longer have group ownership. This would come into play if a trade breaks up a monopoly.
+
+Time Spent: 3 hr 41 min
+Total Time: 57 hr 16 min

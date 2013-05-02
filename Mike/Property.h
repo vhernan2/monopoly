@@ -25,6 +25,7 @@ class Property : public Tile
 
 		virtual int getHouses();
 		virtual int getHotels();
+		virtual void implosion();
 
 		virtual int getCost();
 		virtual void setMortgage(bool);

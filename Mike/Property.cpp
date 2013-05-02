@@ -31,6 +31,12 @@ void Property::addHouses(int num)
 	numHouses += num;		//number of houses increased
 }	
 
+void Property::implosion()
+{
+	numHouses = 0;
+	numHotels = 0;
+}
+
 void Property::setGroupOwned(bool value)
 {
 	groupOwned = value;

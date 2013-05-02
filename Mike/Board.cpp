@@ -159,8 +159,8 @@ void Board::checkGroupsProp()
 						}
 					}
 				}
-				if(makeChange != 0)
-				{
+		//		if(makeChange != 0)
+		//		{
 					for(int m = 0; m < 40; m++)
 					{
 						if(spaces[m]->getGroup() == j)
@@ -168,13 +168,26 @@ void Board::checkGroupsProp()
 							spaces[m]->setGroupOwned(makeChange);
 						}
 					}
+		//		}
+			}
+		}
+	}
+	for(int i = 0; i < 40; i++)
+	{
+		for(int j = 1; j < 9; j++)
+		{
+			if(spaces[i]->getGroup() == j)
+			{
+				if(spaces[i]->getGroupOwned() == 0)
+				{
+					spaces[i]->implosion();
 				}
 			}
 		}
 	}
 }
 
-void Board::updateRentRR()	//error in here, not properly counting ownership of tiles
+void Board::updateRentRR()	
 {
 	int count;
 	int tempOwner;
