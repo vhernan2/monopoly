@@ -43,7 +43,7 @@ Game::Game(int numPlayers)
   SDL_Color bColor = {0,0,0};
   stringstream buffer;
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
-  sdl.apply_surface(100,100,sdlText,prompt);
+  sdl.apply_surface(280,350,sdlText,prompt);
   SDL_Flip(prompt);
 
         for(int j = 0; j < numPlayers; j++)
@@ -63,7 +63,7 @@ Game::Game(int numPlayers)
           const char* output = buffer.str().c_str();
 
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(10,10,sdlText,prompt);
+          sdl.apply_surface(240,10,sdlText,prompt);
 
           SDL_Flip(prompt);
           while (append != "0" ){
