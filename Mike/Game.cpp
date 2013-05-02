@@ -272,7 +272,7 @@ void Game::turn()
 void Game::playerTurn(Player* current)
 {
 
-        SDL_Color textColor = {255,255,255};
+        SDL_Color textColor = {175,231,204};
         SDL_Color bColor = {0, 0, 0};
 
         int name_x = 305;
