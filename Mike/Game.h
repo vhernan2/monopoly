@@ -82,5 +82,7 @@ class Game
 		SDL_Surface *SUBcard[14];
 		SDL_Surface *tradeScreen[7];
 		SDL_Surface *FS[401];
+
+
 };
 #endif
