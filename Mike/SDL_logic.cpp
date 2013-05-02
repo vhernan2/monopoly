@@ -110,12 +110,12 @@ char SDL_logic::getResponse(int type){
                                                 }
 						if( (mouseX > 150+99 && mouseX <150+158) && (mouseY > 150+47 && mouseY < 150+105) ){
 							cout << "Entered c = 23" << endl; 
-                                                        c = 23;
+                                                        c = 21;
                                                         quit = true;
                                                 }
 						if( (mouseX > 150+188 && mouseX <150+246) && (mouseY > 150+48 && mouseY < 150+106) ){
 							cout << "Entered c = 21" << endl; 
-                                                        c = 21;
+                                                        c = 23;
                                                         quit = true;
                                                 }
 						if( (mouseX > 150+20 && mouseX <150+78) && (mouseY > 150+126 && mouseY < 150+184) ){ 
