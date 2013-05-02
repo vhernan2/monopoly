@@ -1023,7 +1023,12 @@ void Game::jailTime(Player* current)
 				if(current->getMoney() > 50)
 				{
 					cout << "Would you like to pay off the service hours? (y/n)";
-					pay = sdl.getResponse(5);
+					cout << endl;
+					sdl.apply_surface(150, 150, cleanBackground, screen);
+					sdl.apply_surface(175, 190, tile[10], screen);
+					sdl.apply_surface(175, 575, yesButton, screen);
+					sdl.apply_surface(575, 575, noButton, screen);
+					pay = sdl.getResponse(31);
 					if(pay == 'y')
 					{
 						current->payOffResLife();
