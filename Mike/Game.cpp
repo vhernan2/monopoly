@@ -103,6 +103,9 @@ Game::Game(int numPlayers)
 	unmortgageText = sdl.load_files("JLo/Text/Unmortgage.png");
 	buildHere = sdl.load_files("JLo/Text/buildHere.png");
 	payJail = sdl.load_files("JLo/Text/LeaveJail.png");
+	pickBuild = sdl.load_files("JLo/Text/BuildWhat.png");
+	buildRooms = sdl.load_files("JLo/Text/Rooms.png");
+	buildSM = sdl.load_files("JLo/Text/SixMan.png");
 	
 	oneButton = sdl.load_files("JLo/Text/One.png");
 	twoButton = sdl.load_files("JLo/Text/Two.png");
@@ -510,6 +513,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		hotelLoop = 1;
 
 		sdl.apply_surface(150, 150, cleanBackground, screen);
+		sdl.apply_surface(225, 250, pickBuild, screen);
 		sdl.apply_surface(225, 375, houseImage[1], screen);
 		sdl.apply_surface(475, 375, houseImage[5], screen);
 		sdl.apply_surface(575, 575, closeButton, screen);
@@ -518,8 +522,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		cout << "What would you like to build? 1 for houses ($50 each), 2 for hotels ($100 each), 3 to exit";
 		cout << endl;
 
-	//	view(current);	
-	//	location = view_zoom(current);
+		view(current);	
 		if (select == 'q') return;
 		if(select == 1)
 		{
@@ -534,30 +537,40 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 					}
 					cout << endl;
 			
-					location = sdl.getResponse(2);
+					location = view_zoom(current);
 					if (location == 'q') return;
-					location -= 48;
 
 				//	for(int i = 0; i < houseOptions.size(); i++)
 				//	{
 				//		if(location == houseOptions[i])
 				//		{
-							for(int j = 0; j < 40; j++)
+							for(int j = 0; j < houseOptions.size(); j++)
 							{
-								if(houseOptions[location] == gameBoard.accessSpace(j)->getTitle())
+								if(houseOptions[j] == gameBoard.accessSpace(location)->getTitle())
 								{
-									groupNum = gameBoard.accessSpace(j)->getGroup();
+									groupNum = gameBoard.accessSpace(location)->getGroup();
 									housePrice = ((groupNum-1)/2)*50 + 50;
-									currentHouses = gameBoard.accessSpace(j)->getHouses();
+									currentHouses = gameBoard.accessSpace(location)->getHouses();
 									cout << "There are " << currentHouses << " houses here. How many houses would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
 									cout << endl;
+										
 									if (currentHouses == 4) {
 										houseLoop = 0;
 										break;
 									}
-									housesAdded = sdl.getResponse(2);
+
+									sdl.apply_surface(150, 150, cleanBackground, screen);
+									sdl.apply_surface(225, 250, buildRooms, screen);
+									sdl.apply_surface(175, 300, oneButton, screen);
+									sdl.apply_surface(300, 300, twoButton, screen);
+									sdl.apply_surface(425, 300, threeButton, screen);
+									sdl.apply_surface(550, 300, fourButton, screen);
+									sdl.apply_surface(575, 575, closeButton, screen);
+
+									housesAdded = sdl.getResponse(21);
+
 									if (housesAdded == 'q') return;
-									housesAdded -= 48;
+								
 									if(current->getMoney() <= housePrice*housesAdded)
 									{
 										cout << "You can't afford that many houses!" << endl;
@@ -565,7 +578,7 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 										break;
 									}
 									if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
-									gameBoard.accessSpace(j)->addHouses(housesAdded);
+									gameBoard.accessSpace(location)->addHouses(housesAdded);
 									current->changeInMoney((-housePrice) * housesAdded);
 									houseLoop = 0;
 								}
@@ -596,33 +609,43 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 						cout << hotelOptions[i] << ": " << i << endl;
 					}
 					cout << endl;
-					location = sdl.getResponse(2);
+					location = view_zoom(current);
 					if (location == 'q') return;
-					location -= 48;
 
 				//	for(int i = 0; i < hotelOptions.size(); i++)
 				//	{
 				//		if(location == hotelOptions[i])
 				//		{
-							for(int j = 0; j < 40; j++)
+							for(int j = 0; j < hotelOptions.size(); j++)
 							{
-								if(hotelOptions[location] == gameBoard.accessSpace(j)->getTitle())
+								if(hotelOptions[j] == gameBoard.accessSpace(location)->getTitle())
 								{
-									if (gameBoard.accessSpace(j)->getHouses() != 4){
+									if (gameBoard.accessSpace(location)->getHouses() != 4){
 										cout << "Need four houses to build hotel" << endl;
 										hotelLoop = 0;
 										break;
 									}
- 									groupNum = gameBoard.accessSpace(j)->getGroup();
+ 									groupNum = gameBoard.accessSpace(location)->getGroup();
                                                                         housePrice = ((groupNum-1)/2)*50 + 50;
-                                                                        currentHotels = gameBoard.accessSpace(j)->getHotels();
+                                                                        currentHotels = gameBoard.accessSpace(location)->getHotels();
                                                                         cout << "There are " << currentHotels << " hotels here. How many hotels would you like to add (max 4) at cost of $" << housePrice << " per house?" << endl;
 
 									cout << endl;
-									if (currentHotels == 1) break;
-									hotelsAdded = sdl.getResponse(2);
-									if (hotelsAdded == 'q') return;
-									hotelsAdded -= 48;
+
+									if (currentHotels == 1) {
+										hotelLoop = 0;
+										break;
+									}
+									
+									sdl.apply_surface(150, 150, cleanBackground, screen);
+									sdl.apply_surface(225, 250, buildSM, screen);
+									sdl.apply_surface(225, 375, yesButton, screen);
+									sdl.apply_surface(525, 375, noButton, screen);
+									sdl.apply_surface(575, 575, closeButton, screen);
+
+
+									hotelsAdded = sdl.getResponse(22);
+									if (hotelsAdded == 'q' || hotelsAdded == 0) return;
 									if(current->getMoney() <= 100*hotelsAdded)
 									{
 										cout << "You can't afford to buy a hotel!" << endl;
@@ -630,8 +653,8 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 										break;
 									}
 									if (hotelsAdded != 1) hotelsAdded = 1;
-									gameBoard.accessSpace(j)->addHotels(hotelsAdded);
-									gameBoard.accessSpace(j)->addHouses(-4);
+									gameBoard.accessSpace(location)->addHotels(hotelsAdded);
+									gameBoard.accessSpace(location)->addHouses(-4);
 									current->changeInMoney(-100);
 									hotelLoop = 0;
 								}

@@ -232,6 +232,42 @@ char SDL_logic::getResponse(int type){
                                                         quit = true;
                                                 }
 					}
+					if ((type == 21) || (type == 99)){
+						if( (mouseX > 150+25 && mouseX <150+125) && (mouseY > 150+150 && mouseY < 150+250) ){
+                                                        c = 1;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+150 && mouseX <150+250) && (mouseY > 150+150 && mouseY < 150+250) ){
+                                                        c = 2;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+275 && mouseX <150+375) && (mouseY > 150+150 && mouseY < 150+250) ){
+                                                        c = 3;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+400 && mouseX <150+500) && (mouseY > 150+150 && mouseY < 150+250) ){
+                                                        c = 4;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+425 && mouseX <150+525) && (mouseY > 150+425 && mouseY < 150+525) ){
+                                                        c = 'q';
+                                                        quit = true;
+                                                }
+					}
+					if ((type == 22) || (type == 99)){
+						if( (mouseX > 150+75 && mouseX <150+175) && (mouseY > 150+225 && mouseY < 150+325) ){
+                                                        c = 1;
+                                                        quit = true;
+                                                }
+						if( (mouseX > 150+375 && mouseX <150+475) && (mouseY > 150+225 && mouseY < 150+325) ){
+                                                        c = 0;
+                                                        quit = true;
+                                                }												
+						if( (mouseX > 150+425 && mouseX <150+525) && (mouseY > 150+425 && mouseY < 150+525) ){
+                                                        c = 'q';
+                                                        quit = true;
+                                                }
+					}
 					if ((type == 3) || (type == 99)){
 						cout << "entered 3" << endl;
 						if( (mouseX >150+386 && mouseX <150+536) && (mouseY > 150+486 && mouseY < 150+544) ){
