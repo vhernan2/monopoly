@@ -34,16 +34,16 @@ Game::Game(int numPlayers)
 	}
   */
   SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
-  SDL_Surface *sdlText = NULL;
+  sdlText = NULL;
   TTF_Init();
-  TTF_Font *font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
   SDL_Color textColor = {255,255,255};
   SDL_Color bColor = {0,0,0};
   stringstream buffer;
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
-  sdl.apply_surface(100,100,sdlText,prompt);
+  sdl.apply_surface(280,350,sdlText,prompt);
   SDL_Flip(prompt);
 
         for(int j = 0; j < numPlayers; j++)
@@ -63,7 +63,7 @@ Game::Game(int numPlayers)
           const char* output = buffer.str().c_str();
 
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(10,10,sdlText,prompt);
+          sdl.apply_surface(240,10,sdlText,prompt);
 
           SDL_Flip(prompt);
           while (append != "0" ){
@@ -97,7 +97,19 @@ Game::Game(int numPlayers)
 	tradeForThis = sdl.load_files("JLo/Text/TradeForThis.png");
 	tradeThis = sdl.load_files("JLo/Text/TradeThis.png");
 	yesButton = sdl.load_files("JLo/Text/Yes.png");
+
+	mortgageHere = sdl.load_files("JLo/Text/MortgageHere.png");
+	mortgageText = sdl.load_files("JLo/Text/Mortgage.png");
+	unmortgageText = sdl.load_files("JLo/Text/Unmortgage.png");
+	buildHere = sdl.load_files("JLo/Text/buildHere.png");
+	payJail = sdl.load_files("JLo/Text/LeaveJail.png");
 	
+	oneButton = sdl.load_files("JLo/Text/One.png");
+	twoButton = sdl.load_files("JLo/Text/Two.png");
+	threeButton = sdl.load_files("JLo/Text/Three.png");
+	fourButton = sdl.load_files("JLo/Text/Four.png");
+	hotelButton = sdl.load_files("JLo/Text/Hotel.png");
+
 	houseImage[1] = sdl.load_files("JLo/Rooms/Single.png");
 	houseImage[2] = sdl.load_files("JLo/Rooms/Double.png");
 	houseImage[3] = sdl.load_files("JLo/Rooms/Triple.png");
@@ -144,7 +156,7 @@ Game::Game(int numPlayers)
         backTile[5] = sdl.load_files("JLo/PropertiesBack/ColemanMorseCenter.png");
         backTile[6] = sdl.load_files("JLo/PropertiesBack/SeigfriedHall.png");
         backTile[8] = sdl.load_files("JLo/PropertiesBack/LewisHall.png");
-        backTile[9] = sdl.load_files("JLo/PropertiesBack/CarrolHall.png");
+        backTile[9] = sdl.load_files("JLo/PropertiesBack/CarrollHall.png");
         backTile[11] = sdl.load_files("JLo/PropertiesBack/FisherHall.png");
         backTile[12] = sdl.load_files("JLo/PropertiesBack/NorthDiningHall.png");
         backTile[13] = sdl.load_files("JLo/PropertiesBack/DillonHall.png");
@@ -360,8 +372,15 @@ void Game::playerPostRoll(Player* current){
 			if (gameBoard.accessSpace(current->getPosition())->getMortgage()) disp = backTile[current->getPosition()];
 		}
 	}
-	cout << "right before postRollImage" << endl;	
+	cout << "right before postRollImage" << endl;
+	if(current->getPosition() == 30)
+	{
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+        	sdl.apply_surface(175, 180, disp, screen);
+	}
+
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+	
 	if(output != -1)
 	{
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
@@ -634,19 +653,25 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 void Game::mortgage(Player* current)
 {
-	int place;
+	int place = -1;
 	deque<string> owned;
 	int moveOn;	//is set to 1 if the player picks a valid tile
 	int mortgageReturn;	//amount player receives for mortgaging
 	char mortgageYN;	//players final decision	
-	int j;
 	bool status;		//bool representing mortgaged status of selected location
+
+	char answer = 'z';
+
+	int yes_x = 175;
+        int yes_y = 575;
+        int no_x = 575;
+        int no_y = 575;
+
+	SDL_Surface *disp;
+	SDL_Surface *message;
 
 	owned = current->getTiles();
 	
-	view(current);
-
-//	current->printTiles();
 	cout << "What would you like to mortgage or unmortgage?";
 		
 	for(int i = 0; i < owned.size(); i++)
@@ -654,71 +679,71 @@ void Game::mortgage(Player* current)
 		cout << owned[i] << ": " << i << endl;
 	}
 
+	while (answer != 'y'){
 
-	place = sdl.getResponse(4);
-	if (place == 'q') return;
-	place -= 48;
-/*
-	for(int i = 0; i < owned.size(); i++)
-	{
-		if(place == owned[i])
-		{
-			moveOn = 1;
-		}
-	}
-
-	if(moveOn == 0)
-	{
-		cout << "Sorry! That's not a tile you own!" << endl;
-		return;
-	}
-	else if(moveOn == 1)
-	{*/
-		for(j = 0; j < 40; j++)
-		{
-			if(gameBoard.accessSpace(j)->getTitle() == owned[place])
-			{
-				mortgageReturn = (gameBoard.accessSpace(j)->getCost())/2;
-				status = gameBoard.accessSpace(j)->getMortgage();
-				break;
+		while (place <= 0){
+			view(current);
+			place = sdl.getResponse(1);
+			if (place == 'q') return;
+			mortgageReturn = (gameBoard.accessSpace(place)->getCost())/2;
+			cout << place << endl;
+			if (gameBoard.accessSpace(place)->getOwner() != current->getIndex()){
+				place = -1;
+			}
+			if (gameBoard.accessSpace(place)->getMortgage() && (current->getMoney() < mortgageReturn)) {
+				place = -1;
 			}
 		}
-		
-		if(status == 0)
-		{
-			cout << "Would you like to mortgage " << owned[place] << " and gain " << mortgageReturn << "? (y/n)";
-			cout << endl;
-			mortgageYN = sdl.getResponse(4);
+
+	        if (gameBoard.accessSpace(place)->getMortgage()){
+			disp = backTile[place];
+			message = unmortgageText;
+		} else {
+			disp = tile[place];
+			message = mortgageText;
+		}
 	
-			if(mortgageYN == 'y')
-			{
-				cout << "Entered changeInMoney" << endl;
-				current->changeInMoney(mortgageReturn);
-				cout << "Attepmting to setMortgage" << endl;
-				gameBoard.accessSpace(j)->setMortgage(true);
-				cout << "setMortgage successful" << endl;
-			}
-		}
-		else if(status == 1 && current->getMoney() > mortgageReturn)
-		{
-			cout << "Would you like to unmortgage " << owned[place] << "? It will cost you " << mortgageReturn << ". (y/n)";
-			cout << endl;
-			mortgageYN = sdl.getResponse(4);
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+        	sdl.apply_surface(175, 210, disp, screen);
+		sdl.apply_surface(225, 150, message, screen);
+		sdl.apply_surface(yes_x, yes_y, yesButton, screen);
+	        sdl.apply_surface(no_x, no_y, noButton, screen);
 
-			if(mortgageYN == 'y')
-			{
-				current->changeInMoney(-mortgageReturn);
-				gameBoard.accessSpace(j)->setMortgage(false);
-			}
-		}
-		else if(status == 1 && current->getMoney() <= mortgageReturn)
-		{
-			cout << "This location is mortgaged, and you can't afford to unmortgage it!" << endl;
-		}
+
+		cout << "Waiting for " << answer << endl;
+		answer = sdl.getResponse(31);
+		cout << "answer is " << answer << endl;
+
+		if (answer != 'y') place = -1;
+		if (answer == 'q') return;
+	}
+//	for(j = 0; j < 40; j++)
+//	{
+//		if(gameBoard.accessSpace(j)->getTitle() == owned[place])
+//		{
+	mortgageReturn = (gameBoard.accessSpace(place)->getCost())/2;
+	status = gameBoard.accessSpace(place)->getMortgage();
+//			break;
+//	}
+//	}
+
+	cout << "Mortgage status: " << status << endl;
+	cout << "Mortgage status of " << gameBoard.accessSpace(place)->getTitle() << ": " << gameBoard.accessSpace(place)->getMortgage() << endl;
+	cout << endl;
+	
+	if(status == 0)
+	{
+		current->changeInMoney(mortgageReturn);
+		gameBoard.accessSpace(place)->setMortgage(true);
+	}
+	if(status == 1)
+	{
+		current->changeInMoney(-mortgageReturn);
+		gameBoard.accessSpace(place)->setMortgage(false);
+	}
 
 	return;
 
-//	}
 }
 
 	
@@ -743,11 +768,14 @@ int Game::view_zoom(Player* current){
         if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
                 disp = tile[response];
                 if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
-        }
 
         sdl.apply_surface(175, 180, disp, screen);
 
-        return 1;
+        return response;
+
+	}
+
+	return 0;
 
 }
 
@@ -807,10 +835,18 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	deque<string> playerOwns;
 	SDL_Surface *disp;
 
+	string str;
+
 	int yes_x = 175;
 	int yes_y = 575;
 	int no_x = 575;
 	int no_y = 575;
+
+	int nameDisp_x = 150+150;
+	int nameDisp_y = 150+133;
+
+	SDL_Color textColor = {255,255,255};
+	SDL_Color bColor = {0, 0, 0};
 
 	cout << "Entered trade" << endl;
 
@@ -822,7 +858,12 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 	
 	for(int i = 0; i < players.size(); i++)
 	{
-		if (players[i].getIndex() != current->getIndex()) cout << players[i].getName() << ": (" << players[i].getIndex() << ")" << endl;
+		if (players[i].getIndex() != current->getIndex()){ 
+			str = players[i].getName();
+			sdlText = TTF_RenderText_Shaded(font, str.c_str(), bColor, textColor);
+			sdl.apply_surface(nameDisp_x, nameDisp_y, sdlText, screen); 
+			nameDisp_y += 87;
+		}
 	}
 
 	while (recipIndex < 0){
@@ -983,13 +1024,20 @@ void Game::jailTime(Player* current)
 				if(current->getGOOJ() == 1)
 				{
 					current->setJail(0);
+					current->changeGOOJ(0);
 					cout << "You got out of res life for free!" << endl;
 					return;
 				}
 				if(current->getMoney() > 50)
 				{
 					cout << "Would you like to pay off the service hours? (y/n)";
-					pay = sdl.getResponse(5);
+					cout << endl;
+					sdl.apply_surface(150, 150, cleanBackground, screen);
+					sdl.apply_surface(175, 290, tile[10], screen);
+					sdl.apply_surface(225, 150, payJail, screen);
+					sdl.apply_surface(175, 575, yesButton, screen);
+					sdl.apply_surface(575, 575, noButton, screen);
+					pay = sdl.getResponse(31);
 					if(pay == 'y')
 					{
 						current->payOffResLife();

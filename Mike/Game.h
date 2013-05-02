@@ -9,6 +9,7 @@
 #include "SDL_logic.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
 
 using namespace std;
 
@@ -43,7 +44,10 @@ class Game
 		Board gameBoard;
 		SDL_logic sdl;
 		SDL_Surface* screen;
-		
+
+		SDL_Surface *sdlText;
+		TTF_Font *font;
+
 		SDL_Surface *preRollImage;
 		SDL_Surface *postRollImage;
 		SDL_Surface *sprites;
@@ -56,6 +60,20 @@ class Game
 	        SDL_Surface *tradeForThis;
         	SDL_Surface *tradeThis;
 	        SDL_Surface *yesButton;
+
+	        SDL_Surface *mortgageHere;
+	        SDL_Surface *mortgageText;
+	        SDL_Surface *unmortgageText;
+	        SDL_Surface *buildHere;
+		SDL_Surface *payJail;
+        
+	        SDL_Surface *oneButton;
+        	SDL_Surface *twoButton;
+	        SDL_Surface *threeButton;
+        	SDL_Surface *fourButton;
+	        SDL_Surface *hotelButton;
+
+
 
 		SDL_Surface *houseImage[6];
 		SDL_Surface *tile[40];
