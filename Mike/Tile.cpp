@@ -112,3 +112,7 @@ void Tile::setMortgage(bool status)
 bool Tile::getMortgage()
 {
 }
+
+void Tile::implosion()
+{
+}
