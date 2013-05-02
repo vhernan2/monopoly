@@ -51,7 +51,7 @@ private:
 	SDL_Surface *screen;
 	SDL_Event event;
 
-	PlayerPiece unique_piece[4];
+	PlayerPiece unique_piece[6];
 
 	SDL_logic sdl;
 };
