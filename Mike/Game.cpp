@@ -483,7 +483,7 @@ void Game::applyHouses(int numHouses, int numHotels){
 	if (numHouses > 0) sdl.apply_surface(x, y, houseImage[numHouses], screen);
 
 	if (numHotels > 0) {
-		sdl.apply_surface(620, 155, houseImage[5], screen);
+		sdl.apply_surface(550, 155, houseImage[5], screen);
 	}
 
 }
@@ -775,18 +775,33 @@ int Game::getPlayerLocation(int player){
 }
 
 int Game::view_zoom(Player* current){
-	char response;
+	int response;
 	SDL_Surface *disp;
-        response = sdl.getResponse(1);
-        if (response == 'q') return 0;
 
+	int house_x = 155;
+        int house_y = 155;
+	int numHouses = 0;
+	int numHotels = 0;
+
+        response = sdl.getResponse(1);
+	cout << response << endl;
+        if (response == 'q') return 0;
+	cout << "Current Space Owner = " << gameBoard.accessSpace(response)->getOwner() << endl;
+	cout << "Current Player = " << current->getIndex() << endl;
         if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
+		cout << "Entered getOwner part of _zoom" << endl;
                 disp = tile[response];
                 if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
+	        sdl.apply_surface(175, 180, disp, screen);
+		numHouses = gameBoard.accessSpace(response)->getHouses();
+		numHotels = gameBoard.accessSpace(response)->getHotels();
+	
+		if (numHouses > 0) sdl.apply_surface(house_x, house_y, houseImage[numHouses], screen);
 
-        sdl.apply_surface(175, 180, disp, screen);
+	        if (numHotels > 0) sdl.apply_surface(550, 155, houseImage[5], screen);
+	
 
-        return response;
+	        return response;
 
 	}
 
