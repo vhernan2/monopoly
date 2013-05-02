@@ -256,6 +256,10 @@ char SDL_logic::getResponse(int type){
                                                         quit = true;
                                                 }
 					}
+					if (type == 99){
+						c = '['; //return a blank value
+						quit = true;
+					}
 			       }    
 			}
                         if (event.type == SDL_KEYDOWN){
