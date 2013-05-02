@@ -87,27 +87,13 @@ bool Monopoly_Board::load_files(int numPlayers)
         return false;
     }
 
-    string input;
-
-    ifstream dataFile ("piece_image_folder.txt");
-
-    int count = 0;
-
-    string names[numPlayers];
-
-    while(dataFile.is_open()){
-           while(dataFile.good() && (count < numPlayers)){
-                    getline(dataFile, input);
-                    names[count] = input;
-                    count++;
-            }
-            dataFile.close();
-    }
-
-    piece[0] = load_image( "Piece_Images/" + names[0] );
-    piece[1] = load_image( "Piece_Images/" + names[1] );
-    piece[2] = load_image( "Piece_Images/" + names[2] );
-    piece[3] = load_image( "Piece_Images/" + names[3] );
+    piece[0] = load_image( "Piece_Images/Knute_Rockne.png" );
+    piece[1] = load_image( "Piece_Images/Guinness.png");
+    piece[2] = load_image( "Piece_Images/Claddagh.png" );
+    piece[3] = load_image( "Piece_Images/Francis.png");
+    piece[4] = load_image( "Piece_Images/Leprechaun.png");
+    piece[5] = load_image( "Piece_Images/ND_logo.png");
+    piece[6] = load_image( "Piece_Images/Shamrock.png");
 
     return true;
 }
@@ -117,7 +103,7 @@ void Monopoly_Board::clean_up()
     cout << "Entered\n";
     SDL_FreeSurface( background );
     cout << "Freed background\n";
-    for(int i = 0; i < 4; i++) { 
+    for(int i = 0; i < 7; i++) { 
 	SDL_FreeSurface( piece[i] ); 
 	cout << "Freed piece["<<i<<"]\n";
     }
@@ -160,7 +146,9 @@ Monopoly_Board::Monopoly_Board( int numPlayers )
 
     //Apply the surfaces to the screen
     apply_surface( 0, 0, background, screen );
-    for (int i = 0; i < players; i++) { apply_surface( unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen ); }
+    for (int i = 0; i < players; i++) { 
+	apply_surface( unique_piece[i].getX(), unique_piece[i].getY(), piece[i], screen ); 
+     }
 
     //Update the screen
     if( SDL_Flip( screen ) == -1 )
