@@ -65,6 +65,7 @@ class Game
 	        SDL_Surface *mortgageText;
 	        SDL_Surface *unmortgageText;
 	        SDL_Surface *buildHere;
+		SDL_Surface *payJail;
         
 	        SDL_Surface *oneButton;
         	SDL_Surface *twoButton;

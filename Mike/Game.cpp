@@ -102,6 +102,7 @@ Game::Game(int numPlayers)
 	mortgageText = sdl.load_files("JLo/Text/Mortgage.png");
 	unmortgageText = sdl.load_files("JLo/Text/Unmortgage.png");
 	buildHere = sdl.load_files("JLo/Text/buildHere.png");
+	payJail = sdl.load_files("JLo/Text/LeaveJail.png");
 	
 	oneButton = sdl.load_files("JLo/Text/One.png");
 	twoButton = sdl.load_files("JLo/Text/Two.png");
@@ -371,8 +372,15 @@ void Game::playerPostRoll(Player* current){
 			if (gameBoard.accessSpace(current->getPosition())->getMortgage()) disp = backTile[current->getPosition()];
 		}
 	}
-	cout << "right before postRollImage" << endl;	
+	cout << "right before postRollImage" << endl;
+	if(current->getPosition() == 30)
+	{
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+        	sdl.apply_surface(175, 180, disp, screen);
+	}
+
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
+	
 	if(output != -1)
 	{
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
@@ -1025,7 +1033,8 @@ void Game::jailTime(Player* current)
 					cout << "Would you like to pay off the service hours? (y/n)";
 					cout << endl;
 					sdl.apply_surface(150, 150, cleanBackground, screen);
-					sdl.apply_surface(175, 190, tile[10], screen);
+					sdl.apply_surface(175, 290, tile[10], screen);
+					sdl.apply_surface(225, 150, payJail, screen);
 					sdl.apply_surface(175, 575, yesButton, screen);
 					sdl.apply_surface(575, 575, noButton, screen);
 					pay = sdl.getResponse(31);

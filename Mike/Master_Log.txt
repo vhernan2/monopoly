@@ -249,3 +249,10 @@ Done:
 
 Time Spent: 16 hr 30 min
 Total Time: 53 hr 35 min
+
+April 30 2013
+9:00 p.m.
+
+To Do:
+	Putting finishing touches on game interactivity with logic, begin debugging all seg faults caused by "mislcicks"
+
