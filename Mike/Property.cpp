@@ -147,6 +147,7 @@ void Property::updateEffect(int count)
 				break;
 		}
 	}
+	else moneyEffect = rent;
 }
 
 int Property::getHouses()
