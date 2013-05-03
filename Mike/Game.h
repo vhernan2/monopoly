@@ -81,7 +81,7 @@ class Game
 		SDL_Surface *houseImage[6];
 		SDL_Surface *tile[40];
 		SDL_Surface *backTile[40];
-		SDL_Surface *SAOcard[13];
+		SDL_Surface *SAOcard[14];
 		SDL_Surface *SUBcard[14];
 		SDL_Surface *tradeScreen[7];
 		SDL_Surface *FS[401];

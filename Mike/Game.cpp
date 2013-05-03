@@ -197,6 +197,7 @@ Game::Game(int numPlayers)
 	SAOcard[10] = sdl.load_files("JLo/SAO/FootballSeasonPass.png");
         SAOcard[11] = sdl.load_files("JLo/SAO/ClubDues.png");
         SAOcard[12] = sdl.load_files("JLo/SAO/TriviaNight.png");
+	SAOcard[13] = sdl.load_files("JLo/SAO/HalloftheYear.png");
 
 	SUBcard[0] = sdl.load_files("JLo/SUB/Raffle.png");
 	SUBcard[1] = sdl.load_files("JLo/SUB/SUBMovie.png");
@@ -625,9 +626,10 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 								houseLoop = 0;
 								break;
 							}
-							if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
-							gameBoard.accessSpace(location)->addHouses(housesAdded);
-							current->changeInMoney((-housePrice) * housesAdded);
+							if((currentHouses + housesAdded) <= 4){
+								gameBoard.accessSpace(location)->addHouses(housesAdded);
+								current->changeInMoney((-housePrice) * housesAdded);
+							}
 							houseLoop = 0;
 						}
 					}
@@ -1042,7 +1044,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << "Your offer: ";
                 cout << endl;
                 offer = sdl.getResponse(1);
-		if (request > 40) return;
+		if (offer > 40) return;
                 if (gameBoard.accessSpace(offer)->getOwner() == current->getIndex()){
 			sdl.apply_surface(150, 140, cleanBackground, screen);
                         sdl.apply_surface(175, 200, tile[offer], screen);
