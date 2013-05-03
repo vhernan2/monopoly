@@ -12,6 +12,8 @@ int main (){
 	  players = startMenu();
 	Game playMonopoly(players);
 
+	int endGame = 0;
+
 	int current, location;
 	Monopoly_Board showMonopoly(players);
 	//this gets the screen that we display on
@@ -21,7 +23,8 @@ int main (){
 //	while not quit
 //		Victor
 		while (showMonopoly.keep_playing()){
-			playMonopoly.turn();
+			endGame = playMonopoly.turn();
+			if (endGame) break;
 			current = playMonopoly.getCurrentPlayer();
 			location = playMonopoly.getPlayerLocation(current);
 			showMonopoly.turn(current, location);
