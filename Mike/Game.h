@@ -18,9 +18,9 @@ class Game
 	public:
 		Game(int);
 		~Game();
-		void turn();
-		void playerTurn(Player*);
-		void playerPostRoll(Player *);
+		int turn();
+		int playerTurn(Player*);
+		int playerPostRoll(Player *);
 		int rollDie(Player*);
 		void buildCheck(Player*);
 		void applyHouses(int, int);

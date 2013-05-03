@@ -249,15 +249,22 @@ int Game::rollDie(Player* current)
 	return move;
 }
 
-void Game::turn()
+int Game::turn()
 {
+	int endGame = 0;
 	curPlayer = curPlayer++;
 	if (curPlayer >= players.size()) curPlayer = 0;
-	playerTurn(&players[curPlayer]);
+	endGame = playerTurn(&players[curPlayer]);
 	cout << endl << endl;
+
+	if (endGame) {
+		//apply endGame screen here
+	}
+
+	return endGame;
 }
 
-void Game::playerTurn(Player* current)
+int Game::playerTurn(Player* current)
 {
 
         SDL_Color textColor = {175,231,204};
@@ -276,6 +283,7 @@ void Game::playerTurn(Player* current)
 	char response;
 
 	int keepView;
+	int endGame = 0;
 
 	gameBoard.checkDecks();			//checks SAO and SUB decks to make sure they aren't empty. If so rebuilds the deck
 	gameBoard.checkGroupsProp();		//checks the properties to see if an entire group is owned by a player
@@ -318,9 +326,8 @@ void Game::playerTurn(Player* current)
 		switch(response)
 		{
 			case 'r':
-				playerPostRoll(current);
+				endGame = playerPostRoll(current);
 				break;
-
 			case 'b':
 				build(current);
 				break;
@@ -331,7 +338,7 @@ void Game::playerTurn(Player* current)
 				trade(current);
 				break;
 			case 'q':
-				return;
+				return 0;
 			case 'v':
 				keepView = 1;
                                 while(keepView){
@@ -345,9 +352,11 @@ void Game::playerTurn(Player* current)
 		}
 	}
 
+	return endGame;
+
 }
 
-void Game::playerPostRoll(Player* current){
+int Game::playerPostRoll(Player* current){
 
 	int output;	//stores index value from interact function
 	int playerRoll;		//stores value of player's roll
@@ -359,6 +368,8 @@ void Game::playerPostRoll(Player* current){
 
 	int preInteractTile = 0;
 	int postInteractTile = 0;
+
+	int endGame;
 
 	int keepView;
 
@@ -406,7 +417,9 @@ void Game::playerPostRoll(Player* current){
 
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 	
-	gameOver();
+	endGame = gameOver();
+	if (endGame) return 1;
+
 
 	if(output != -1)
 	{
@@ -477,12 +490,14 @@ void Game::playerPostRoll(Player* current){
 				response = 'r';
 				break;
 			case 'q':
-				return;
+				return 0;
 			case 't':
 				trade(current);
 				break;
 		}
 	}
+
+	return 0;
 
 }
 
