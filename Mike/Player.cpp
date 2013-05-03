@@ -4,7 +4,7 @@ using namespace std;
 
 Player::Player()
 {
-	totalMoney = 15000;
+	totalMoney = 1500;
 	inJail = 0;
 	position = 0;
 	index = 0;
@@ -12,7 +12,7 @@ Player::Player()
 
 Player::Player(int locVector)
 {
-	totalMoney = 15000;
+	totalMoney = 1500;
 	inJail = 0;
 	timeJail = 0;
 	position = 0;
