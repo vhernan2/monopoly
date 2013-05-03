@@ -22,8 +22,10 @@ Game::Game(int numPlayers)
   SDL_Color textColor = {0,255,0};
   SDL_Color bColor = {0,0,0};
   stringstream buffer;
+  background = sdl.load_files( "JLo/welcomeBg.bmp" );
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
-  sdl.apply_surface(280,350,sdlText,prompt);
+  sdl.apply_surface(280,0,sdlText,background);
+  sdl.apply_surface(0,0,background,prompt);
   SDL_Flip(prompt);
 
         for(int j = 0; j < numPlayers; j++)
@@ -31,7 +33,7 @@ Game::Game(int numPlayers)
 	  players.push_back(Player(j));
 	  }
 	SDL_Delay(1200);
-          SDL_FillRect(prompt,NULL,0x000000);
+	SDL_FillRect(prompt,NULL,0x000000);
 	  
 	  SDL_Flip(prompt);
 	int i = 0;
@@ -405,6 +407,8 @@ void Game::playerPostRoll(Player* current){
 
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 	
+	gameOver();
+
 	if(output != -1)
 	{
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
