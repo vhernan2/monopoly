@@ -79,10 +79,10 @@ void Railroad::payBack(Player* current)
 void Railroad::updateEffect(int count)
 {
 	if (count == 1) moneyEffect = rent * 1;
-        if (count == 2) moneyEffect = rent * 2;
-        if (count == 3) moneyEffect = rent * 4;
-        if (count == 4) moneyEffect = rent * 8;
-	
+        else if (count == 2) moneyEffect = rent * 2;
+        else if (count == 3) moneyEffect = rent * 4;
+        else if (count == 4) moneyEffect = rent * 8;
+	else moneyEffect = rent * 8;
 }
 
 int Railroad::getCost()
