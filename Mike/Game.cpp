@@ -542,14 +542,15 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 	while(loop)
 	{
+		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
+		buildCheck(current); //refreshes Tiles that can be built on	
+
 		houseOptions = current->getHouseTiles();
 		hotelOptions = current->getHotelTiles();
 		houseLoop = 1;
 		hotelLoop = 1;
 
-		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
-		buildCheck(current); //refreshes Tiles that can be built on	
-
+	
 		sdl.apply_surface(150, 150, cleanBackground, screen);
 		sdl.apply_surface(225, 250, pickBuild, screen);
 		sdl.apply_surface(225, 375, houseImage[1], screen);
