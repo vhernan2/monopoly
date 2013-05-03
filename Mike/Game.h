@@ -47,6 +47,8 @@ class Game
 		SDL_Surface *sdlText;
 		TTF_Font *font;
 
+		SDL_Surface *endOfGame;
+
 		SDL_Surface *preRollImage;
 		SDL_Surface *postRollImage;
 		SDL_Surface *sprites;

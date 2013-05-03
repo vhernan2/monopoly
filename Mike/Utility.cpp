@@ -32,6 +32,7 @@ int Utility::buy(Player* current) {
                         cout << "Your total money is now: $" << current->getMoney() << endl;
                         owner = current->getIndex();
                         current->addTile(title);
+			setGroupOwned(1);
                         return owner;
 
                 }
@@ -49,7 +50,7 @@ int Utility::interact(Player* current)
 	if(owner == -1)
 	{
 	        cout << "This tile is unowned, and can be bought for $" << cost << endl;
-                return owner;
+                return -1;
         }
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
@@ -62,12 +63,12 @@ int Utility::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
-		return owner;
+		return -1;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 1)
 	{
 		cout << "This location is owned, but it is mortgaged! You don't lose any money!" << endl;
-		return owner;
+		return -1;
 	}
 }
 		
@@ -84,19 +85,27 @@ void Utility::payBack(Player* current)
 
 void Utility::updateEffect(int roll)
 {
-	if(numOwned == 1)
+	if(numOwned == 0){
+		moneyEffect = roll * 0;
+	}
+	else if(numOwned == 1)
 	{
 		moneyEffect = roll * 4;
 	}
-	if(numOwned = 2)
+	else if(numOwned == 2)
 	{
 		moneyEffect = roll * 10;
 	}
+	else 
+	{
+		moneyEffect = roll * 10;
+	}
+
 }
 
 void Utility::setGroupOwned(int update)
 {
-	numOwned = update;
+	numOwned += update;
 }
 
 int Utility::getCost()
