@@ -412,12 +412,15 @@ void Game::playerPostRoll(Player* current){
 
 	postInteractTile = current->getPosition();
 
-	cout << "pre: " << preInteractTile << " post: "<<postInteractTile << endl;
+	cout << "pre: " << preInteractTile << " post: "<< postInteractTile << endl;
 
 	if (preInteractTile != postInteractTile) { //if the SAO or SUB card moved the player
 
 		sdl.apply_surface(150, 150, cleanBackground, screen);
                 sdl.apply_surface(175, 180, disp, screen);
+		t = gameBoard.accessSpace(current->getPosition());
+		if ((group > 0) && (group <= 8)) isColorProperty = 1;
+		if ((group > 0) && (group <= 10)) isProperty = 1;
 		sdl.getResponse(99);
 		disp = tile[postInteractTile];
 	}
