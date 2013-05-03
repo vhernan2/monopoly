@@ -558,12 +558,12 @@ void Game::buildCheck(Player* current)
 void Game::applyHouses(int numHouses, int numHotels){
 
 	int x = 155;
-	int y = 155;
+	int y = 175;
 
 	if (numHouses > 0) sdl.apply_surface(x, y, houseImage[numHouses], screen);
 
 	if (numHotels > 0) {
-		sdl.apply_surface(550, 155, houseImage[5], screen);
+		sdl.apply_surface(550, 175, houseImage[5], screen);
 	}
 
 }

@@ -134,7 +134,10 @@ WEDNESDAY MAY 2:
 	to resolve build logic bugs.
 10:45 - began work with applying text when you have to pay someone else
 	for their property tile
-11:00 - wrote up my time log. Time to go see Iron Man 3! I'll be back
-	later I suppose.
+11:00 - wrote up my time log. Time to go see Iron Man 3! I'll be back.
 
 TOTAL TIME - 52 hours
+
+3:30 - I'm back. Walked into lab
+4:00 - updated functions in Tile, prints across the top the cost of
+	landing on another player's tile

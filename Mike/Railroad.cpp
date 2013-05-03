@@ -42,7 +42,7 @@ int Railroad::interact(Player* current)
 	if(getOwner() == -1)
 	{
 		cout << "This tile is unowned, and can be bought for $" << cost << endl;
-                return owner;
+                return -1;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
@@ -55,12 +55,12 @@ int Railroad::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
-		return owner;
+		return -1;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 1)
 	{
 		cout << "This location is owned, but it is mortgaged! You don't lose any money!" << endl;
-		return owner;
+		return -1;
 	}
 	
 }
@@ -78,7 +78,11 @@ void Railroad::payBack(Player* current)
 
 void Railroad::updateEffect(int count)
 {
-	moneyEffect = (rent*count);
+	if (count == 1) moneyEffect = rent * 1;
+        if (count == 2) moneyEffect = rent * 2;
+        if (count == 3) moneyEffect = rent * 4;
+        if (count == 4) moneyEffect = rent * 8;
+	
 }
 
 int Railroad::getCost()
