@@ -193,20 +193,20 @@ void Board::updateRentRR()
 	int count;
 	int tempOwner;
 
-	for(int i = 5; i <= 35; i++)
+	for(int i = 5; i <= 35; i+=10)
 	{
 		count = 0;
 		tempOwner = spaces[i]->getOwner();
 		if(tempOwner != -1)
 		{
-			for(int j = 5; j <= 35; j++)
+			for(int j = 5; j <= 35; j+=10)
 			{
 				if(spaces[j]->getOwner() == tempOwner)
 				{
 					++count;
 				}
 			}
-			for(int k = 5; k <= 35; k++)
+			for(int k = 5; k <= 35; k+=10)
 			{
 				if(spaces[k]->getOwner() == tempOwner)
 				{
