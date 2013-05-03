@@ -72,11 +72,11 @@ inline int startMenu(){
   b6 = loadImage("data/6.bmp");
 
   // define button locations
-  b2X = ( 840*2/6 );
-  b3X = ( 840*3/6 );
-  b4X = ( 840*4/6 );
-  b5X = ( 840*5/6 );
-  b6X = ( 840*6/6 );
+  b2X = ( 840*1/6 );
+  b3X = ( 840*2/6 );
+  b4X = ( 840*3/6 );
+  b5X = ( 840*4/6 );
+  b6X = ( 840*5/6 );
   b2Y = b3Y = b4Y = b5Y = b6Y = ( 840/3 );
   oX = 3*840/4; oY = 840-100 ;
   mmX = 840/4; mmY= 840-100;
