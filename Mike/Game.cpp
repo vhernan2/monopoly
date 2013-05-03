@@ -71,6 +71,8 @@ Game::Game(int numPlayers)
 	sdl;
 	screen = NULL;
 
+	endOfGame = sdl.load_files( "JLo/End.png" );
+
 	preRollImage = sdl.load_files( "JLo/preRoll.png" );
 	postRollImage = sdl.load_files( "JLo/postRoll.png" );
 
@@ -258,7 +260,7 @@ int Game::turn()
 	cout << endl << endl;
 
 	if (endGame) {
-		//apply endGame screen here
+		sdl.apply_surface(0, 0, endOfGame, screen);
 	}
 
 	return endGame;
