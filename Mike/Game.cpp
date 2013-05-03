@@ -401,7 +401,6 @@ void Game::playerPostRoll(Player* current){
 	{
 		sdl.apply_surface(150, 150, cleanBackground, screen);
         	sdl.apply_surface(175, 180, disp, screen);
-		sdl.getResponse(99);
 	}
 
 
@@ -423,6 +422,7 @@ void Game::playerPostRoll(Player* current){
 		sdl.apply_surface(150, 150, cleanBackground, screen);
                 sdl.apply_surface(175, 180, disp, screen);
 		t = gameBoard.accessSpace(current->getPosition());
+		group = t->getGroup();
 		if ((group > 0) && (group <= 8)) isColorProperty = 1;
 		if ((group > 0) && (group <= 10)) isProperty = 1;
 		sdl.getResponse(99);

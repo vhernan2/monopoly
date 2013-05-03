@@ -222,7 +222,11 @@ inline int startMenu(){
 	    return numberOfPlayers;
 	  }
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
+<<<<<<< HEAD
 	    return 0;
+=======
+  return 0;
+>>>>>>> f7938edd7d55acb7684afa557c748c580ebc322a
 	  }
 	}	
       }
