@@ -271,3 +271,12 @@ May 2 2013
 
 To Do:
 	Help Kyle debug and smooth out final product of game, hopefully catch majority if not at all of bugs
+
+May 2 2013
+10:54 p.m.
+
+Done:
+	Game is up and running save for a few mysterious bugs, all the way to end screen
+
+Time Spent: 3 hr 40 min
+Total Time: 60 hr 56 min
