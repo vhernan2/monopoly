@@ -3,10 +3,11 @@
 #include <ctime>
 #include <vector>
 #include "prompts.h"
+#include "pieceSelect.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
-#include <sstream>
+
 using namespace std;
 
 Game::Game(int numPlayers)
@@ -61,9 +62,10 @@ Game::Game(int numPlayers)
 	      SDL_Flip(prompt);
 	    }
 	  }
+
 	  players[i].setName(name);
-	  buffer.str(string());
-	  cout << buffer;
+	  buffer.str(string()); // clear the buffer
+	  pieceSelect(name);
 	  i++;
 	}	
 	curPlayer=100; //really big to ensure it resets on first call
