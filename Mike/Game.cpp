@@ -253,6 +253,16 @@ int Game::rollDie(Player* current)
 
 int Game::turn()
 {
+
+	string name;
+
+        SDL_Color textColor = {175,231,204};
+        SDL_Color bColor = {0, 0, 0};
+
+        int name_x = 305;
+        int name_y = 285;
+
+
 	int endGame = 0;
 	curPlayer = curPlayer++;
 	if (curPlayer >= players.size()) curPlayer = 0;
@@ -260,7 +270,11 @@ int Game::turn()
 	cout << endl << endl;
 
 	if (endGame) {
+		name = "Congratulations " + players[0].getName() + "!!!";
 		sdl.apply_surface(0, 0, endOfGame, screen);
+                sdlText = TTF_RenderText_Shaded(font, name.c_str(), bColor, textColor);
+                sdl.apply_surface (name_x, name_y, sdlText, screen);
+		
 	}
 
 	return endGame;
