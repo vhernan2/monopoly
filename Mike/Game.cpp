@@ -371,6 +371,9 @@ void Game::playerPostRoll(Player* current){
 	int isProperty = 0;
 	int isColorProperty = 0;
 
+	int preInteractTile = 0;
+	int postInteractTile = 0;
+
 	int keepView;
 
 	char response;
@@ -411,6 +414,7 @@ void Game::playerPostRoll(Player* current){
         	sdl.apply_surface(175, 180, disp, screen);
 		sdl.getResponse(99);
 	}
+
 
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 	
@@ -819,7 +823,7 @@ int Game::view_zoom(Player* current){
         if (response == 'q') return 0;
 	cout << "Current Space Owner = " << gameBoard.accessSpace(response)->getOwner() << endl;
 	cout << "Current Player = " << current->getIndex() << endl;
-//        if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
+        if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
 		cout << "Entered getOwner part of _zoom" << endl;
                 disp = tile[response];
                 if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
@@ -836,7 +840,7 @@ int Game::view_zoom(Player* current){
 
 	        return response;
 
-//	}
+	}
 
 	return 0;
 
@@ -865,7 +869,7 @@ void Game::view(Player* current){
 	string money;
 
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
-/*
+
 	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+45, whitespace, screen);
         if (current->notOwnTile("Ryan Hall")) sdl.apply_surface(sprite_x+97, sprite_y+45, whitespace, screen);
         if (current->notOwnTile("McGlinn Hall")) sdl.apply_surface(sprite_x+185, sprite_y+45, whitespace, screen);
@@ -894,7 +898,7 @@ void Game::view(Player* current){
         if (current->notOwnTile("DeBartolo Hall")) sdl.apply_surface(sprite_x+471, sprite_y+280, whitespace, screen);
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
-*/
+
 	cout << "Print name and money" << endl;
 	name = "Name: " + current->getName();
 	cout << name << endl;
