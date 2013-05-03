@@ -12,34 +12,14 @@ using namespace std;
 Game::Game(int numPlayers)
 {
 
-  /*	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
-	cin >> numPlayers;
-
-	for(int j = 0; j < numPlayers; j++)
-	{
-		players.push_back(Player(j));
-	}
-
-	int i = 0;
-	string temp;
-
-	while(i < numPlayers)
-	{
-		cout << "Player " << (i+1) << " what is your name? ";
-		cin >> temp;
-	
-		players[i].setName(temp);
-
-		i++;
-	}
-  */
   SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
+  SDL_Surface *background = NULL;
   sdlText = NULL;
   TTF_Init();
   font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
-  SDL_Color textColor = {255,255,255};
+  SDL_Color textColor = {0,255,0};
   SDL_Color bColor = {0,0,0};
   stringstream buffer;
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
@@ -52,18 +32,23 @@ Game::Game(int numPlayers)
 	  }
 	SDL_Delay(1200);
           SDL_FillRect(prompt,NULL,0x000000);
+	  
 	  SDL_Flip(prompt);
 	int i = 0;
         while ( i < numPlayers )
         {
 	  string name;
-	  string append(decipher(prompt));
+	  string append("1"); // avoids waiting for user @ decipher
+	  append.clear(); // gets rid of the 1 @ name
  
           buffer << "Player " << (i+1) << " what is your name? ";
           const char* output = buffer.str().c_str();
 
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(240,10,sdlText,prompt);
+	  background = sdl.load_files( "JLo/nameBg.bmp" );
+          sdl.apply_surface(240,10,sdlText,background);
+	  sdl.apply_surface(0,0,background,prompt);
+
 
           SDL_Flip(prompt);
           while (append != "0" ){
