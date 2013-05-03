@@ -19,6 +19,7 @@ class Tile
 		void setOwner(int);	//sets an owner for the tile
 		int getOwner();		//returns the owner of the tile
 		int getGroup();
+		int getEffect();	//returns the rent cost
 		string getTitle();	//returns title of Tile
 		virtual int buy(Player*); //extends interact
 		virtual int interact(Player*);	//will be used to interact with player based on where they land

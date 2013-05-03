@@ -253,6 +253,16 @@ int Game::rollDie(Player* current)
 
 int Game::turn()
 {
+
+	string name;
+
+        SDL_Color textColor = {175,231,204};
+        SDL_Color bColor = {0, 0, 0};
+
+        int name_x = 305;
+        int name_y = 285;
+
+
 	int endGame = 0;
 	curPlayer = curPlayer++;
 	if (curPlayer >= players.size()) curPlayer = 0;
@@ -260,7 +270,11 @@ int Game::turn()
 	cout << endl << endl;
 
 	if (endGame) {
+		name = "Congratulations " + players[0].getName() + "!!!";
 		sdl.apply_surface(0, 0, endOfGame, screen);
+                sdlText = TTF_RenderText_Shaded(font, name.c_str(), bColor, textColor);
+                sdl.apply_surface (name_x, name_y, sdlText, screen);
+		
 	}
 
 	return endGame;
@@ -376,6 +390,15 @@ int Game::playerPostRoll(Player* current){
 	int keepView;
 
 	string str;
+	string str2;
+	SDL_Surface *ownerWords;
+	SDL_Color textColor = {175,231,204};
+        SDL_Color bColor = {0, 0, 0};
+
+	int text_x = 140;
+	int text_y = 140;
+
+	ostringstream oss;
 
 	char response;
 	
@@ -427,7 +450,12 @@ int Game::playerPostRoll(Player* current){
 
 	if(output != -1)
 	{
-		str = "This tile is owned by " + ;
+		str = "This tile is owned by " + players[output].getName() + ".";
+		oss << gameBoard.accessSpace(current->getPosition())->getEffect();
+	        str += " You have paid $" + oss.str() + ".";
+		oss.str("");	
+		ownerWords = TTF_RenderText_Shaded(font, str.c_str(), bColor, textColor);
+		sdl.apply_surface (text_x, text_y, ownerWords, screen);
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 	}
 
@@ -462,6 +490,10 @@ int Game::playerPostRoll(Player* current){
 	
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
+
+		if (output != -1) {
+			sdl.apply_surface (text_x, text_y, ownerWords, screen);
+		}
 
 		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
 		buildCheck(current); //refreshes Tiles that can be built on		
@@ -540,12 +572,12 @@ void Game::buildCheck(Player* current)
 void Game::applyHouses(int numHouses, int numHotels){
 
 	int x = 155;
-	int y = 155;
+	int y = 175;
 
 	if (numHouses > 0) sdl.apply_surface(x, y, houseImage[numHouses], screen);
 
 	if (numHotels > 0) {
-		sdl.apply_surface(550, 155, houseImage[5], screen);
+		sdl.apply_surface(550, 175, houseImage[5], screen);
 	}
 
 }

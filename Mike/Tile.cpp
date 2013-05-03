@@ -37,6 +37,12 @@ string Tile::getTitle()
 	return title;
 }
 
+int Tile::getEffect()
+{
+        return moneyEffect;
+}
+
+
 void Tile::setOwner(int player)
 {
 	owner = player;
