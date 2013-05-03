@@ -319,8 +319,6 @@ void Game::playerTurn(Player* current)
 	        sdl.apply_surface (money_x, money_y, sdlText, screen);
 		oss.str("");
 
-		cout << "Money_x: " << money_x << " Money_y: " << money_y << endl;
-	
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;
 		current->printTiles();
@@ -387,17 +385,20 @@ void Game::playerPostRoll(Player* current){
 
 	if(gameBoard.accessSpace(current->getPosition())->getTitle() == "S.U.B.")
 	{
+		preInteractTile = current->getPosition();
 		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
 		disp = SUBcard[gameBoard.getCardNum(1)];
 		gameBoard.alterDeck(1);
 		cout << gameBoard.getCardNum(1) << endl;
 	}
 	else if (gameBoard.accessSpace(current->getPosition())->getTitle() == "S.A.O."){
+		preInteractTile = current->getPosition();
 		gameBoard.accessSpace(current->getPosition())->manDeck(current, &gameBoard);
                 disp = SAOcard[gameBoard.getCardNum(2)];
 		gameBoard.alterDeck(2);
 		cout << gameBoard.getCardNum(2) << endl;
 	} else {
+		preInteractTile = current->getPosition();
 		disp = tile[current->getPosition()];
 		t = gameBoard.accessSpace(current->getPosition());
 		group = t->getGroup();
@@ -421,6 +422,18 @@ void Game::playerPostRoll(Player* current){
 	if(output != -1)
 	{
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
+	}
+
+	postInteractTile = current->getPosition();
+
+	cout << "pre: " << preInteractTile << " post: "<<postInteractTile << endl;
+
+	if (preInteractTile != postInteractTile) { //if the SAO or SUB card moved the player
+
+		sdl.apply_surface(150, 150, cleanBackground, screen);
+                sdl.apply_surface(175, 180, disp, screen);
+		sdl.getResponse(99);
+		disp = tile[postInteractTile];
 	}
 
 	response = 'z';
