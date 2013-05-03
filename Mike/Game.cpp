@@ -71,6 +71,8 @@ Game::Game(int numPlayers)
 	sdl;
 	screen = NULL;
 
+	endOfGame = sdl.load_files( "JLo/End.png" );
+
 	preRollImage = sdl.load_files( "JLo/preRoll.png" );
 	postRollImage = sdl.load_files( "JLo/postRoll.png" );
 
@@ -258,7 +260,7 @@ int Game::turn()
 	cout << endl << endl;
 
 	if (endGame) {
-		//apply endGame screen here
+		sdl.apply_surface(0, 0, endOfGame, screen);
 	}
 
 	return endGame;
@@ -373,6 +375,8 @@ int Game::playerPostRoll(Player* current){
 
 	int keepView;
 
+	string str;
+
 	char response;
 	
 	if (!(current->getJail())){	
@@ -423,6 +427,7 @@ int Game::playerPostRoll(Player* current){
 
 	if(output != -1)
 	{
+		str = "This tile is owned by " + ;
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 	}
 
