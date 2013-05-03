@@ -317,6 +317,9 @@ void Game::playerTurn(Player* current)
         	sdl.apply_surface (name_x, name_y, sdlText, screen);
 	        sdlText = TTF_RenderText_Shaded(font, money.c_str(), bColor, textColor);
 	        sdl.apply_surface (money_x, money_y, sdlText, screen);
+		oss.str("");
+
+		cout << "Money_x: " << money_x << " Money_y: " << money_y << endl;
 	
 		cout << current->getName() << " it is your turn" << endl;
 		cout << "Your current money is: $" << current->getMoney() << endl;
@@ -804,6 +807,8 @@ int Game::view_zoom(Player* current){
 	int response;
 	SDL_Surface *disp;
 
+	int group;
+
 	int house_x = 155;
         int house_y = 155;
 	int numHouses = 0;
@@ -814,14 +819,16 @@ int Game::view_zoom(Player* current){
         if (response == 'q') return 0;
 	cout << "Current Space Owner = " << gameBoard.accessSpace(response)->getOwner() << endl;
 	cout << "Current Player = " << current->getIndex() << endl;
-        if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
+//        if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
 		cout << "Entered getOwner part of _zoom" << endl;
                 disp = tile[response];
                 if (gameBoard.accessSpace(response)->getMortgage()) disp = backTile[response];
 	        sdl.apply_surface(175, 180, disp, screen);
-		numHouses = gameBoard.accessSpace(response)->getHouses();
-		numHotels = gameBoard.accessSpace(response)->getHotels();
-	
+		group = gameBoard.accessSpace(response)->getGroup();
+		if ((group>=1) && (group <= 8)){
+			numHouses = gameBoard.accessSpace(response)->getHouses();
+			numHotels = gameBoard.accessSpace(response)->getHotels();
+		}
 		if (numHouses > 0) sdl.apply_surface(house_x, house_y, houseImage[numHouses], screen);
 
 	        if (numHotels > 0) sdl.apply_surface(550, 155, houseImage[5], screen);
@@ -829,7 +836,7 @@ int Game::view_zoom(Player* current){
 
 	        return response;
 
-	}
+//	}
 
 	return 0;
 
@@ -858,7 +865,7 @@ void Game::view(Player* current){
 	string money;
 
 	sdl.apply_surface(sprite_x, sprite_y, sprites, screen);
-
+/*
 	if (current->notOwnTile("Welsh Family Hall")) sdl.apply_surface(sprite_x+15, sprite_y+45, whitespace, screen);
         if (current->notOwnTile("Ryan Hall")) sdl.apply_surface(sprite_x+97, sprite_y+45, whitespace, screen);
         if (current->notOwnTile("McGlinn Hall")) sdl.apply_surface(sprite_x+185, sprite_y+45, whitespace, screen);
@@ -887,7 +894,7 @@ void Game::view(Player* current){
         if (current->notOwnTile("DeBartolo Hall")) sdl.apply_surface(sprite_x+471, sprite_y+280, whitespace, screen);
         if (current->notOwnTile("North Dining Hall")) sdl.apply_surface(sprite_x+393, sprite_y+352, whitespace, screen);
         if (current->notOwnTile("South Dining Hall")) sdl.apply_surface(sprite_x+471, sprite_y+351, whitespace, screen);
-
+*/
 	cout << "Print name and money" << endl;
 	name = "Name: " + current->getName();
 	cout << name << endl;
