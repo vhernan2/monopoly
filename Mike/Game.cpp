@@ -12,38 +12,20 @@ using namespace std;
 Game::Game(int numPlayers)
 {
 
-  /*	cout << "Welcome to Monopoly! How many players do you have? (1-4) ";
-	cin >> numPlayers;
-
-	for(int j = 0; j < numPlayers; j++)
-	{
-		players.push_back(Player(j));
-	}
-
-	int i = 0;
-	string temp;
-
-	while(i < numPlayers)
-	{
-		cout << "Player " << (i+1) << " what is your name? ";
-		cin >> temp;
-	
-		players[i].setName(temp);
-
-		i++;
-	}
-  */
   SDL_Surface *prompt = SDL_SetVideoMode(840,840,32,SDL_SWSURFACE);
+  SDL_Surface *background = NULL;
   sdlText = NULL;
   TTF_Init();
   font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf",28);
   if (font == NULL)
     cout << "ERROR LOADING FONT!" << endl;
-  SDL_Color textColor = {255,255,255};
+  SDL_Color textColor = {0,255,0};
   SDL_Color bColor = {0,0,0};
   stringstream buffer;
+  background = sdl.load_files( "JLo/welcomeBg.bmp" );
   sdlText= TTF_RenderText_Shaded(font,"Welcome to Monopoly",textColor,bColor);
-  sdl.apply_surface(280,350,sdlText,prompt);
+  sdl.apply_surface(280,0,sdlText,background);
+  sdl.apply_surface(0,0,background,prompt);
   SDL_Flip(prompt);
 
         for(int j = 0; j < numPlayers; j++)
@@ -51,19 +33,24 @@ Game::Game(int numPlayers)
 	  players.push_back(Player(j));
 	  }
 	SDL_Delay(1200);
-          SDL_FillRect(prompt,NULL,0x000000);
+	SDL_FillRect(prompt,NULL,0x000000);
+	  
 	  SDL_Flip(prompt);
 	int i = 0;
         while ( i < numPlayers )
         {
 	  string name;
-	  string append(decipher(prompt));
+	  string append("1"); // avoids waiting for user @ decipher
+	  append.clear(); // gets rid of the 1 @ name
  
           buffer << "Player " << (i+1) << " what is your name? ";
           const char* output = buffer.str().c_str();
 
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
-          sdl.apply_surface(240,10,sdlText,prompt);
+	  background = sdl.load_files( "JLo/nameBg.bmp" );
+          sdl.apply_surface(240,10,sdlText,background);
+	  sdl.apply_surface(0,0,background,prompt);
+
 
           SDL_Flip(prompt);
           while (append != "0" ){
@@ -197,6 +184,7 @@ Game::Game(int numPlayers)
 	SAOcard[10] = sdl.load_files("JLo/SAO/FootballSeasonPass.png");
         SAOcard[11] = sdl.load_files("JLo/SAO/ClubDues.png");
         SAOcard[12] = sdl.load_files("JLo/SAO/TriviaNight.png");
+	SAOcard[13] = sdl.load_files("JLo/SAO/HalloftheYear.png");
 
 	SUBcard[0] = sdl.load_files("JLo/SUB/Raffle.png");
 	SUBcard[1] = sdl.load_files("JLo/SUB/SUBMovie.png");
@@ -628,9 +616,10 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 								houseLoop = 0;
 								break;
 							}
-							if((currentHouses + housesAdded) > 4) housesAdded = 4 - currentHouses;
-							gameBoard.accessSpace(location)->addHouses(housesAdded);
-							current->changeInMoney((-housePrice) * housesAdded);
+							if((currentHouses + housesAdded) <= 4){
+								gameBoard.accessSpace(location)->addHouses(housesAdded);
+								current->changeInMoney((-housePrice) * housesAdded);
+							}
 							houseLoop = 0;
 						}
 					}
@@ -1045,7 +1034,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << "Your offer: ";
                 cout << endl;
                 offer = sdl.getResponse(1);
-		if (request > 40) return;
+		if (offer > 40) return;
                 if (gameBoard.accessSpace(offer)->getOwner() == current->getIndex()){
 			sdl.apply_surface(150, 140, cleanBackground, screen);
                         sdl.apply_surface(175, 200, tile[offer], screen);
