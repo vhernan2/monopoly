@@ -141,3 +141,6 @@ TOTAL TIME - 52 hours
 3:30 - I'm back. Walked into lab
 4:00 - updated functions in Tile, prints across the top the cost of
 	landing on another player's tile
+4:45 - Tweaked functionality of railroad and utility to make their payment
+	functions a bit better. Also did some more display work
+5:00 - Did some play through. Time for sleep.
