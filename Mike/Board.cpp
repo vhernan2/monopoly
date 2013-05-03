@@ -120,6 +120,7 @@ void Board::buildSAO()
 	saoDeck.push_back(SAO("Purchased football season tickets. Cost $220", 10, 0, -220, -1, 0, 0, 0, 0));
 	saoDeck.push_back(SAO("Paid club dues. Lost $40", 11, 0, -40, -1, 0, 0, 0, 0));
 	saoDeck.push_back(SAO("Won trivia night at Legends! $300 prize!", 12, 0, 300, -1, 0, 0, 0, 0));
+	saoDeck.push_back(SAO("Hall won Hall of the Year! Get $100!", 13, 0, 100, -1, 0, 0, 0, 0));
 
 	for(i = subDeck.size() - 1; i > -1; i--)
 	{
