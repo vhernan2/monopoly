@@ -221,8 +221,8 @@ inline int startMenu(){
 	    SDL_Flip(display);
 	    return numberOfPlayers;
 	  }
-	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
-	    mainMenu();
+0	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
+  return 0;
 	  }
 	}	
       }
