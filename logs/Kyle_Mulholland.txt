@@ -98,6 +98,43 @@ TUESDAY APRIL 30
 8:00 AM - trade is 100% complete - some nice Object Oriented
 	Programming and incorporation of TTF functions
 9:00 AM - Continuing work on getting Mortgage functional and visual - about
-	halfway there, will continue late today. Over and out.
+	halfway there, will continue later today. Over and out.
 
 TOTAL TIME - 42.5 hours
+
+TUESDAY MAY 1 continued:
+4:30 - walk into lab
+5:30 - mortgage is up and running
+5:30 - left lab
+8:30 - walk back into lab
+12:30 - left lab again, made lots of edits across the board, did work with
+	mortgaging, "Buy" images, start menu debugging, SDL_logic
+	functionality, etc.
+
+TOTAL TIME - 47.5 hours
+
+WEDNESDAY MAY 2:
+6:30 - walk into lab
+7:00 - added dynamic string to print player name and money on the view
+	screen
+8:00 - Resolved color issues, tweaked image formatting, fixed major
+	segfault bug when trying to view Railroad or Utility tiles
+9:00 - Resolved issue where an SAO or SUB card that moves the piece
+	somewhere else was not displaying both the SAO/SUB card and
+	the tile that was the piece was relocated to.
+9:30 - Build functionality expanded - options to build houses only
+	allow you to click on the number of houses that are possible left
+	to build (before, you could click on 1-4 and if that went over
+	four houses then the code just assumed you wanted to build up
+	to four houses.  Now, the buttons match the number of houses left
+	to build and the logic functionality mirrors). Also updated the
+	some imaging files. Worked with Mike to fix trading bugs.
+10:15 - fixed bug where houses and for sale sign wouldn't show up if you
+	were moved to that tile by an SAO or SUB card. Worked with Mike
+	to resolve build logic bugs.
+10:45 - began work with applying text when you have to pay someone else
+	for their property tile
+11:00 - wrote up my time log. Time to go see Iron Man 3! I'll be back
+	later I suppose.
+
+TOTAL TIME - 52 hours
