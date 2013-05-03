@@ -445,6 +445,8 @@ inline void quitMenu(){
   
 }
 
+inline SDL_Surface *pieceSelect
+
 // the main menu function will display the main menu for the game
 inline int mainMenu(){
 musicOn = true;
