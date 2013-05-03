@@ -12,3 +12,4 @@ various options.
 Credits: Some of the images used in this games were obtained from outised sources. While these images may have been slightly altered, we give full recognition to their rightful owners. 
 
   http://www.ericgarland.co/wp-content/uploads/pix/2012/12/monopoly-man.gif
+  http://liverpool.tab.co.uk/files/2013/02/monopoly.jpg

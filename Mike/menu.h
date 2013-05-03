@@ -49,6 +49,7 @@ inline int startMenu(){
   display = SDL_SetVideoMode( 840,840,32, SDL_SWSURFACE );
   SDL_Surface *ok = loadImage("data/OK.bmp");
   SDL_Surface *mainMenuButton = loadImage("data/mainMenu.bmp");
+  SDL_Surface *background = loadImage( "JLo/howManyBg.bmp" );
   SDL_Surface *namePrompt = NULL;
   SDL_Surface *b2 = NULL, *b3 = NULL, *b4 = NULL, *b5 = NULL, *b6 = NULL;
   SDL_Color textColor = {255,255,255};  // Text Color
@@ -57,9 +58,10 @@ inline int startMenu(){
   // location variables
   int b1X, b2X, b3X, b4X, b5X, b6X, oX, mmX;
   int b1Y, b2Y, b3Y, b4Y, b5Y, b6Y, oY, mmY;
-
-  font = TTF_OpenFont("/usr/share/fonts/paktype/PakTypeNaqsh.ttf", 28);
-  namePrompt = TTF_RenderText_Shaded(font, "How Many Players will be participating today?:", textColor,bColor);
+  TTF_Init();
+  font = TTF_OpenFont("/usr/share/fonts/sil-padauk/Padauk.ttf", 28);
+  namePrompt = TTF_RenderText_Shaded(font, "How Many Players will be participating today?", textColor,bColor);
+  
 
   //  if (font == NULL)
   //  mainMenu();
@@ -77,18 +79,20 @@ inline int startMenu(){
   b4X = ( 840*3/6 );
   b5X = ( 840*4/6 );
   b6X = ( 840*5/6 );
-  b2Y = b3Y = b4Y = b5Y = b6Y = ( 840/3 );
-  oX = 3*840/4; oY = 840-100 ;
-  mmX = 840/4; mmY= 840-100;
-  blit(10, 200, namePrompt, display);
-  blit(b2X, b2Y, b2, display);
-  blit(b3X, b3Y, b3, display);
-  blit(b4X, b4Y, b4, display);
-  blit(b5X, b5Y, b5, display);
-  blit(b6X, b6Y, b6, display);
-  blit(oX, oY, ok, display);
-  blit(mmX, mmY, mainMenuButton,display);
+  b2Y = b3Y = b4Y = b5Y = b6Y = ( 840/5 );
+  oX = 4*840/5; oY = 840-80 ;
+  mmX = 840/5; mmY= 840-80;
+
+  blit(b2X+30, 50, namePrompt, background);
+  blit(b2X, b2Y, b2, background);
+  blit(b3X, b3Y, b3, background);
+  blit(b4X, b4Y, b4, background);
+  blit(b5X, b5Y, b5, background);
+  blit(b6X, b6Y, b6, background);
+  blit(oX, oY, ok, background);
+  blit(mmX, mmY, mainMenuButton,background);
   
+  blit(0,0,background,display);
   SDL_Flip(display);
   
   while (xOut == false){
@@ -130,11 +134,12 @@ inline int startMenu(){
 	    b4 = loadImage("data/4.bmp"); b5 = loadImage("data/5.bmp");
 	    // Reapply Surfaces
 	    
-	    blit(b2X, b2Y, b2, display);
-	    blit(b3X, b3Y, b3, display);
-	    blit(b4X, b4Y, b4, display);
-	    blit(b5X, b5Y, b5, display);
-	    blit(b6X, b6Y, b6, display);
+	    blit(b2X, b2Y, b2, background);
+	    blit(b3X, b3Y, b3, background);
+	    blit(b4X, b4Y, b4, background);
+	    blit(b5X, b5Y, b5, background);
+	    blit(b6X, b6Y, b6, background);
+	    blit(0,0,background,display);
 	    SDL_Flip(display); // Refresh Screen
 	    numberOfPlayers= 2; // Player Value 
 	    
@@ -217,7 +222,11 @@ inline int startMenu(){
 	    return numberOfPlayers;
 	  }
 	  if ( (x > mmX && x < mmX+109) && (y > mmY && y < mmY+23) ) { // main menu button selected 
-	    mainMenu();
+<<<<<<< HEAD
+	    return 0;
+=======
+  return 0;
+>>>>>>> f7938edd7d55acb7684afa557c748c580ebc322a
 	  }
 	}	
       }

@@ -8,9 +8,13 @@ using namespace std;
 int main (){
 
 	int players;
-	if (mainMenu() == -1 )
+	if (mainMenu() == -1 ){
 	  players = startMenu();
-	Game playMonopoly(players);
+	  if (players == 0)
+	    mainMenu();
+	  else if (players != 0){
+	    Game playMonopoly(players);
+	  
 
 	int endGame = 0;
 
@@ -32,5 +36,6 @@ int main (){
 //		should we quit
 //	end loop
 	showMonopoly.clean_up();
-
+	  }
+	}
 }
