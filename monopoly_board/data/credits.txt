@@ -1,0 +1,4 @@
+Irishopoly is a version of the popular monopoly game with a University of Notre Dame theme. The 
+SDL project was started as a final project for the CSE 20212 - Fundamentals of Computing II
+course offered by Dr. Scott Emrich. It was created by Michael Creehan, Victor Hernandez,
+Jodi Lo, and Kyle Mulholland. 

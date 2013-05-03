@@ -10,6 +10,7 @@
 #include "SDL/SDL_ttf.h"
 #include <iostream>
 #include <fstream>
+#include <sstream> // used for string buffer when displaying piece prompt
 
 
 int mainMenu();
@@ -321,6 +322,8 @@ xOut = false;
 }
 
 inline void creditsMenu(){
+  xOut = false;
+  TTF_Init();
   display = SDL_SetVideoMode( 840 , 840 , 32, SDL_SWSURFACE);
   SDL_WM_SetCaption( "Monopoly - Credits", "Credits");
   SDL_Surface *okButton = loadImage("data/OK.bmp");
@@ -332,7 +335,7 @@ inline void creditsMenu(){
   std::string line;
   const char *output;
   int textX=0, textY = 0;
-  credits.open("credits.txt");
+  credits.open("data/credits.txt");
   if (credits.is_open()){
     while (credits >> line){
       output = line.c_str();
@@ -442,7 +445,7 @@ inline void quitMenu(){
   
 }
 
-inline SDL_Surface *pieceSelect
+
 
 // the main menu function will display the main menu for the game
 inline int mainMenu(){

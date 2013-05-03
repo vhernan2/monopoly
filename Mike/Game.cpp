@@ -65,7 +65,7 @@ Game::Game(int numPlayers)
 
 	  players[i].setName(name);
 	  buffer.str(string()); // clear the buffer
-	  pieceSelect(name);
+	  //	  pieceSelect(name);
 	  i++;
 	}	
 	curPlayer=100; //really big to ensure it resets on first call
