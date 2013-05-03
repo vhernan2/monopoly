@@ -986,7 +986,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << "What would you like to trade for? Please enter the number associated with the name";
 		cout << endl;
 		request = sdl.getResponse(1);
-		if (request == 'c') return;
+		if (request > 40) return;
 		if (gameBoard.accessSpace(request)->getOwner() == recipIndex){
 			sdl.apply_surface(150, 140, cleanBackground, screen);
 			sdl.apply_surface(175, 200, tile[request], screen);
@@ -996,7 +996,9 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
 			answer = sdl.getResponse(31);
 			if (answer != 'y') request = -1;
+			if (answer == 'q') return;
 		}
+		else return;
 	}
 
 	for(int i = 0; i < options.size(); i++){
@@ -1021,7 +1023,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 		cout << "Your offer: ";
                 cout << endl;
                 offer = sdl.getResponse(1);
-                if (offer == 'c') return;
+		if (request > 40) return;
                 if (gameBoard.accessSpace(offer)->getOwner() == current->getIndex()){
 			sdl.apply_surface(150, 140, cleanBackground, screen);
                         sdl.apply_surface(175, 200, tile[offer], screen);
@@ -1031,7 +1033,9 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 
                         answer = sdl.getResponse(31);
                         if (answer != 'y') offer = -1;
+			if (answer == 'q') return;
                 }
+		else return;
         }
 
         for(int i = 0; i < playerOwns.size(); i++){
