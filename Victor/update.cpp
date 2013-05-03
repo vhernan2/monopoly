@@ -57,14 +57,14 @@ Game::Game(int numPlayers)
         while ( i < numPlayers )
         {
 	  string name;
-	  string append(decipher(prompt));
+	  string append("1");
  
           buffer << "Player " << (i+1) << " what is your name? ";
           const char* output = buffer.str().c_str();
 
           sdlText= TTF_RenderText_Shaded(font,output,textColor,bColor);
           sdl.apply_surface(240,10,sdlText,prompt);
-
+	  append.clear();
           SDL_Flip(prompt);
           while (append != "0" ){
 	    name = name+append;
@@ -452,9 +452,6 @@ void Game::playerPostRoll(Player* current){
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
 
-		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
-		buildCheck(current); //refreshes Tiles that can be built on		
-
 		if (isProperty){
 			if (t->getOwner() == -1){
 				sdl.apply_surface(500, 180, FS[t->getCost()], screen);
@@ -562,9 +559,6 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		houseLoop = 1;
 		hotelLoop = 1;
 
-		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
-		buildCheck(current); //refreshes Tiles that can be built on	
-
 		sdl.apply_surface(150, 150, cleanBackground, screen);
 		sdl.apply_surface(225, 250, pickBuild, screen);
 		sdl.apply_surface(225, 375, houseImage[1], screen);
@@ -610,10 +604,10 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 
 							sdl.apply_surface(150, 150, cleanBackground, screen);
 							sdl.apply_surface(225, 250, buildRooms, screen);
-							if (currentHouses < 4) sdl.apply_surface(175, 300, oneButton, screen);
-							if (currentHouses < 3) sdl.apply_surface(300, 300, twoButton, screen);
-							if (currentHouses < 2) sdl.apply_surface(425, 300, threeButton, screen);
-							if (currentHouses < 1) sdl.apply_surface(550, 300, fourButton, screen);
+							sdl.apply_surface(175, 300, oneButton, screen);
+							sdl.apply_surface(300, 300, twoButton, screen);
+							sdl.apply_surface(425, 300, threeButton, screen);
+							sdl.apply_surface(550, 300, fourButton, screen);
 							sdl.apply_surface(575, 575, closeButton, screen);
 
 							housesAdded = sdl.getResponse(21);
@@ -839,7 +833,7 @@ int Game::view_zoom(Player* current){
 
         response = sdl.getResponse(1);
 	cout << response << endl;
-        if (response > 40) return 0;
+        if (response == 'q') return 0;
 	cout << "Current Space Owner = " << gameBoard.accessSpace(response)->getOwner() << endl;
 	cout << "Current Player = " << current->getIndex() << endl;
         if (gameBoard.accessSpace(response)->getOwner() == current->getIndex()){
@@ -973,7 +967,7 @@ void Game::trade(Player* current)		//this function was thrown together somewhat 
 			str = players[i].getName();
 			sdlText = TTF_RenderText_Shaded(font, str.c_str(), bColor, textColor);
 			sdl.apply_surface(nameDisp_x, nameDisp_y, sdlText, screen); 
-			nameDisp_y += 83;
+			nameDisp_y += 87;
 		}
 	}
 

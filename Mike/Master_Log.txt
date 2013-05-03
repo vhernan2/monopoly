@@ -265,3 +265,9 @@ Done:
 
 Time Spent: 3 hr 41 min
 Total Time: 57 hr 16 min
+
+May 2 2013
+7:14 p.m.
+
+To Do:
+	Help Kyle debug and smooth out final product of game, hopefully catch majority if not at all of bugs
