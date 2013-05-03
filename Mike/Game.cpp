@@ -419,6 +419,8 @@ void Game::playerPostRoll(Player* current){
 
 	output = gameBoard.accessSpace(current->getPosition())->interact(current);	//this vomit is supposed to print out the information from the tile
 	
+	gameOver();
+
 	if(output != -1)
 	{
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
