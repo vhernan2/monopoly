@@ -439,6 +439,9 @@ void Game::playerPostRoll(Player* current){
        		sdl.apply_surface(150, 150, postRollImage, screen);
         	sdl.apply_surface(175, 180, disp, screen);
 
+		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
+		buildCheck(current); //refreshes Tiles that can be built on		
+
 		if (isProperty){
 			if (t->getOwner() == -1){
 				sdl.apply_surface(500, 180, FS[t->getCost()], screen);
@@ -545,6 +548,9 @@ void Game::build(Player* current)		//pretty sure getline is causing a weird prin
 		hotelOptions = current->getHotelTiles();
 		houseLoop = 1;
 		hotelLoop = 1;
+
+		gameBoard.checkGroupsProp();	//refreshes the group ownership of all tiles
+		buildCheck(current); //refreshes Tiles that can be built on	
 
 		sdl.apply_surface(150, 150, cleanBackground, screen);
 		sdl.apply_surface(225, 250, pickBuild, screen);
