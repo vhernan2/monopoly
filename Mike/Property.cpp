@@ -81,7 +81,7 @@ int Property::interact(Player* current)
 
 	if (getOwner() == -1){
 		cout << "This tile is unowned, and can be bought for $" << cost << endl;
-		return owner;
+		return -1;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 0)
 	{
@@ -94,12 +94,12 @@ int Property::interact(Player* current)
 	else if(getOwner() == current->getIndex())
 	{
 		cout << "You own this tile" << endl;
-		return owner;
+		return -1;
 	}
 	else if(getOwner() != current->getIndex() && mortgaged == 1)
 	{
 		cout << "This tile is owned, but it is mortgaged! You lose no money!" << endl;
-		return owner;
+		return -1;
 	}
 }
 

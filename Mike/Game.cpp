@@ -373,6 +373,8 @@ int Game::playerPostRoll(Player* current){
 
 	int keepView;
 
+	string str;
+
 	char response;
 	
 	if (!(current->getJail())){	
@@ -423,6 +425,7 @@ int Game::playerPostRoll(Player* current){
 
 	if(output != -1)
 	{
+		str = "This tile is owned by " + ;
 		gameBoard.accessSpace(current->getPosition())->payBack(&players[output]);	//this vomit awards a player money if someone lands on their property
 	}
 
